@@ -1,0 +1,56 @@
+# 忽略编译输出目录
+/dist
+/out
+
+# 忽略依赖安装目录
+/node_modules
+
+# 忽略临时文件
+*.tmp
+
+# 忽略编辑器配置文件
+/.vscode
+/.idea
+
+# 忽略本地开发环境配置文件
+.env
+
+# 忽略构建工具生成的文件
+/tsconfig.json
+/tsconfig.*.json
+*.js
+*.js.map
+
+# 忽略生成的声明文件
+*.d.ts
+
+# 忽略测试生成的覆盖率报告
+/coverage
+
+# 忽略自动生成的文档
+/docs
+
+# 忽略编辑器自动生成的文件
+*.log
+*.log.*
+*.swp
+*.swo
+.DS_Store
+
+# 忽略执行文件
+*.exe
+*.dll
+*.so
+*.dylib
+*.DS_Store
+
+# 忽略包管理器锁文件
+yarn.lock
+package-lock.json
+npm-shrinkwrap.json
+
+# 忽略一些特定的编辑器文件或目录
+/.vscode
+/.idea
+/.vs
+/.svelte
