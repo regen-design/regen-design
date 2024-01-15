@@ -15,15 +15,6 @@
 # 忽略本地开发环境配置文件
 .env
 
-# 忽略构建工具生成的文件
-/tsconfig.json
-/tsconfig.*.json
-*.js
-*.js.map
-
-# 忽略生成的声明文件
-*.d.ts
-
 # 忽略测试生成的覆盖率报告
 /coverage
 

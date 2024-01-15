@@ -1,0 +1,22 @@
+{
+  "include": [
+    "packages/components/**/*.ts",
+    "packages/components/**/*.tsx",
+    "packages/utils/**/*.ts",
+  ],
+  "exclude": [
+    "src/**/__tests__/*",
+    "packages/components/**/test/**"
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "declaration": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  }
+}
