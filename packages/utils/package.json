@@ -2,7 +2,7 @@
   "name": "@regen-design/utils",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
   },
   "keywords": [],

@@ -1,10 +1,15 @@
 import { themes as prismThemes } from 'prism-react-renderer'
 import type { Config } from '@docusaurus/types'
 import type * as Preset from '@docusaurus/preset-classic'
+import { convertToTitleCase } from '@regen-design/utils'
+import packageConfig from '../package.json'
 
+// convert package name to title case
+const CapitalizedTitle = convertToTitleCase(packageConfig.name)
+console.log(CapitalizedTitle)
 const config: Config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: CapitalizedTitle,
+  tagline: packageConfig.description,
   favicon: 'img/favicon.ico',
   themes: ['@docusaurus/theme-live-codeblock'],
   // Set the production url of your site here
@@ -15,8 +20,8 @@ const config: Config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: '@' + packageConfig.name, // Usually your GitHub org/user name.
+  projectName: packageConfig.name, // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -25,10 +30,9 @@ const config: Config = {
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: 'zh-Hans',
+    locales: ['zh-Hans', 'en'],
   },
-
   presets: [
     [
       'classic',
@@ -58,7 +62,7 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'My Site',
+      title: CapitalizedTitle,
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
@@ -68,9 +72,8 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: '组件',
         },
-        { to: '/blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/facebook/docusaurus',
           label: 'GitHub',
@@ -82,16 +85,16 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: '学习',
           items: [
             {
-              label: 'Tutorial',
+              label: '组件介绍',
               to: '/docs/intro',
             },
           ],
         },
         {
-          title: 'Community',
+          title: '社区',
           items: [
             {
               label: 'Stack Overflow',
@@ -108,20 +111,20 @@ const config: Config = {
           ],
         },
         {
-          title: 'More',
+          title: '更多',
           items: [
             {
               label: 'Blog',
-              to: '/blog',
+              to: 'http://47.97.114.224/',
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/regen-design/regen-design',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} regen-design, Inc. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
