@@ -1,9 +1,10 @@
 {
-  "name": "@regen-design/components",
+  "name": "@regen-design/types",
   "version": "0.0.0",
   "description": "",
   "main": "index.ts",
   "type": "module",
+  "types": "index.d.ts",
   "scripts": {
   },
   "keywords": [],

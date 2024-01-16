@@ -6,7 +6,7 @@ import packageConfig from '../package.json'
 
 // convert package name to title case
 const CapitalizedTitle = convertToTitleCase(packageConfig.name)
-console.log(CapitalizedTitle)
+
 const config: Config = {
   title: CapitalizedTitle,
   tagline: packageConfig.description,
@@ -59,6 +59,9 @@ const config: Config = {
   ],
 
   themeConfig: {
+    liveCodeBlock: {
+      playgroundPosition: 'top',
+    },
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
@@ -70,8 +73,14 @@ const config: Config = {
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'guideSidebar',
           position: 'left',
+          label: '指导',
+        },
+        {
+          type: 'docSidebar',
+          position: 'left',
+          sidebarId: 'componentsSidebar',
           label: '组件',
         },
         {

@@ -1,8 +1,9 @@
 {
   "include": [
-    "packages/components/**/*.ts",
-    "packages/components/**/*.tsx",
-    "packages/utils/**/*.ts",
+    "packages/components/**/*.{ts,tsx}",
+    "packages/utils/**/*.{ts,tsx}",
+    "packages/theme/**/*.{ts,tsx}",
+    "packages/types/**/*.{ts,tsx}",
   ],
   "exclude": [
     "src/**/__tests__/*",
@@ -10,13 +11,13 @@
   ],
   "compilerOptions": {
     "composite": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "baseUrl": ".",
     "declaration": true,
     "paths": {
       "@/*": [
         "./src/*"
-      ]
+      ],
     }
   }
 }

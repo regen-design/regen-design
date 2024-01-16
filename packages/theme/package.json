@@ -2,10 +2,11 @@
   "name": "@regen-design/theme",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
+  "type": "module",
   "scripts": {
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }

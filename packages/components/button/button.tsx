@@ -1,17 +1,12 @@
-// @flow
-import { FC, useState } from 'react'
+import { FC } from 'react'
+import { StyledButton } from '@regen-design/theme'
+import { ButtonProps } from '@regen-design/types'
 
-export const Button: FC = () => {
-  const [count, setCount] = useState(0)
+export const Button: FC<ButtonProps> = props => {
+  const { children, type = 'default', disabled } = props
   return (
-    <div>
-      <button
-        onClick={() => {
-          setCount(count + 1)
-        }}
-      >
-        数字:{count}
-      </button>
-    </div>
+    <StyledButton type={type} disabled={disabled}>
+      {children}
+    </StyledButton>
   )
 }

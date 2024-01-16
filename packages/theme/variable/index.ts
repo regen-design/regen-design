@@ -1,4 +1,6 @@
-export const defaultTheme = {
+import { ThemeConfig } from '@regen-design/types'
+
+export const defaultTheme: ThemeConfig = {
   colors: {
     primary: '#ea580c',
     danger: '#dc2626',
@@ -8,4 +10,7 @@ export const defaultTheme = {
     dark: '#1f2937',
     light: '#f3f4f6',
   },
+  borderRadius: 3,
+  borderColor: '#d1d5db',
+  theme: 'light',
 }
