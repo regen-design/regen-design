@@ -1,3 +1,4 @@
 export * from './variable'
 export * from './themeProvider'
-export { StyledButton } from './button'
+export * from './button'
+export * from './codeBlock'
