@@ -1,0 +1,16 @@
+{
+  "name": "@regen-design/icons",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.ts",
+  "type": "module",
+  "types": "index.d.ts",
+  "scripts": {
+  },
+  "keywords": [
+    "icons",
+    "regen-design"
+  ],
+  "author": "",
+  "license": "MIT"
+}
