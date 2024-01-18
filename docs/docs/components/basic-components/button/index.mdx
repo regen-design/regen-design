@@ -8,12 +8,14 @@ sidebar_position: 1
 
 ## 演示
 
-import { BasicButton } from "./Button"
-import { renderToString } from 'react-dom/server'
+import BasicButton from "./BasicButton"
+import BasicButtonCode from '!!raw-loader!./BasicButton';
 import { CodeBlock } from "@regen-design/components"
 
 
-<CodeBlock title="基础" code={renderToString(<BasicButton/>)}>
-    <BasicButton/>
+<CodeBlock title="基础"
+           description={"按钮的 type 分别为 `default`、`tertiary`、`primary`、`info`、`success`、`warning` 和 `error`。"}
+           code={String(BasicButtonCode)}>
+  <BasicButton />
 </CodeBlock>
 

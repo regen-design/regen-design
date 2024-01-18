@@ -9,6 +9,12 @@ export interface CodeBlockProps extends CommonType {
    */
   title?: string
   /**
+   * @default ""
+   * @description CodeBlock description
+   * @type string
+   */
+  description?: string
+  /**
    * @default null
    * @description CodeBlock children
    * @type ReactNode

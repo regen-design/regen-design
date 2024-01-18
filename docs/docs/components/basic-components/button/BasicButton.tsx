@@ -1,8 +1,6 @@
-import { FC } from 'react'
 import { Button } from '@regen-design/components'
 
-export const BasicButton: FC = () => {
-  // 是否展开代码
+export default function Demo() {
   return (
     <div>
       <Button>按钮</Button>&nbsp;

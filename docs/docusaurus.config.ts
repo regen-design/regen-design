@@ -1,11 +1,11 @@
 import { themes as prismThemes } from 'prism-react-renderer'
 import type { Config } from '@docusaurus/types'
 import type * as Preset from '@docusaurus/preset-classic'
-import { convertToTitleCase } from '@regen-design/utils'
+import { convertToUpperCase } from '@regen-design/utils'
 import packageConfig from '../package.json'
 
 // convert package name to title case
-const CapitalizedTitle = convertToTitleCase(packageConfig.name)
+const CapitalizedTitle = convertToUpperCase(packageConfig.name, ' ')
 
 const config: Config = {
   title: CapitalizedTitle,

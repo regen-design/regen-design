@@ -13,7 +13,7 @@ export const defaultTheme: ThemeConfig = {
   borderRadius: 3,
   borderColor: '#d1d5db',
   animations: {
-    duration: 300,
+    duration: 600,
   },
   theme: 'light',
 }

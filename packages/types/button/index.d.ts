@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react'
-import { CommonType } from '../common'
-export type Size = 'tiny' | 'small' | 'medium' | 'large'
-export type Type = 'default' | 'primary' | 'info' | 'success' | 'warning' | 'danger'
+import { CommonType, Type } from '../common'
+
 export interface ButtonProps extends CommonType {
   children?: ReactNode
   /**
