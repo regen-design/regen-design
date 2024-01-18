@@ -1,9 +1,6 @@
 {
   "include": [
-    "packages/components/**/*.{ts,tsx}",
-    "packages/utils/**/*.{ts,tsx}",
-    "packages/theme/**/*.{ts,tsx}",
-    "packages/types/**/*.{ts,tsx}",
+    "packages/**/*.{ts,tsx}",
   ],
   "exclude": [
     "src/**/__tests__/*",

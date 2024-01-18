@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { convertTheme } from '../tools'
 import { ButtonProps } from '@regen-design/types'
-
+import { NAME_SPACE } from '@regen-design/constant'
 export const StyledButton = styled.button<ButtonProps>`
   background-color: ${props => {
     const _theme = convertTheme(props.theme)
@@ -46,4 +46,10 @@ export const StyledButton = styled.button<ButtonProps>`
   text-align: center;
   cursor: pointer;
   text-decoration: none;
+  .${NAME_SPACE}-button-content {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    min-width: 0;
+  }
 `

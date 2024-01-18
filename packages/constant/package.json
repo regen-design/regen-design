@@ -1,5 +1,5 @@
 {
-  "name": "@regen-design/icons",
+  "name": "@regen-design/constant",
   "version": "0.0.0",
   "description": "",
   "main": "index.ts",
@@ -7,8 +7,6 @@
   "scripts": {
   },
   "keywords": [
-    "icons",
-    "regen-design"
   ],
   "author": "",
   "license": "MIT"
