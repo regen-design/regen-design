@@ -9,7 +9,8 @@
     "lint": " eslint \"packages/**/*.+(cjs|js|ts|jsx|tsx)\"",
     "format": "npx prettier --write \"packages/**/*.+(cjs|js|ts|jsx|tsx)\"",
     "docs:dev": "pnpm -C docs start",
-    "docs:build": "pnpm -C docs build"
+    "docs:build": "pnpm -C docs build",
+    "icons:generate": "pnpm -C packages/icons generate"
   },
   "keywords": [
     "react",
@@ -60,6 +61,7 @@
   },
   "dependencies": {
     "@regen-design/components": "workspace:^",
+    "@regen-design/icons": "workspace:^",
     "@regen-design/theme": "workspace:^",
     "@regen-design/types": "workspace:^",
     "@regen-design/utils": "workspace:^",
