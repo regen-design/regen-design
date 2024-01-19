@@ -1,1 +1,1 @@
-export const NAME_SPACE = 'regent'
+export const NAME_SPACE = 'regen'

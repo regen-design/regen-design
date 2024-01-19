@@ -5,7 +5,6 @@ import { StyledIcon, StyledIconPrefixClass as prefixClass } from '@regen-design/
 import classNames from 'classnames'
 
 export const Icon: FC<IconProps> = ({ name, className, style, children }) => {
-  console.log(children)
   const iconClass = classNames(prefixClass, className, prefixClass + '-' + name)
   return (
     <StyledIcon role="icon" className={iconClass} style={style}>

@@ -1,0 +1,13 @@
+{
+  "name": "@regen-design/scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "auto:export": "npx ts-node ./rootAutoExport.ts",
+    "generate:components": "npx ts-node ./generate-components.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

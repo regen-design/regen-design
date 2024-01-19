@@ -1,2 +1,5 @@
 export * from './button'
 export * from './codeBlock'
+export * from './icon'
+export * from './space'
+export * from './wave'

@@ -10,7 +10,8 @@
     "format": "npx prettier --write \"packages/**/*.+(cjs|js|ts|jsx|tsx)\"",
     "docs:dev": "pnpm -C docs start",
     "docs:build": "pnpm -C docs build",
-    "icons:generate": "pnpm -C packages/icons generate"
+    "icons:generate": "pnpm -C packages/icons generate",
+    "generate:components": "pnpm -C scripts generate:components"
   },
   "keywords": [
     "react",
@@ -43,6 +44,7 @@
     "@types/react-dom": "^18.2.18",
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "classnames": "^2.5.1",
+    "commander": "^11.1.0",
     "cz-customizable": "^7.0.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
@@ -55,6 +57,7 @@
     "prettier": "^3.2.1",
     "raw-loader": "^4.0.2",
     "react-markdown": "^9.0.1",
+    "readline": "^1.3.0",
     "styled-components": "^6.1.8",
     "typescript": "^5.3.3",
     "xml-formatter": "^3.6.0"

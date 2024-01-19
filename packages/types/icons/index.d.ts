@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 export interface IconProps {
   /**
@@ -6,18 +6,7 @@ export interface IconProps {
    * @type string
    */
   name?: string
-  /**
-   * @default ''
-   * @description icon className
-   * @type string
-   */
-  className?: string
-  /**
-   * @default {}
-   * @description icon style
-   * @type CSSProperties
-   */
-  style?: CSSProperties
+
   /**
    * @default null
    * @description icon children
