@@ -3,7 +3,7 @@ import { convertTheme } from '../tools'
 import { CodeBlockProps } from '@regen-design/types'
 import { NAME_SPACE } from '@regen-design/constant'
 
-export const prefix = `${NAME_SPACE}-code-block`
+const prefix = `${NAME_SPACE}-code-block`
 
 export const StyledCodeBlockPrefixClass = prefix
 export const StyledCodeBlock = styled.div<CodeBlockProps>`
@@ -20,6 +20,9 @@ export const StyledCodeBlock = styled.div<CodeBlockProps>`
     }
     > .${prefix}-tool {
       display: flex;
+      > * {
+        margin-left: 8px;
+      }
     }
   }
 

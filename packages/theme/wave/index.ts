@@ -14,6 +14,7 @@ export const StyledWave = styled.div<WaveProps>`
   animation-iteration-count: 1;
   animation-duration: ${props => convertTheme(props.theme).animations.duration + 'ms'};
   animation-timing-function: cubic-bezier(0, 0, 0.2, 1), cubic-bezier(0, 0, 0.2, 1);
+  z-index: -1;
   &.active {
     z-index: 1;
     animation-name: ${props => {

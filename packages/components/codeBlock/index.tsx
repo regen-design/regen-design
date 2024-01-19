@@ -7,6 +7,7 @@ import hljs from 'highlight.js/lib/core'
 import javascript from 'highlight.js/lib/languages/javascript'
 import 'highlight.js/styles/github.css'
 import Markdown from 'react-markdown'
+import { CopyIcon, CodeSimpleIcon } from '@regen-design/icons'
 hljs.registerLanguage('javascript', javascript)
 export const CodeBlock: FC<CodeBlockProps> = ({ title, description, children, code }) => {
   const [isExpand, setIsExpand] = useState(false)
@@ -33,8 +34,12 @@ export const CodeBlock: FC<CodeBlockProps> = ({ title, description, children, co
       <div className={`${prefixClass}-header`}>
         <div className={`${prefixClass}-title`}>{title}</div>
         <div className={`${prefixClass}-tool`}>
-          <Button>复制代码</Button>
-          <Button onClick={() => setIsExpand(!isExpand)}>显示代码</Button>
+          <Button>
+            <CopyIcon />
+          </Button>
+          <Button onClick={() => setIsExpand(!isExpand)}>
+            <CodeSimpleIcon />
+          </Button>
         </div>
       </div>
       <div className={`${prefixClass}-body`}>
@@ -44,7 +49,9 @@ export const CodeBlock: FC<CodeBlockProps> = ({ title, description, children, co
         <div className={`${prefixClass}-view`}>{children}</div>
       </div>
       <div ref={footerRef} className={`${prefixClass}-footer`}>
-        <Button className={`${prefixClass}--copy`}>复制代码</Button>
+        <Button className={`${prefixClass}--copy`}>
+          <CopyIcon />
+        </Button>
         <pre>
           <code style={{ display: 'block' }} ref={footerCodeRef}>
             {code}

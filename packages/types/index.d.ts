@@ -1,3 +1,5 @@
 export * from './button'
 export * from './theme'
+export * from './icons'
+export * from './wave'
 export * from './codeBlock'

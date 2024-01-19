@@ -1,7 +1,7 @@
 import { createRef, FC, MouseEvent, useRef } from 'react'
-import { StyledButton } from '@regen-design/theme'
+import { StyledButton, StyledButtonPrefixClass as prefixClass } from '@regen-design/theme'
 import { ButtonProps } from '@regen-design/types'
-import { NAME_SPACE } from '@regen-design/constant'
+
 import { Wave } from '../wave'
 import classNames from 'classnames'
 import { WaveRefProps } from '@regen-design/types/wave'
@@ -13,7 +13,7 @@ export const Button: FC<ButtonProps> = props => {
     waveRef.current.play()
     onClick && onClick(e)
   }
-  const prefixClass = `${NAME_SPACE}-button`
+
   const buttonClass = classNames(className, prefixClass, {
     disabled: true,
   })
@@ -25,8 +25,8 @@ export const Button: FC<ButtonProps> = props => {
       disabled={disabled}
       onClick={handleClick}
     >
+      <span className={`${prefixClass}-content`}>{children || ''}</span>
       <Wave waveElementType="button" type={type} ref={waveRef} />
-      <span className={`${prefixClass}-content`}>{children}</span>
     </StyledButton>
   )
 }

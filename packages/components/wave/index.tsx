@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { StyledWave } from '@regen-design/theme'
-import { WaveProps, WaveRefProps } from '@regen-design/types/wave'
+import { WaveProps, WaveRefProps } from '@regen-design/types'
 import { NAME_SPACE } from '@regen-design/constant'
 import classNames from 'classnames'
 
