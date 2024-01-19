@@ -5,8 +5,14 @@ import { ButtonProps } from '@regen-design/types'
 import { Wave } from '../wave'
 import classNames from 'classnames'
 import { WaveRefProps } from '@regen-design/types/wave'
-export const Button: FC<ButtonProps> = props => {
-  const { children, type = 'default', disabled, onClick, className = '' } = props
+export const Button: FC<ButtonProps> = ({
+  children,
+  type = 'default',
+  disabled,
+  onClick,
+  className = '',
+  size = 'medium',
+}) => {
   const buttonRef = createRef<HTMLButtonElement>()
   const waveRef = useRef<WaveRefProps>(null)
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -22,6 +28,7 @@ export const Button: FC<ButtonProps> = props => {
       className={`${buttonClass}`}
       ref={buttonRef}
       type={type}
+      size={size}
       disabled={disabled}
       onClick={handleClick}
     >

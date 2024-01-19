@@ -9,7 +9,9 @@ sidebar_position: 1
 ## 演示
 
 import BasicButton from "./BasicButton"
+import SizeButton from "./SizeButton"
 import BasicButtonCode from '!!raw-loader!./BasicButton';
+import SizeButtonCode from '!!raw-loader!./SizeButton';
 import { CodeBlock } from "@regen-design/components"
 
 
@@ -19,3 +21,10 @@ import { CodeBlock } from "@regen-design/components"
   <BasicButton />
 </CodeBlock>
 
+<br/>
+
+<CodeBlock title="尺寸"
+           description={"有 `tiny`、`small`、`medium` 和 `large` 尺寸。"}
+           code={String(SizeButtonCode)}>
+  <SizeButton />
+</CodeBlock>

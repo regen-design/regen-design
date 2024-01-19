@@ -39,10 +39,32 @@ export const StyledButton = styled.button<ButtonProps>`
     return 'none'
   }};
   padding: 0 16px;
-  height: 34px;
+  height: ${props => {
+    switch (props.size) {
+      case 'tiny':
+        return '24px'
+      case 'small':
+        return '32px'
+      case 'large':
+        return '40px'
+      default:
+        return '36px'
+    }
+  }};
   line-height: 1;
   font-family: inherit;
-  font-size: 14px;
+  font-size: ${props => {
+    switch (props.size) {
+      case 'tiny':
+        return '12px'
+      case 'small':
+        return '14px'
+      case 'large':
+        return '16px'
+      default:
+        return '14px'
+    }
+  }};
   width: initial;
   align-items: center;
   justify-content: center;
