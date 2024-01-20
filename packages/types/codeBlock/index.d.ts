@@ -1,5 +1,4 @@
 import { CommonType } from '../common'
-import { ReactNode } from 'react'
 
 export interface CodeBlockProps extends CommonType {
   /**
@@ -14,12 +13,6 @@ export interface CodeBlockProps extends CommonType {
    * @type string
    */
   description?: string
-  /**
-   * @default null
-   * @description CodeBlock children
-   * @type ReactNode
-   */
-  children: ReactNode
   /**
    * @default ""
    * @description CodeBlock code

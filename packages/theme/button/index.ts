@@ -25,6 +25,11 @@ export const StyledButton = styled.button<ButtonProps>`
     }
     return _theme.theme === 'light' ? _theme.colors.light : _theme.colors.dark
   }};
+  opacity: ${props => {
+    if (props.disabled) {
+      return 0.5
+    }
+  }};
   display: inline-flex;
   flex-wrap: nowrap;
   white-space: nowrap;
@@ -34,7 +39,8 @@ export const StyledButton = styled.button<ButtonProps>`
   border: ${props => {
     const _theme = convertTheme(props.theme)
     if (props.type === 'default') {
-      return `1px solid ${_theme.borderColor}`
+      const color = _theme.theme === 'light' ? _theme.borderColor : _theme.borderDarkColor
+      return `1px solid ${color}`
     }
     return 'none'
   }};
@@ -71,7 +77,12 @@ export const StyledButton = styled.button<ButtonProps>`
   user-select: none;
   -webkit-user-select: none;
   text-align: center;
-  cursor: pointer;
+  cursor: ${props => {
+    if (props.disabled) {
+      return 'not-allowed'
+    }
+    return 'pointer'
+  }};
   text-decoration: none;
   .${prefix}-content {
     display: flex;

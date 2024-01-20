@@ -1,5 +1,5 @@
 import { ThemeConfig } from '../theme'
-import { CSSProperties } from 'react'
+import { CSSProperties, ReactNode } from 'react'
 
 export interface CommonType {
   /**
@@ -19,7 +19,17 @@ export interface CommonType {
    * @type CSSProperties
    */
   style?: CSSProperties
+  /**
+   * @default null
+   * @description children node
+   * @type ReactNode
+   */
+  children?: ReactNode
 }
 
 export type Size = 'tiny' | 'small' | 'medium' | 'large'
 export type Type = 'default' | 'primary' | 'info' | 'success' | 'warning' | 'danger'
+
+export type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]
+}

@@ -1,16 +1,9 @@
-import { ReactNode } from 'react'
+import { CommonType } from '../common'
 
-export interface IconProps {
+export interface IconProps extends CommonType {
   /**
    * @description icon name
    * @type string
    */
   name?: string
-
-  /**
-   * @default null
-   * @description icon children
-   * @type ReactNode
-   */
-  children?: ReactNode
 }

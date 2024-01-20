@@ -2,18 +2,19 @@
 sidebar_position: 1
 ---
 
+import BasicButton from "./BasicButton"
+import SizeButton from "./SizeButton"
+import DisabledButton from "./DisabledButton"
+import BasicButtonCode from '!!raw-loader!./BasicButton';
+import SizeButtonCode from '!!raw-loader!./SizeButton';
+import DisabledButtonCode from '!!raw-loader!./DisabledButton';
+import { CodeBlock } from "@regen-design/components"
+
 # 按钮 Button
 
 按钮用来触发一些操作。
 
 ## 演示
-
-import BasicButton from "./BasicButton"
-import SizeButton from "./SizeButton"
-import BasicButtonCode from '!!raw-loader!./BasicButton';
-import SizeButtonCode from '!!raw-loader!./SizeButton';
-import { CodeBlock } from "@regen-design/components"
-
 
 <CodeBlock title="基础"
            description={"按钮的 type 分别为 `default`、`tertiary`、`primary`、`info`、`success`、`warning` 和 `error`。"}
@@ -21,10 +22,18 @@ import { CodeBlock } from "@regen-design/components"
   <BasicButton />
 </CodeBlock>
 
-<br/>
+<br />
 
 <CodeBlock title="尺寸"
            description={"有 `tiny`、`small`、`medium` 和 `large` 尺寸。"}
            code={String(SizeButtonCode)}>
   <SizeButton />
+</CodeBlock>
+
+<br/>
+
+<CodeBlock title="禁用"
+           description="按钮可以被禁用。"
+           code={String(DisabledButtonCode)}>
+  <DisabledButton />
 </CodeBlock>

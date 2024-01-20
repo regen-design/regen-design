@@ -1,8 +1,7 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 import { CommonType, Size, Type } from '../common'
 
 export interface ButtonProps extends CommonType {
-  children?: ReactNode
   /**
    * @default 'default'
    * @description Button type

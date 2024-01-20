@@ -2,16 +2,17 @@ import { ThemeConfig } from '@regen-design/types'
 
 export const defaultTheme: ThemeConfig = {
   colors: {
-    primary: '#ea580c',
-    danger: '#dc2626',
-    success: '#16a34a',
-    warning: '#fbbf24',
-    info: '#3b82f6',
-    dark: '#1f2937',
-    light: '#f3f4f6',
+    primary: '#6060e0',
+    danger: '#e75050',
+    success: '#33b770',
+    warning: '#f3a400',
+    info: '#5f99ff',
+    dark: '#18181c',
+    light: '#fafafa',
   },
   borderRadius: 3,
-  borderColor: '#d1d5db',
+  borderColor: '#dfdfdf',
+  borderDarkColor: '#4f4f52',
   animations: {
     duration: 600,
   },

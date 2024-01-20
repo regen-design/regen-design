@@ -7,5 +7,6 @@ export interface ThemeConfig {
   borderRadius: number
   theme?: 'light' | 'dark'
   borderColor: string
+  borderDarkColor: string
   animations: Record<Animation, string | number>
 }
