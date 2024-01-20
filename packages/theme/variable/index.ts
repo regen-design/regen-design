@@ -10,6 +10,12 @@ export const defaultTheme: ThemeConfig = {
     dark: '#18181c',
     light: '#fafafa',
   },
+  fontSizes: {
+    tiny: '12px',
+    small: '14px',
+    default: '16px',
+    large: '16px',
+  },
   borderRadius: 3,
   borderColor: '#dfdfdf',
   borderDarkColor: '#4f4f52',

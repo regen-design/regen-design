@@ -1,4 +1,4 @@
-import { CommonType } from '../common'
+import { CommonType, Size } from '../common'
 
 export interface IconProps extends CommonType {
   /**
@@ -6,4 +6,10 @@ export interface IconProps extends CommonType {
    * @type string
    */
   name?: string
+  /**
+   * @default 'default'
+   * @description icon size
+   * @type Size
+   */
+  size?: Size
 }

@@ -19,4 +19,10 @@ export interface CodeBlockProps extends CommonType {
    * @type string
    */
   code?: string
+  /**
+   * @default false
+   * @description only show code
+   * @type boolean
+   */
+  onlyCode?: boolean
 }

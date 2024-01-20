@@ -1,35 +1,41 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { CommonType, Size, Type } from '../common'
 
 export interface ButtonProps extends CommonType {
   /**
    * @default 'default'
-   * @description Button type
+   * @description button type
    * @type Type
    */
   type?: Type
   /**
    * @default 'medium'
-   * @description Button size
+   * @description button size
    * @type Size
    */
   size?: Size
   /**
    * @default false
-   * @description Button disabled
+   * @description button disabled
    * @type boolean
    */
   disabled?: boolean
   /**
    * @default false
-   * @description Button dashed
+   * @description button dashed
    * @type boolean
    */
   dashed?: boolean
   /**
    * @default undefined
-   * @description Button click event
+   * @description button click event
    * @type (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
    */
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  /**
+   * @default null
+   * @description button icon
+   * @type ReactNode
+   */
+  icon?: ReactNode
 }

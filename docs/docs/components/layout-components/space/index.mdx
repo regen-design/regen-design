@@ -2,9 +2,9 @@
 sidebar_position: 1
 ---
 
-import { CodeBlock } from "@regen-design/components"
-import BasicSpace from "./BasicSpace"
-import BasicSpaceCode from "!!raw-loader!./BasicSpace"
+import { CodeBlock, Grid } from '@regen-design/components'
+import Basic from "./Basic"
+import BasicCode from "!!raw-loader!./Basic"
 
 # 间距 Space
 
@@ -12,7 +12,9 @@ Space 组件管理其直接子级沿垂直或水平轴的布局，每个子级�
 
 ## 演示
 
-<CodeBlock title="基础"
-           code={String(BasicSpaceCode)}>
-  <BasicSpace />
-</CodeBlock>
+<Grid cols={1} yGap={16}>
+  <CodeBlock title="基础"
+             code={String(BasicCode)}>
+    <Basic />
+  </CodeBlock>
+</Grid>

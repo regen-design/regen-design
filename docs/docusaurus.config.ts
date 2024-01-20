@@ -11,7 +11,7 @@ const config: Config = {
   title: CapitalizedTitle,
   tagline: packageConfig.description,
   favicon: 'img/favicon.ico',
-  themes: ['@docusaurus/theme-live-codeblock'],
+  themes: [],
   // Set the production url of your site here
   url: 'https://your-docusaurus-site.example.com',
   // Set the /<baseUrl>/ pathname under which your site is served
@@ -59,9 +59,6 @@ const config: Config = {
   ],
 
   themeConfig: {
-    liveCodeBlock: {
-      playgroundPosition: 'top',
-    },
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {

@@ -44,7 +44,6 @@ export const StyledButton = styled.button<ButtonProps>`
   z-index: auto;
   border: ${props => {
     const _theme = convertTheme(props.theme)
-
     if (props.type === 'default') {
       const color = _theme.theme === 'light' ? _theme.borderColor : _theme.borderDarkColor
       return `1px ${props.dashed ? 'dashed' : 'solid'} ${color}`
@@ -70,16 +69,8 @@ export const StyledButton = styled.button<ButtonProps>`
   line-height: 1;
   font-family: inherit;
   font-size: ${props => {
-    switch (props.size) {
-      case 'tiny':
-        return '12px'
-      case 'small':
-        return '14px'
-      case 'large':
-        return '16px'
-      default:
-        return '14px'
-    }
+    const _theme = convertTheme(props.theme)
+    return _theme.fontSizes[props.size]
   }};
   width: initial;
   align-items: center;

@@ -8,13 +8,19 @@ import javascript from 'highlight.js/lib/languages/javascript'
 import 'highlight.js/styles/github.css'
 import Markdown from 'react-markdown'
 import { CopyIcon, CodeSimpleIcon } from '@regen-design/icons'
+import { useCopy } from '@regen-design/hooks'
+import { StyleSheetManager } from 'styled-components'
+import isPropValid from '@emotion/is-prop-valid'
 hljs.registerLanguage('javascript', javascript)
-export const CodeBlock: FC<CodeBlockProps> = ({ title, description, children, code }) => {
+export const CodeBlock: FC<CodeBlockProps> = ({ title, description, children, code, onlyCode }) => {
   const [isExpand, setIsExpand] = useState(false)
   const footerCodeRef = useRef<HTMLElement>(null)
   const footerRef = useRef<HTMLDivElement>(null)
   const [footerHeight, setFooterHeight] = useState(0)
-
+  const [handleCopy] = useCopy()
+  useEffect(() => {
+    setIsExpand(onlyCode)
+  }, [onlyCode])
   useEffect(() => {
     if (footerCodeRef.current) {
       hljs.highlightBlock(footerCodeRef.current)
@@ -29,35 +35,49 @@ export const CodeBlock: FC<CodeBlockProps> = ({ title, description, children, co
       footerRef.current.style.height = isExpand ? `${footerHeight}px` : '0px'
     }
   }, [isExpand, footerHeight])
+  const handleClickCopy = () => {
+    handleCopy(code)
+  }
   return (
-    <StyledCodeBlock className={`${prefixClass}`}>
-      <div className={`${prefixClass}-header`}>
-        <div className={`${prefixClass}-title`}>{title}</div>
-        <div className={`${prefixClass}-tool`}>
-          <Button>
-            <CopyIcon />
-          </Button>
-          <Button onClick={() => setIsExpand(!isExpand)}>
-            <CodeSimpleIcon />
-          </Button>
+    <StyleSheetManager shouldForwardProp={isPropValid}>
+      <StyledCodeBlock className={`${prefixClass}`} isExpand={isExpand}>
+        <div className={`${prefixClass}-header`}>
+          <div className={`${prefixClass}-title`}>{title}</div>
+          <div className={`${prefixClass}-tool`}>
+            <Button
+              size="tiny"
+              icon={<CopyIcon />}
+              onClick={() => {
+                handleClickCopy()
+              }}
+            />
+            <Button size="tiny" icon={<CodeSimpleIcon />} onClick={() => setIsExpand(!isExpand)} />
+          </div>
         </div>
-      </div>
-      <div className={`${prefixClass}-body`}>
-        <div className={`${prefixClass}-description`}>
-          <Markdown>{description}</Markdown>
+        <div className={`${prefixClass}-body`}>
+          {description && (
+            <div className={`${prefixClass}-description`}>
+              <Markdown>{description}</Markdown>
+            </div>
+          )}
+          <div className={`${prefixClass}-view`}>{children}</div>
         </div>
-        <div className={`${prefixClass}-view`}>{children}</div>
-      </div>
-      <div ref={footerRef} className={`${prefixClass}-footer`}>
-        <Button className={`${prefixClass}--copy`}>
-          <CopyIcon />
-        </Button>
-        <pre>
-          <code style={{ display: 'block' }} ref={footerCodeRef}>
-            {code}
-          </code>
-        </pre>
-      </div>
-    </StyledCodeBlock>
+        <div ref={footerRef} className={`${prefixClass}-footer`}>
+          <Button
+            size="tiny"
+            icon={<CopyIcon />}
+            className={`${prefixClass}--copy`}
+            onClick={() => {
+              handleClickCopy()
+            }}
+          />
+          <pre>
+            <code style={{ display: 'block' }} ref={footerCodeRef}>
+              {code}
+            </code>
+          </pre>
+        </div>
+      </StyledCodeBlock>
+    </StyleSheetManager>
   )
 }

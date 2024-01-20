@@ -6,7 +6,11 @@ import { NAME_SPACE } from '@regen-design/constant'
 const prefix = `${NAME_SPACE}-code-block`
 
 export const StyledCodeBlockPrefixClass = prefix
-export const StyledCodeBlock = styled.div<CodeBlockProps>`
+export const StyledCodeBlock = styled.div<
+  CodeBlockProps & {
+    isExpand: boolean
+  }
+>`
   border-radius: ${props => convertTheme(props.theme).borderRadius}px;
   border: 1px solid ${props => convertTheme(props.theme).borderColor};
   border-bottom: 0;
@@ -30,9 +34,6 @@ export const StyledCodeBlock = styled.div<CodeBlockProps>`
     > .${prefix}-description {
       margin-bottom: 16px;
     }
-    > .${prefix}-view {
-      margin-top: 16px;
-    }
     padding: 0 16px 16px;
     border-bottom: 1px solid ${props => convertTheme(props.theme).borderColor};
   }
@@ -40,6 +41,14 @@ export const StyledCodeBlock = styled.div<CodeBlockProps>`
     transition: height 300ms ease-out;
     overflow: hidden;
     position: relative;
+    border-bottom: ${props => {
+      if (props.isExpand) {
+        const _theme = convertTheme(props.theme)
+        return `1px solid ${_theme.borderColor}`
+      } else {
+        return 'none'
+      }
+    }};
     > .${prefix}--copy {
       position: absolute;
       z-index: 1;

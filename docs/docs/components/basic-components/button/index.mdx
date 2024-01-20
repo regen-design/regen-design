@@ -2,15 +2,15 @@
 sidebar_position: 1
 ---
 
-import BasicButton from "./BasicButton"
-import DashedButton from "./DashedButton"
-import SizeButton from "./SizeButton"
-import DisabledButton from "./DisabledButton"
-import BasicButtonCode from '!!raw-loader!./BasicButton';
-import SizeButtonCode from '!!raw-loader!./SizeButton';
-import DashedButtonCode from '!!raw-loader!./DashedButton';
-import DisabledButtonCode from '!!raw-loader!./DisabledButton';
-import { CodeBlock, Space } from '@regen-design/components'
+import Basic from "./Basic"
+import Dashed from "./Dashed"
+import Size from "./Size"
+import Disabled from "./Disabled"
+import BasicCode from '!!raw-loader!./Basic';
+import SizeCode from '!!raw-loader!./Size';
+import DashedCode from '!!raw-loader!./Dashed';
+import DisabledCode from '!!raw-loader!./Disabled';
+import { CodeBlock, Grid, GridItem } from '@regen-design/components'
 
 # 按钮 Button
 
@@ -18,32 +18,34 @@ import { CodeBlock, Space } from '@regen-design/components'
 
 ## 演示
 
-<CodeBlock title="基础"
-           description={"按钮的 type 分别为 `default`、`tertiary`、`primary`、`info`、`success`、`warning` 和 `error`。"}
-           code={String(BasicButtonCode)}>
-  <BasicButton />
-</CodeBlock>
+<Grid xGap={16} cols={2} style={{
+  alignItems:'flex-start'
+}}>
+  <Grid yGap={16} cols={1}>
+    <CodeBlock title="基础"
+               description={"按钮的 type 分别为 `default`、`tertiary`、`primary`、`info`、`success`、`warning` 和 `error`。"}
+               code={String(BasicCode)}>
+      <Basic />
+    </CodeBlock>
 
-<br />
+    <CodeBlock title="禁用"
+               description="按钮可以被禁用。"
+               code={String(DisabledCode)}>
+      <Disabled />
+    </CodeBlock>
 
-<CodeBlock title="尺寸"
-           description={"有 `tiny`、`small`、`medium` 和 `large` 尺寸。"}
-           code={String(SizeButtonCode)}>
-  <SizeButton />
-</CodeBlock>
+  </Grid>
+  <Grid yGap={16} cols={1}>
+    <CodeBlock title="尺寸"
+               description={"有 `tiny`、`small`、`medium` 和 `large` 尺寸。"}
+               code={String(SizeCode)}>
+      <Size />
+    </CodeBlock>
 
-<br />
-
-<CodeBlock title="禁用"
-           description="按钮可以被禁用。"
-           code={String(DisabledButtonCode)}>
-  <DisabledButton />
-</CodeBlock>
-
-<br />
-
-<CodeBlock title="虚线"
-           description="使用 `dashed` 来使用虚线按钮。"
-           code={String(DashedButtonCode)}>
-  <DashedButton />
-</CodeBlock>
+    <CodeBlock title="虚线"
+               description="使用 `dashed` 来使用虚线按钮。"
+               code={String(DashedCode)}>
+      <Dashed />
+    </CodeBlock>
+  </Grid>
+</Grid>

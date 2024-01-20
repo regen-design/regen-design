@@ -1,4 +1,4 @@
-import { createRef, FC, MouseEvent, useRef } from 'react'
+import { cloneElement, createRef, FC, MouseEvent, ReactElement, useRef } from 'react'
 import { StyledButton, StyledButtonPrefixClass as prefixClass } from '@regen-design/theme'
 import { ButtonProps } from '@regen-design/types'
 
@@ -14,7 +14,8 @@ export const Button: FC<ButtonProps> = ({
   dashed,
   onClick,
   className = '',
-  size = 'medium',
+  size = 'default',
+  icon = null,
 }) => {
   const buttonRef = createRef<HTMLButtonElement>()
   const waveRef = useRef<WaveRefProps>(null)
@@ -37,6 +38,7 @@ export const Button: FC<ButtonProps> = ({
         dashed={dashed}
         onClick={handleClick}
       >
+        {icon && cloneElement(icon as ReactElement, { size: size })}
         <span className={`${prefixClass}-content`}>{children || ''}</span>
         <Wave element="button" type={type} ref={waveRef} />
       </StyledButton>

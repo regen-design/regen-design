@@ -4,6 +4,7 @@ import * as path from 'path'
 import * as prettier from 'prettier'
 import { convertToUpperCase } from '@regen-design/utils'
 import { exec } from 'child_process'
+import { GridProps } from '@regen-design/types'
 const prettierConfigString = fs.readFileSync(path.join(__dirname, '../.prettierrc'), 'utf-8')
 const prettierConfig = JSON.parse(prettierConfigString || '{}')
 function createComponentTemplate(componentName: string) {
@@ -25,10 +26,11 @@ function createThemeTemplate(componentName: string) {
   return prettier.format(
     `
   import { NAME_SPACE } from '@regen-design/constant'
+  import { ${ComponentName}Props } from '@regen-design/types'
   import styled from 'styled-components'
   const prefix = \`\${NAME_SPACE}-${componentName}\`
   export const Styled${ComponentName}PrefixClass = prefix
-  export const Styled${ComponentName} = styled.div\`\`
+  export const Styled${ComponentName} = styled.div<${ComponentName}Props>\`\`
   `,
     prettierConfig
   )
@@ -75,6 +77,11 @@ rl.question('Please enter a folder name: ', folderName => {
   if (!folderName) {
     rl.close()
     console.log('Folder name is required')
+    process.exit(0)
+  }
+  if (!/^[a-zA-Z]+$/.test(folderName)) {
+    rl.close()
+    console.log('Folder name must be in camel case')
     process.exit(0)
   }
   const createFilesTasks = []

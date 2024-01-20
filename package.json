@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "@regen-design/components": "workspace:^",
+    "@regen-design/hooks": "workspace:^",
     "@regen-design/icons": "workspace:^",
     "@regen-design/theme": "workspace:^",
     "@regen-design/types": "workspace:^",

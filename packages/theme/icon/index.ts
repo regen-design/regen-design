@@ -5,7 +5,7 @@ const prefix = `${NAME_SPACE}-icon`
 
 export const StyledIconPrefixClass = prefix
 
-export const StyledIcon = styled.span`
+export const StyledIcon = styled.i`
   display: inline-flex;
   align-items: center;
   color: inherit;
