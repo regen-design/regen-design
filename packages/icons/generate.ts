@@ -10,6 +10,7 @@ type SvgFile = {
   componentOutName: string
   originName: string
   componentName: string
+  svgViewBox: string
 }
 const formatSvg = (svg: string) => {
   return svg.match(/<svg[^>]*>([\s\S]*)<\/svg>/)?.[1] || ''
@@ -21,7 +22,7 @@ const readSvgFiles = (): SvgFile[] => {
     const svgPath = path.join(svgFolder, file)
     const svgContent = fs.readFileSync(svgPath, 'utf-8')
     const componentName = path.basename(file, '.svg')
-
+    const svgViewBox = svgContent.match(/viewBox="([^"]*)"/)?.[1] || ''
     const convertedComponentName = convertToUpperCase(componentName)
     return {
       filename: file,
@@ -29,6 +30,7 @@ const readSvgFiles = (): SvgFile[] => {
       originName: componentName,
       componentName: convertedComponentName,
       componentOutName: convertedComponentName + 'Icon',
+      svgViewBox,
     }
   })
 }
@@ -40,7 +42,7 @@ const generateIconComponent = (svgFiles: SvgFile[]) => {
       import { Icon } from '@regen-design/components/icon'
       const ${svg.componentName} = (props: IconProps) => {
         return (
-          <Icon name="${svg.originName}" {...props}>
+          <Icon name="${svg.originName}" {...props} svgViewBox={\`${svg.svgViewBox}\`}>
             ${svg.content}
           </Icon>
         )

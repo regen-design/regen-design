@@ -6,4 +6,10 @@ export interface IconProps extends CommonType {
    * @type string
    */
   name?: string
+  /**
+   * @default null
+   * @description svg viewBox
+   * @type string
+   */
+  svgViewBox?: string
 }
