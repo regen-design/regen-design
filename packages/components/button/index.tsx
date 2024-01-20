@@ -38,7 +38,7 @@ export const Button: FC<ButtonProps> = ({
         dashed={dashed}
         onClick={handleClick}
       >
-        {icon && cloneElement(icon as ReactElement, { size: size })}
+        {icon && cloneElement(icon as ReactElement)}
         <span className={`${prefixClass}-content`}>{children || ''}</span>
         <Wave element="button" type={type} ref={waveRef} />
       </StyledButton>

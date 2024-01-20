@@ -1,0 +1,16 @@
+.icon-item{
+    text-align: center;
+    height: 100px;
+    border: 1px solid #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .3s;
+    font-size: 24px;
+}
+.icon-item:hover{
+    background: #eee;
+    font-size: 32px;
+}

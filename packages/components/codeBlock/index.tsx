@@ -12,7 +12,14 @@ import { useCopy } from '@regen-design/hooks'
 import { StyleSheetManager } from 'styled-components'
 import isPropValid from '@emotion/is-prop-valid'
 hljs.registerLanguage('javascript', javascript)
-export const CodeBlock: FC<CodeBlockProps> = ({ title, description, children, code, onlyCode }) => {
+export const CodeBlock: FC<CodeBlockProps> = ({
+  title,
+  description,
+  children,
+  code,
+  onlyCode = false,
+  onlyView = false,
+}) => {
   const [isExpand, setIsExpand] = useState(false)
   const footerCodeRef = useRef<HTMLElement>(null)
   const footerRef = useRef<HTMLDivElement>(null)
@@ -44,14 +51,22 @@ export const CodeBlock: FC<CodeBlockProps> = ({ title, description, children, co
         <div className={`${prefixClass}-header`}>
           <div className={`${prefixClass}-title`}>{title}</div>
           <div className={`${prefixClass}-tool`}>
-            <Button
-              size="tiny"
-              icon={<CopyIcon />}
-              onClick={() => {
-                handleClickCopy()
-              }}
-            />
-            <Button size="tiny" icon={<CodeSimpleIcon />} onClick={() => setIsExpand(!isExpand)} />
+            {!onlyView && (
+              <>
+                <Button
+                  size="tiny"
+                  icon={<CopyIcon />}
+                  onClick={() => {
+                    handleClickCopy()
+                  }}
+                />
+                <Button
+                  size="tiny"
+                  icon={<CodeSimpleIcon />}
+                  onClick={() => setIsExpand(!isExpand)}
+                />
+              </>
+            )}
           </div>
         </div>
         <div className={`${prefixClass}-body`}>
@@ -64,7 +79,6 @@ export const CodeBlock: FC<CodeBlockProps> = ({ title, description, children, co
         </div>
         <div ref={footerRef} className={`${prefixClass}-footer`}>
           <Button
-            size="tiny"
             icon={<CopyIcon />}
             className={`${prefixClass}--copy`}
             onClick={() => {

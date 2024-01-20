@@ -78,6 +78,32 @@ const generateIconIndex = (svgFiles: SvgFile[]) => {
     fs.writeFileSync(iconIndexPath, index)
   })
 }
+const generateIconsList = (svgFiles: SvgFile[]) => {
+  const render = `
+  import * as Icons from './src/index'
+  export const SvgIcons = {
+    ${svgFiles
+      .map(svgFile => {
+        return `${svgFile.componentOutName}: Icons.${svgFile.componentOutName}`
+      })
+      .join(',\n')}
+  }
+  `
+  const filePath = path.join(__dirname, './icons.ts')
+  prettier.format(render, JSON.parse(prettierConfig || '{}')).then(content => {
+    fs.writeFile(
+      filePath,
+      content,
+      {
+        encoding: 'utf-8',
+      },
+      () => {
+        console.log('write icons list file success')
+      }
+    )
+  })
+}
 const svgFiles = readSvgFiles()
 generateIconComponent(svgFiles)
 generateIconIndex(svgFiles)
+generateIconsList(svgFiles)

@@ -25,4 +25,10 @@ export interface CodeBlockProps extends CommonType {
    * @type boolean
    */
   onlyCode?: boolean
+  /**
+   * @default false
+   * @description only show view
+   * @type boolean
+   */
+  onlyView?: boolean
 }

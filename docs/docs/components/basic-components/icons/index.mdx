@@ -1,0 +1,41 @@
+---
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { CodeBlock } from "@regen-design/components"
+import Icons from './Icons';
+import IconsCode from '!!raw-loader!./Icons';
+
+# 图标 Icons
+
+内部使用 <a href="https://www.flaticon.com" target="_blank">flatIcon</a> 作为图标库。
+
+## 使用方法
+
+使用图标组件，你需要安装 <a href="https://www.npmjs.com/package/@regen-design/icons" target="_blank">@regen-design/icons</a> 图标组件包
+
+<Tabs>
+  <TabItem value="npm" label="npm" default>
+    ```shell
+    npm install @regen-design/icons --save
+    ```
+  </TabItem>
+  <TabItem value="yarn" label="yarn">
+    ```shell
+    yarn add @regen-design/icons --save
+    ```
+  </TabItem>
+  <TabItem value="pnpm" label="pnpm">
+    ```shell
+    pnpm add @regen-design/icons --save
+    ```
+  </TabItem>
+</Tabs>
+
+<CodeBlock title="图标列表"
+           onlyView
+           code={String(IconsCode)}>
+  <Icons />
+</CodeBlock>
