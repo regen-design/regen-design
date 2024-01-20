@@ -1,7 +1,7 @@
-import { Type } from '../common'
+import { CommonType, Type } from '../common'
 
-type WaveElementType = 'button'
-export interface WaveProps {
+type ElementType = 'button'
+export interface WaveProps extends Pick<CommonType, 'theme'> {
   /**
    * @default 'default'
    * @description Button type
@@ -10,9 +10,9 @@ export interface WaveProps {
   type?: Type
   /**
    * @description Wave type
-   * @type WaveElementType
+   * @type ElementType
    */
-  waveElementType?: WaveElementType
+  element?: ElementType
 }
 
 export interface WaveRefProps {

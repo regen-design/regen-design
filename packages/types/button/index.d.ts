@@ -21,6 +21,12 @@ export interface ButtonProps extends CommonType {
    */
   disabled?: boolean
   /**
+   * @default false
+   * @description Button dashed
+   * @type boolean
+   */
+  dashed?: boolean
+  /**
    * @default undefined
    * @description Button click event
    * @type (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void

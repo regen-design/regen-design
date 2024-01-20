@@ -13,6 +13,9 @@ export const StyledButton = styled.button<ButtonProps>`
     if (props.type === 'default') {
       return _theme.theme === 'light' ? _theme.colors.light : _theme.colors.dark
     }
+    if (props.dashed) {
+      return 'transparent'
+    }
     return _theme.colors[props.type]
   }};
   border-radius: ${props => {
@@ -22,6 +25,9 @@ export const StyledButton = styled.button<ButtonProps>`
     const _theme = convertTheme(props.theme)
     if (props.type === 'default') {
       return _theme.theme === 'light' ? _theme.colors.dark : _theme.colors.light
+    }
+    if (props.dashed) {
+      return `${_theme.colors[props.type]}`
     }
     return _theme.theme === 'light' ? _theme.colors.light : _theme.colors.dark
   }};
@@ -38,9 +44,13 @@ export const StyledButton = styled.button<ButtonProps>`
   z-index: auto;
   border: ${props => {
     const _theme = convertTheme(props.theme)
+
     if (props.type === 'default') {
       const color = _theme.theme === 'light' ? _theme.borderColor : _theme.borderDarkColor
-      return `1px solid ${color}`
+      return `1px ${props.dashed ? 'dashed' : 'solid'} ${color}`
+    }
+    if (props.dashed) {
+      return `1px dashed ${_theme.colors[props.type]}`
     }
     return 'none'
   }};

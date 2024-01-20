@@ -38,6 +38,7 @@
     "@babel/parser": "^7.23.6",
     "@commitlint/cli": "^18.4.4",
     "@commitlint/config-conventional": "^18.4.4",
+    "@emotion/is-prop-valid": "^1.2.1",
     "@regen-design/constant": "workspace:^",
     "@types/node": "^20.11.0",
     "@types/react": "^18.2.47",
