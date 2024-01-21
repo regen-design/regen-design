@@ -8,10 +8,11 @@ import { WaveRefProps } from '@regen-design/types/wave'
 import { StyleSheetManager } from 'styled-components'
 import isPropValid from '@emotion/is-prop-valid'
 export const Button: FC<ButtonProps> = ({
-  children,
+  children = null,
   type = 'default',
-  disabled,
-  dashed,
+  disabled = false,
+  dashed = false,
+  text = false,
   onClick,
   className = '',
   size = 'default',
@@ -20,7 +21,7 @@ export const Button: FC<ButtonProps> = ({
   const buttonRef = createRef<HTMLButtonElement>()
   const waveRef = useRef<WaveRefProps>(null)
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    waveRef.current.play()
+    waveRef.current?.play()
     onClick && onClick(e)
   }
 
@@ -34,13 +35,21 @@ export const Button: FC<ButtonProps> = ({
         ref={buttonRef}
         type={type}
         size={size}
+        text={text}
         disabled={disabled}
         dashed={dashed}
         onClick={handleClick}
       >
-        {icon && cloneElement(icon as ReactElement)}
-        <span className={`${prefixClass}-content`}>{children || ''}</span>
-        <Wave element="button" type={type} ref={waveRef} />
+        {icon && (
+          <span
+            className={`${prefixClass}__icon`}
+            style={{ ...(!children ? { margin: '0' } : {}) }}
+          >
+            {cloneElement(icon as ReactElement)}
+          </span>
+        )}
+        <span className={`${prefixClass}__content`}>{children || ''}</span>
+        {!text && <Wave element="button" type={type} ref={waveRef} />}
       </StyledButton>
     </StyleSheetManager>
   )

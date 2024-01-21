@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { convertTheme } from '../tools'
 import { WaveProps } from '@regen-design/types/wave'
 import { ButtonWaveSpreadAnimationKeyframes } from '../animations'
-import Keyframes from 'styled-components/dist/models/Keyframes'
+import { AnimationsKeyFrames } from '@regen-design/types'
 export const StyledWave = styled.div<WaveProps>`
   position: absolute;
   left: 0;
@@ -14,18 +14,24 @@ export const StyledWave = styled.div<WaveProps>`
   animation-duration: ${props => convertTheme(props.theme).animations.duration + 'ms'};
   animation-timing-function: cubic-bezier(0, 0, 0.2, 1), cubic-bezier(0, 0, 0.2, 1);
   z-index: -1;
+
   &.active {
     z-index: 1;
     animation-name: ${props => {
-      let keyframes: (colors: string) => Keyframes
+      let keyframes: AnimationsKeyFrames
       switch (props.element) {
         case 'button':
           keyframes = ButtonWaveSpreadAnimationKeyframes
           break
       }
-      const colors = convertTheme(props.theme).colors
-      const colorType = colors[props.type]
-      return keyframes?.(colorType === 'default' ? colors.light : colorType) || ''
+      const _theme = convertTheme(props.theme)
+      const colorType = _theme.colors[props.type]
+      return (
+        keyframes?.({
+          color: colorType === 'default' ? _theme.colors.light : colorType,
+          waveBlurRadius: _theme.waveBlurRadius,
+        }) || ''
+      )
     }};
   }
 `

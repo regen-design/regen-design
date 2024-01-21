@@ -3,23 +3,24 @@ sidebar_position: 1
 ---
 
 import Basic from "./Basic"
-import Dashed from "./Dashed"
-import Size from "./Size"
-import Disabled from "./Disabled"
 import BasicCode from '!!raw-loader!./Basic';
-import SizeCode from '!!raw-loader!./Size';
+import Dashed from "./Dashed"
 import DashedCode from '!!raw-loader!./Dashed';
+import Size from "./Size"
+import SizeCode from '!!raw-loader!./Size';
+import Disabled from "./Disabled"
 import DisabledCode from '!!raw-loader!./Disabled';
-import { CodeBlock, Grid, GridItem } from '@regen-design/components'
+import Text from "./Text"
+import TextCode from '!!raw-loader!./Text';
+import { CodeBlock, Grid } from '@regen-design/components'
 
 # 按钮 Button
 
 按钮用来触发一些操作。
 
 ## 演示
-
 <Grid xGap={16} cols={2} style={{
-  alignItems:'flex-start'
+  alignItems: 'flex-start'
 }}>
   <Grid yGap={16} cols={1}>
     <CodeBlock title="基础"
@@ -34,10 +35,16 @@ import { CodeBlock, Grid, GridItem } from '@regen-design/components'
       <Disabled />
     </CodeBlock>
 
+    <CodeBlock title="文本"
+               description="像文本一样的按钮。"
+               code={String(TextCode)}>
+      <Text />
+    </CodeBlock>
+
   </Grid>
   <Grid yGap={16} cols={1}>
     <CodeBlock title="尺寸"
-               description={"有 `tiny`、`small`、`medium` 和 `large` 尺寸。"}
+               description={"有 `tiny`、`small`、`default` 和 `large` 尺寸。"}
                code={String(SizeCode)}>
       <Size />
     </CodeBlock>
@@ -49,3 +56,4 @@ import { CodeBlock, Grid, GridItem } from '@regen-design/components'
     </CodeBlock>
   </Grid>
 </Grid>
+

@@ -22,12 +22,6 @@ export const StyledCodeBlock = styled.div<
       font-size: 18px;
       color: ${props => props.theme.textColor};
     }
-    > .${prefix}-tool {
-      display: flex;
-      > * {
-        margin-left: 8px;
-      }
-    }
   }
 
   > .${prefix}-body {

@@ -11,6 +11,7 @@ import { CopyIcon, CodeSimpleIcon, CheckIcon } from '@regen-design/icons'
 import { useCopy } from '@regen-design/hooks'
 import { StyleSheetManager } from 'styled-components'
 import isPropValid from '@emotion/is-prop-valid'
+import { Space } from '..'
 hljs.registerLanguage('javascript', javascript)
 export const CodeBlock: FC<CodeBlockProps> = ({
   title,
@@ -50,24 +51,26 @@ export const CodeBlock: FC<CodeBlockProps> = ({
       <StyledCodeBlock className={`${prefixClass}`} isExpand={isExpand}>
         <div className={`${prefixClass}-header`}>
           <div className={`${prefixClass}-title`}>{title}</div>
-          <div className={`${prefixClass}-tool`}>
+          <Space>
             {!onlyView && (
               <>
                 <Button
                   size="tiny"
+                  text
                   icon={isCopied ? <CheckIcon color="success" /> : <CopyIcon />}
                   onClick={() => {
                     handleClickCopy()
                   }}
                 />
                 <Button
+                  text
                   size="tiny"
                   icon={<CodeSimpleIcon />}
                   onClick={() => setIsExpand(!isExpand)}
                 />
               </>
             )}
-          </div>
+          </Space>
         </div>
         <div className={`${prefixClass}-body`}>
           {description && (

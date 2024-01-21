@@ -9,7 +9,7 @@ export interface ButtonProps extends CommonType {
    */
   type?: Type
   /**
-   * @default 'medium'
+   * @default 'default'
    * @description button size
    * @type Size
    */
@@ -26,6 +26,12 @@ export interface ButtonProps extends CommonType {
    * @type boolean
    */
   dashed?: boolean
+  /**
+   * @default false
+   * @description button text
+   * @type boolean
+   */
+  text?: boolean
   /**
    * @default undefined
    * @description button click event

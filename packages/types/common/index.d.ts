@@ -1,5 +1,6 @@
 import { ThemeConfig } from '../theme'
 import { CSSProperties, ReactNode } from 'react'
+import Keyframes from 'styled-components/dist/models/Keyframes'
 
 export interface CommonType {
   /**
@@ -33,3 +34,5 @@ export type Type = 'default' | 'primary' | 'info' | 'success' | 'warning' | 'dan
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]
 }
+
+export type AnimationsKeyFrames = (options: { color: string; waveBlurRadius: number }) => Keyframes

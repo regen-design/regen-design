@@ -19,8 +19,9 @@ export const defaultTheme: ThemeConfig = {
   borderRadius: 3,
   borderColor: '#dfdfdf',
   borderDarkColor: '#4f4f52',
+  waveBlurRadius: 6,
   animations: {
-    duration: 600,
+    duration: 300,
   },
   theme: 'light',
 }
