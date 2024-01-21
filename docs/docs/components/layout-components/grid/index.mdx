@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-import { CodeBlock, Grid } from '@regen-design/components'
+import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 import Basic from "./Basic"
 import BasicCode from "!!raw-loader!./Basic"
 import Offset from "./Offset"
@@ -17,24 +17,26 @@ Grid 响应式布局网格可适应屏幕尺寸和方向，确保布局之间的
 
 ## 演示
 
-<Grid yGap={16} cols={1}>
-  <CodeBlock title="基础"
-             code={String(BasicCode)}>
-    <Basic />
-  </CodeBlock>
+<ThemeProvider>
+  <Grid yGap={16} cols={1}>
+    <CodeBlock title="基础"
+               code={String(BasicCode)}>
+      <Basic />
+    </CodeBlock>
 
-  <CodeBlock title="间隔"
-             code={String(GapCode)}>
-    <Gap />
-  </CodeBlock>
+    <CodeBlock title="间隔"
+               code={String(GapCode)}>
+      <Gap />
+    </CodeBlock>
 
-  <CodeBlock title="偏移"
-             code={String(OffsetCode)}>
-    <Offset />
-  </CodeBlock>
+    <CodeBlock title="偏移"
+               code={String(OffsetCode)}>
+      <Offset />
+    </CodeBlock>
 
-  <CodeBlock title="示例样式"
-             onlyCode
-             code={String(DemoCss)}>
-  </CodeBlock>
-</Grid>
+    <CodeBlock title="示例样式"
+               onlyCode
+               code={String(DemoCss)}>
+    </CodeBlock>
+  </Grid>
+</ThemeProvider>

@@ -30,6 +30,8 @@ export const StyledWave = styled.div<WaveProps>`
         keyframes?.({
           color: colorType === 'default' ? _theme.colors.light : colorType,
           waveBlurRadius: _theme.waveBlurRadius,
+          theme: _theme.theme,
+          waveDeepAmount: _theme.waveDeepAmount,
         }) || ''
       )
     }};

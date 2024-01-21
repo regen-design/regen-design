@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-import { CodeBlock, Grid } from '@regen-design/components'
+import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 import Basic from "./Basic"
 import BasicCode from "!!raw-loader!./Basic"
 
@@ -12,9 +12,11 @@ Space 组件管理其直接子级沿垂直或水平轴的布局，每个子级�
 
 ## 演示
 
-<Grid cols={1} yGap={16}>
-  <CodeBlock title="基础"
-             code={String(BasicCode)}>
-    <Basic />
-  </CodeBlock>
-</Grid>
+<ThemeProvider>
+  <Grid cols={1} yGap={16}>
+    <CodeBlock title="基础"
+               code={String(BasicCode)}>
+      <Basic />
+    </CodeBlock>
+  </Grid>
+</ThemeProvider>

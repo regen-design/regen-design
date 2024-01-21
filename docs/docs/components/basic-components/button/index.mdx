@@ -12,48 +12,50 @@ import Disabled from "./Disabled"
 import DisabledCode from '!!raw-loader!./Disabled';
 import Text from "./Text"
 import TextCode from '!!raw-loader!./Text';
-import { CodeBlock, Grid } from '@regen-design/components'
+import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 
 # 按钮 Button
 
 按钮用来触发一些操作。
 
 ## 演示
-<Grid xGap={16} cols={2} style={{
-  alignItems: 'flex-start'
-}}>
-  <Grid yGap={16} cols={1}>
-    <CodeBlock title="基础"
-               description={"按钮的 type 分别为 `default`、`tertiary`、`primary`、`info`、`success`、`warning` 和 `error`。"}
-               code={String(BasicCode)}>
-      <Basic />
-    </CodeBlock>
+<ThemeProvider>
+  <Grid xGap={16} cols={2} style={{
+    alignItems: 'flex-start'
+  }}>
+    <Grid yGap={16} cols={1}>
+      <CodeBlock title="基础"
+                 description={"按钮的 type 分别为 `default`、`tertiary`、`primary`、`info`、`success`、`warning` 和 `error`。"}
+                 code={String(BasicCode)}>
+        <Basic />
+      </CodeBlock>
 
-    <CodeBlock title="禁用"
-               description="按钮可以被禁用。"
-               code={String(DisabledCode)}>
-      <Disabled />
-    </CodeBlock>
+      <CodeBlock title="禁用"
+                 description="按钮可以被禁用。"
+                 code={String(DisabledCode)}>
+        <Disabled />
+      </CodeBlock>
 
-    <CodeBlock title="文本"
-               description="像文本一样的按钮。"
-               code={String(TextCode)}>
-      <Text />
-    </CodeBlock>
+      <CodeBlock title="文本"
+                 description="像文本一样的按钮。"
+                 code={String(TextCode)}>
+        <Text />
+      </CodeBlock>
 
+    </Grid>
+    <Grid yGap={16} cols={1}>
+      <CodeBlock title="尺寸"
+                 description={"有 `tiny`、`small`、`default` 和 `large` 尺寸。"}
+                 code={String(SizeCode)}>
+        <Size />
+      </CodeBlock>
+
+      <CodeBlock title="虚线"
+                 description="使用 `dashed` 来使用虚线按钮。"
+                 code={String(DashedCode)}>
+        <Dashed />
+      </CodeBlock>
+    </Grid>
   </Grid>
-  <Grid yGap={16} cols={1}>
-    <CodeBlock title="尺寸"
-               description={"有 `tiny`、`small`、`default` 和 `large` 尺寸。"}
-               code={String(SizeCode)}>
-      <Size />
-    </CodeBlock>
-
-    <CodeBlock title="虚线"
-               description="使用 `dashed` 来使用虚线按钮。"
-               code={String(DashedCode)}>
-      <Dashed />
-    </CodeBlock>
-  </Grid>
-</Grid>
+</ThemeProvider>
 

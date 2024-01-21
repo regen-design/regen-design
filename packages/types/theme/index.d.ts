@@ -49,10 +49,16 @@ export interface ThemeConfig {
   borderDarkColor: string
   /**
    * @default 6
-   * @description The radius of the wave effect
+   * @description The blur radius of the wave effect
    * @type number
    */
   waveBlurRadius: number
+  /**
+   * @default 0.2
+   * @description Wave effect color darker and lighter depth
+   * @type number
+   */
+  waveDeepAmount: number
   /**
    * @description animation variables
    * @type Record<Animation, string | number>

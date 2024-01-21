@@ -12,7 +12,10 @@ export const StyledCodeBlock = styled.div<
   }
 >`
   border-radius: ${props => convertTheme(props.theme).borderRadius}px;
-  border: 1px solid ${props => convertTheme(props.theme).borderColor};
+  border: ${props => {
+    const _theme = convertTheme(props.theme)
+    return `1px solid ${_theme.theme === 'light' ? _theme.borderColor : _theme.borderDarkColor}`
+  }};
   border-bottom: 0;
   > .${prefix}-header {
     padding: 16px;
@@ -29,7 +32,10 @@ export const StyledCodeBlock = styled.div<
       margin-bottom: 16px;
     }
     padding: 0 16px 16px;
-    border-bottom: 1px solid ${props => convertTheme(props.theme).borderColor};
+    border-bottom: ${props => {
+      const _theme = convertTheme(props.theme)
+      return `1px solid ${_theme.theme === 'light' ? _theme.borderColor : _theme.borderDarkColor}`
+    }};
   }
   > .${prefix}-footer {
     transition: height 300ms ease-out;

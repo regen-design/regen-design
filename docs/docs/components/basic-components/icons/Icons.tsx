@@ -18,6 +18,9 @@ export default function Demo() {
             <GridItem key={key}>
               <div
                 className="icon-item"
+                style={{
+                  border: `1px solid ${theme.theme === 'light' ? theme.borderColor : theme.borderDarkColor}`,
+                }}
                 onClick={() => {
                   setCurrentClickKey(key)
                   handleCopy(`<${key} />`)

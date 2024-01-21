@@ -20,6 +20,7 @@ export const defaultTheme: ThemeConfig = {
   borderColor: '#dfdfdf',
   borderDarkColor: '#4f4f52',
   waveBlurRadius: 6,
+  waveDeepAmount: 0.2,
   animations: {
     duration: 300,
   },

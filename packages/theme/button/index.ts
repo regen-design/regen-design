@@ -19,7 +19,11 @@ export const StyledButton = styled.button<ButtonProps>`
     if (props.dashed) {
       return 'transparent'
     }
-    return _theme.colors[props.type]
+    if (_theme.theme === 'light') {
+      return _theme.colors[props.type]
+    } else {
+      return lighten(0.05, _theme.colors[props.type])
+    }
   }};
   border-radius: ${props => {
     return convertTheme(props.theme).borderRadius + 'px'
@@ -39,6 +43,9 @@ export const StyledButton = styled.button<ButtonProps>`
   }};
   &:hover {
     color: ${props => {
+      if (props.disabled) {
+        return 'initial'
+      }
       const _theme = convertTheme(props.theme)
       if (props.type === 'default') {
         return lighten(0.025, _theme.colors.primary)
