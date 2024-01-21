@@ -1,27 +1,37 @@
 // @flow
 import { FC } from 'react'
-import { IconProps } from '@regen-design/types'
+import { Color, IconProps } from '@regen-design/types'
 import { StyledIcon, StyledIconPrefixClass as prefixClass } from '@regen-design/theme'
 import classNames from 'classnames'
+import { StyleSheetManager } from 'styled-components'
+import isPropValid from '@emotion/is-prop-valid'
 
-export const Icon: FC<IconProps> = ({ name, className, style, children, svgViewBox }) => {
+export const Icon: FC<IconProps> = ({
+  name,
+  className,
+  style,
+  children,
+  svgViewBox,
+  color = 'currentColor',
+}) => {
   const iconClass = classNames(prefixClass, className, prefixClass + '-' + name)
 
   return (
-    <StyledIcon role="icon" className={iconClass} style={style}>
-      <svg
-        viewBox={svgViewBox}
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        aria-hidden
-        data-icon={name}
-        style={{
-          width: '1em',
-          height: '1em',
-        }}
-      >
-        {children}
-      </svg>
-    </StyledIcon>
+    <StyleSheetManager shouldForwardProp={isPropValid}>
+      <StyledIcon role="icon" className={iconClass} color={color as Color} style={style}>
+        <svg
+          viewBox={svgViewBox}
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden
+          data-icon={name}
+          style={{
+            width: '1em',
+            height: '1em',
+          }}
+        >
+          {children}
+        </svg>
+      </StyledIcon>
+    </StyleSheetManager>
   )
 }

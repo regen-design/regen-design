@@ -4,7 +4,7 @@ sidebar_position: 2
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import { CodeBlock } from "@regen-design/components"
+import { CodeBlock, ThemeProvider } from '@regen-design/components'
 import Icons from './Icons';
 import IconsCode from '!!raw-loader!./Icons';
 
@@ -34,8 +34,10 @@ import IconsCode from '!!raw-loader!./Icons';
   </TabItem>
 </Tabs>
 
-<CodeBlock title="图标列表"
-           onlyView
-           code={String(IconsCode)}>
-  <Icons />
-</CodeBlock>
+<ThemeProvider>
+  <CodeBlock title="图标列表"
+             onlyView
+             code={String(IconsCode)}>
+    <Icons />
+  </CodeBlock>
+</ThemeProvider>

@@ -4,7 +4,7 @@ import * as path from 'path'
 import * as prettier from 'prettier'
 import { convertToUpperCase } from '@regen-design/utils'
 import { exec } from 'child_process'
-import { GridProps } from '@regen-design/types'
+
 const prettierConfigString = fs.readFileSync(path.join(__dirname, '../.prettierrc'), 'utf-8')
 const prettierConfig = JSON.parse(prettierConfigString || '{}')
 function createComponentTemplate(componentName: string) {

@@ -7,7 +7,7 @@ import hljs from 'highlight.js/lib/core'
 import javascript from 'highlight.js/lib/languages/javascript'
 import 'highlight.js/styles/github.css'
 import Markdown from 'react-markdown'
-import { CopyIcon, CodeSimpleIcon } from '@regen-design/icons'
+import { CopyIcon, CodeSimpleIcon, CheckIcon } from '@regen-design/icons'
 import { useCopy } from '@regen-design/hooks'
 import { StyleSheetManager } from 'styled-components'
 import isPropValid from '@emotion/is-prop-valid'
@@ -24,7 +24,7 @@ export const CodeBlock: FC<CodeBlockProps> = ({
   const footerCodeRef = useRef<HTMLElement>(null)
   const footerRef = useRef<HTMLDivElement>(null)
   const [footerHeight, setFooterHeight] = useState(0)
-  const [handleCopy] = useCopy()
+  const [handleCopy, isCopied] = useCopy()
   useEffect(() => {
     setIsExpand(onlyCode)
   }, [onlyCode])
@@ -55,7 +55,7 @@ export const CodeBlock: FC<CodeBlockProps> = ({
               <>
                 <Button
                   size="tiny"
-                  icon={<CopyIcon />}
+                  icon={isCopied ? <CheckIcon color="success" /> : <CopyIcon />}
                   onClick={() => {
                     handleClickCopy()
                   }}
@@ -79,7 +79,8 @@ export const CodeBlock: FC<CodeBlockProps> = ({
         </div>
         <div ref={footerRef} className={`${prefixClass}-footer`}>
           <Button
-            icon={<CopyIcon />}
+            icon={isCopied ? <CheckIcon color="success" /> : <CopyIcon />}
+            size="tiny"
             className={`${prefixClass}--copy`}
             onClick={() => {
               handleClickCopy()
