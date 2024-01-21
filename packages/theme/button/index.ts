@@ -3,21 +3,23 @@ import { convertTheme } from '../tools'
 import { ButtonProps } from '@regen-design/types'
 import { NAME_SPACE } from '@regen-design/constant'
 import { lighten } from 'polished'
+import { SpinnerAnimationKeyframes } from '../animations'
 const prefix = `${NAME_SPACE}-button`
 
 export const StyledButtonPrefixClass = prefix
 
-export const StyledButton = styled.button<ButtonProps>`
+export const StyledButton = styled.button<
+  ButtonProps & {
+    isLoading: boolean
+  }
+>`
   background-color: ${props => {
     const _theme = convertTheme(props.theme)
-    if (props.text) {
+    if (props.text || props.dashed) {
       return 'transparent'
     }
     if (props.type === 'default') {
       return _theme.theme === 'light' ? _theme.colors.light : _theme.colors.dark
-    }
-    if (props.dashed) {
-      return 'transparent'
     }
     if (_theme.theme === 'light') {
       return _theme.colors[props.type]
@@ -41,6 +43,23 @@ export const StyledButton = styled.button<ButtonProps>`
     }
     return _theme.theme === 'light' ? _theme.colors.light : _theme.colors.dark
   }};
+  &:focus {
+    color: ${props => {
+      const _theme = convertTheme(props.theme)
+      if (props.type === 'default') {
+        return _theme.colors.primary
+      }
+      if (props.text) {
+        return _theme.colors[props.type]
+      }
+    }};
+    border-color: ${props => {
+      const _theme = convertTheme(props.theme)
+      if (props.type === 'default') {
+        return _theme.colors.primary
+      }
+    }};
+  }
   &:hover {
     color: ${props => {
       if (props.disabled) {
@@ -53,6 +72,17 @@ export const StyledButton = styled.button<ButtonProps>`
       if (props.text) {
         return lighten(0.05, _theme.colors?.[props.type] || '#000000')
       }
+    }};
+    border: ${props => {
+      if (props.text) {
+        return 'none'
+      }
+      const _theme = convertTheme(props.theme)
+      const borderType = props.dashed ? 'dashed' : 'solid'
+      if (props.type === 'default') {
+        return `1px ${borderType} ${_theme.colors.primary}`
+      }
+      return `1px ${borderType} ${_theme.colors[props.type]}`
     }};
   }
   &:active {
@@ -75,7 +105,7 @@ export const StyledButton = styled.button<ButtonProps>`
     return `all ${props.text ? '50ms' : duration} ease-in`
   }};
   opacity: ${props => {
-    if (props.disabled) {
+    if (props.disabled || props.isLoading) {
       return 0.5
     }
   }};
@@ -135,13 +165,18 @@ export const StyledButton = styled.button<ButtonProps>`
     const _theme = convertTheme(props.theme)
     return _theme.fontSizes[props.size]
   }};
-  width: initial;
+  width: ${props => {
+    return props.block ? '100%' : 'initial'
+  }};
   align-items: center;
   justify-content: center;
   user-select: none;
   -webkit-user-select: none;
   text-align: center;
   cursor: ${props => {
+    if (props.isLoading) {
+      return 'wait'
+    }
     if (props.disabled) {
       return 'not-allowed'
     }
@@ -155,6 +190,20 @@ export const StyledButton = styled.button<ButtonProps>`
     min-width: 0;
   }
   .${prefix}__icon {
-    margin-right: 8px;
+    font-size: ${props => {
+      const _theme = convertTheme(props.theme)
+      return _theme.fontSizes[props.size]
+    }};
+    margin-right: 6px;
+    transition: width 0.3s ease-in-out;
+    overflow: hidden;
+  }
+  .${prefix}__icon--loading {
+    svg {
+      animation-duration: 1000ms;
+      animation-name: ${SpinnerAnimationKeyframes};
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
   }
 `

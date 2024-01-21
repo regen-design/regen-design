@@ -8,9 +8,12 @@ const prefix = `${NAME_SPACE}-icon`
 export const StyledIconPrefixClass = prefix
 
 export const StyledIcon = styled.i<IconProps>`
-  display: inline-flex;
-  align-items: center;
+  display: inline-block;
   color: inherit;
+  width: 1em;
+  height: 1em;
+  line-height: 0;
+  vertical-align: -0.125em;
   font-style: normal;
   text-align: center;
   text-transform: none;

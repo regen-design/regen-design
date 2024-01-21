@@ -6,6 +6,7 @@ export const StyledSpacePrefixClass = prefix
 export const StyledSpace = styled.div<SpaceProps>`
   display: flex;
   flex-flow: wrap;
-  justify-content: flex-start;
-  gap: 8px 12px;
+  justify-content: ${({ justifyContent }) => justifyContent};
+  align-items: ${({ alignItems }) => alignItems};
+  gap: ${({ yGap, xGap }) => `${yGap}px ${xGap}px`};
 `

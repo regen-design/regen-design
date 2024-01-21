@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 import { convertTheme } from '../tools'
-import { WaveProps } from '@regen-design/types/wave'
+import { WaveProps, WaveSpreadAnimationKeyframesType } from '@regen-design/types/wave'
 import { ButtonWaveSpreadAnimationKeyframes } from '../animations'
-import { AnimationsKeyFrames } from '@regen-design/types'
 export const StyledWave = styled.div<WaveProps>`
   position: absolute;
   left: 0;
@@ -18,7 +17,7 @@ export const StyledWave = styled.div<WaveProps>`
   &.active {
     z-index: 1;
     animation-name: ${props => {
-      let keyframes: AnimationsKeyFrames
+      let keyframes: WaveSpreadAnimationKeyframesType
       switch (props.element) {
         case 'button':
           keyframes = ButtonWaveSpreadAnimationKeyframes
@@ -28,7 +27,7 @@ export const StyledWave = styled.div<WaveProps>`
       const colorType = _theme.colors[props.type]
       return (
         keyframes?.({
-          color: colorType === 'default' ? _theme.colors.light : colorType,
+          color: colorType === 'default' ? _theme.colors.primary : colorType,
           waveBlurRadius: _theme.waveBlurRadius,
           theme: _theme.theme,
           waveDeepAmount: _theme.waveDeepAmount,

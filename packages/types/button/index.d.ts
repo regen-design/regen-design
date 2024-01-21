@@ -32,6 +32,18 @@ export interface ButtonProps extends CommonType {
    * @type boolean
    */
   text?: boolean
+  /***
+   * @default false
+   * @description button block
+   * @type boolean
+   */
+  block?: boolean
+  /**
+   * @default false
+   * @description button loading
+   * @type boolean
+   */
+  loading?: boolean
   /**
    * @default undefined
    * @description button click event

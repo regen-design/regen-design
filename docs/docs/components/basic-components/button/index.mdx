@@ -12,6 +12,10 @@ import Disabled from "./Disabled"
 import DisabledCode from '!!raw-loader!./Disabled';
 import Text from "./Text"
 import TextCode from '!!raw-loader!./Text';
+import Block from "./Block"
+import BlockCode from '!!raw-loader!./Block';
+import Loading from "./Loading"
+import LoadingCode from '!!raw-loader!./Loading';
 import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 
 # 按钮 Button
@@ -42,6 +46,12 @@ import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
         <Text />
       </CodeBlock>
 
+      <CodeBlock title="loading"
+                 description="按钮有加载状态。"
+                 code={String(LoadingCode)}>
+        <Loading />
+      </CodeBlock>
+
     </Grid>
     <Grid yGap={16} cols={1}>
       <CodeBlock title="尺寸"
@@ -54,6 +64,12 @@ import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
                  description="使用 `dashed` 来使用虚线按钮。"
                  code={String(DashedCode)}>
         <Dashed />
+      </CodeBlock>
+
+      <CodeBlock title="块级"
+                 description="`block`属性将使按钮适合其父宽度。"
+                 code={String(BlockCode)}>
+        <Block />
       </CodeBlock>
     </Grid>
   </Grid>

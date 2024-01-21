@@ -1,4 +1,6 @@
 import { CommonType, Type } from '../common'
+import { ThemeConfig } from '../theme'
+import Keyframes from 'styled-components/dist/models/Keyframes'
 
 type ElementType = 'button'
 export interface WaveProps extends Pick<CommonType, 'theme'> {
@@ -18,3 +20,10 @@ export interface WaveProps extends Pick<CommonType, 'theme'> {
 export interface WaveRefProps {
   play: () => void
 }
+
+export type WaveSpreadAnimationKeyframesType = (options: {
+  color: string
+  waveBlurRadius: number
+  waveDeepAmount: number
+  theme: ThemeConfig['theme']
+}) => Keyframes

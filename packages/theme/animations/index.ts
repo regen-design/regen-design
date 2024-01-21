@@ -1,8 +1,8 @@
 import { keyframes } from 'styled-components'
-import { AnimationsKeyFrames } from '@regen-design/types'
+import { WaveSpreadAnimationKeyframesType } from '@regen-design/types'
 import { darken, lighten } from 'polished'
 
-export const ButtonWaveSpreadAnimationKeyframes: AnimationsKeyFrames = options => {
+export const ButtonWaveSpreadAnimationKeyframes: WaveSpreadAnimationKeyframesType = options => {
   let color = '#ffffff'
   const waveDeepAmount = options.waveDeepAmount || 0
   if (options.theme === 'light') {
@@ -21,3 +21,12 @@ export const ButtonWaveSpreadAnimationKeyframes: AnimationsKeyFrames = options =
     }
 `
 }
+
+export const SpinnerAnimationKeyframes = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+`
