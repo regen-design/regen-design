@@ -15,6 +15,12 @@ export interface WaveProps extends Pick<CommonType, 'theme'> {
    * @type ElementType
    */
   element?: ElementType
+  /**
+   * @default undefined
+   * @description custom color
+   * @type string
+   */
+  color?: string
 }
 
 export interface WaveRefProps {

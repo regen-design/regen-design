@@ -17,6 +17,7 @@ export const Button: FC<ButtonProps> = ({
   round = false,
   block = false,
   loading = false,
+  color,
   onClick,
   className = '',
   size = 'default',
@@ -59,6 +60,7 @@ export const Button: FC<ButtonProps> = ({
         circle={circle}
         round={round}
         block={block}
+        color={color}
         isLoading={loading}
         disabled={disabled}
         dashed={dashed}
@@ -81,7 +83,7 @@ export const Button: FC<ButtonProps> = ({
           </span>
         )}
         <span className={`${prefixClass}__content`}>{children || ''}</span>
-        {!text && <Wave element="button" type={type} ref={waveRef} />}
+        {!text && <Wave element="button" color={color} type={type} ref={waveRef} />}
       </StyledButton>
     </StyleSheetManager>
   )

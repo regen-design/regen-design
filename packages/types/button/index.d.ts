@@ -9,6 +9,12 @@ export interface ButtonProps extends CommonType {
    */
   type?: Type
   /**
+   * @default undefined
+   * @description button custom color
+   * @type string
+   */
+  color?: string
+  /**
    * @default 'default'
    * @description button size
    * @type Size

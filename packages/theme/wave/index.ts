@@ -24,7 +24,10 @@ export const StyledWave = styled.div<WaveProps>`
           break
       }
       const _theme = convertTheme(props.theme)
-      const colorType = _theme.colors[props.type] || _theme.colors.primary
+      let colorType = _theme.colors[props.type] || _theme.colors.primary
+      if (props.color) {
+        colorType = props.color
+      }
       return (
         keyframes?.({
           color: colorType,

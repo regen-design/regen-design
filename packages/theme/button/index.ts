@@ -18,6 +18,9 @@ export const StyledButton = styled.button<
     if (props.text || props.dashed) {
       return 'transparent'
     }
+    if (props.color) {
+      return props.color
+    }
     if (props.type === 'default') {
       return _theme.theme === 'light' ? _theme.colors.light : _theme.colors.dark
     }
@@ -41,7 +44,13 @@ export const StyledButton = styled.button<
   color: ${props => {
     const _theme = convertTheme(props.theme)
     if (props.text) {
+      if (props.color) {
+        return props.color
+      }
       return _theme.colors[props.type]
+    }
+    if (props.color) {
+      return '#ffffff'
     }
     if (props.type === 'default') {
       return _theme.theme === 'light' ? _theme.colors.dark : _theme.colors.light
@@ -54,6 +63,9 @@ export const StyledButton = styled.button<
   &:focus {
     color: ${props => {
       const _theme = convertTheme(props.theme)
+      if (props.color) {
+        return null
+      }
       if (props.type === 'default') {
         return _theme.colors.primary
       }
@@ -63,9 +75,13 @@ export const StyledButton = styled.button<
     }};
     border-color: ${props => {
       const _theme = convertTheme(props.theme)
+      if (props.color) {
+        return props.color
+      }
       if (props.type === 'default') {
         return _theme.colors.primary
       }
+      return _theme.colors[props.type]
     }};
   }
   &:hover {
@@ -74,10 +90,10 @@ export const StyledButton = styled.button<
         return 'initial'
       }
       const _theme = convertTheme(props.theme)
-      if (props.type === 'default') {
+      if (props.type === 'default' && !props.color) {
         return lighten(0.025, _theme.colors.primary)
       }
-      if (props.text) {
+      if (props.text && !props.color) {
         return lighten(0.05, _theme.colors?.[props.type] || '#000000')
       }
     }};
@@ -87,6 +103,9 @@ export const StyledButton = styled.button<
       }
       const _theme = convertTheme(props.theme)
       const borderType = props.dashed ? 'dashed' : 'solid'
+      if (props.color) {
+        return `1px ${borderType} ${props.color}`
+      }
       if (props.type === 'default') {
         return `1px ${borderType} ${_theme.colors.primary}`
       }
@@ -100,7 +119,11 @@ export const StyledButton = styled.button<
         return lighten(0.15, _theme.colors.primary)
       }
       if (props.text) {
-        return lighten(0.25, _theme.colors?.[props.type] || '#000000')
+        let color = _theme.colors?.[props.type] || '#000000'
+        if (props.color) {
+          color = props.color
+        }
+        return lighten(0.25, color)
       }
       if (props.dashed) {
         return `${_theme.colors[props.type]}`
@@ -128,7 +151,7 @@ export const StyledButton = styled.button<
     if (props.text) {
       return 'transparent'
     }
-    if (props.type === 'default') {
+    if (props.type === 'default' && !props.color) {
       const color = _theme.theme === 'light' ? _theme.borderColor : _theme.borderDarkColor
       return `1px ${props.dashed ? 'dashed' : 'solid'} ${color}`
     }

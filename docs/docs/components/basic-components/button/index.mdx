@@ -19,6 +19,8 @@ import Loading from "./Loading"
 import LoadingCode from '!!raw-loader!./Loading';
 import Shape from "./Shape"
 import ShapeCode from '!!raw-loader!./Shape';
+import Colors from "./Colors"
+import ColorsCode from '!!raw-loader!./Colors';
 import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 
 # 按钮 Button
@@ -49,6 +51,12 @@ import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
                      description="像文本一样的按钮。"
                      code={String(TextCode)}>
             <Text />
+          </CodeBlock>
+
+          <CodeBlock title="自定义颜色"
+                     description="按钮有加载状态。"
+                     code={String(ColorsCode)}>
+            <Colors />
           </CodeBlock>
 
           <CodeBlock title="loading"
