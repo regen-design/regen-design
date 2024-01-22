@@ -18,6 +18,11 @@ export interface ThemeConfig {
    * @type Record<Color, string>
    */
   colors: Record<Color, string>
+  /**
+   * @default light
+   * @description The theme of the components
+   * @type 'light' | 'dark'
+   */
   theme?: 'light' | 'dark'
   /**
    * @default
@@ -29,6 +34,16 @@ export interface ThemeConfig {
    * @type Record<Size, string>
    */
   fontSizes: Record<Size, string>
+  /**
+   * @default
+   *  tiny: '24px',
+   *  small: '32px',
+   *  default: '36px',
+   *  large: '40px',
+   *  @description The base sizes of the components
+   *  @type Record<Size, string>
+   */
+  baseSizes: Record<Size, string>
   /**
    * @default 3
    * @description The border radius of the components

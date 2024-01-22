@@ -4,6 +4,7 @@
   "description": "A unique design style and React ui component library",
   "main": "index.js",
   "type": "module",
+  "homepage": "https://regen-design.github.io/regen-design/",
   "scripts": {
     "prepare": "husky install",
     "lint": " eslint \"packages/**/*.+(cjs|js|ts|jsx|tsx)\"",
@@ -12,6 +13,10 @@
     "docs:build": "npx pnpm -C docs build",
     "icons:generate": "npx pnpm -C packages/icons generate",
     "generate:components": "npx pnpm -C scripts generate:components"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/regen-design/regen-design"
   },
   "keywords": [
     "react",

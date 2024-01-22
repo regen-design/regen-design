@@ -45,6 +45,18 @@ export interface ButtonProps extends CommonType {
    */
   loading?: boolean
   /**
+   * @default false
+   * @description button is circle
+   * @type boolean
+   */
+  circle?: boolean
+  /**
+   * @default false
+   * @description button is round
+   * @type boolean
+   */
+  round?: boolean
+  /**
    * @default undefined
    * @description button click event
    * @type (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void

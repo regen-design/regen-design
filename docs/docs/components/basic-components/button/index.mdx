@@ -17,6 +17,8 @@ import Block from "./Block"
 import BlockCode from '!!raw-loader!./Block';
 import Loading from "./Loading"
 import LoadingCode from '!!raw-loader!./Loading';
+import Shape from "./Shape"
+import ShapeCode from '!!raw-loader!./Shape';
 import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 
 # 按钮 Button
@@ -73,6 +75,12 @@ import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
                      description="`block`属性将使按钮适合其父宽度。"
                      code={String(BlockCode)}>
             <Block />
+          </CodeBlock>
+
+          <CodeBlock title="形状"
+                     description="按钮拥有不同的形状。"
+                     code={String(ShapeCode)}>
+            <Shape />
           </CodeBlock>
         </Grid>
       </Grid>

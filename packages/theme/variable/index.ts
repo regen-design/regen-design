@@ -16,6 +16,12 @@ export const defaultTheme: ThemeConfig = {
     default: '16px',
     large: '16px',
   },
+  baseSizes: {
+    tiny: '24px',
+    small: '32px',
+    default: '36px',
+    large: '40px',
+  },
   borderRadius: 3,
   borderColor: '#dfdfdf',
   borderDarkColor: '#4f4f52',

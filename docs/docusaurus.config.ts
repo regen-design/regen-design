@@ -81,7 +81,7 @@ const config: Config = {
           label: '组件',
         },
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/regen-design/regen-design',
           label: 'GitHub',
           position: 'right',
         },

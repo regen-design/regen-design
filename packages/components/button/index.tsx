@@ -13,6 +13,8 @@ export const Button: FC<ButtonProps> = ({
   disabled = false,
   dashed = false,
   text = false,
+  circle = false,
+  round = false,
   block = false,
   loading = false,
   onClick,
@@ -54,6 +56,8 @@ export const Button: FC<ButtonProps> = ({
         type={type}
         size={size}
         text={text}
+        circle={circle}
+        round={round}
         block={block}
         isLoading={loading}
         disabled={disabled}

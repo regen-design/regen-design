@@ -28,8 +28,16 @@ export const StyledButton = styled.button<
     }
   }};
   border-radius: ${props => {
+    const height = convertTheme(props.theme).baseSizes[props.size]
+    if (props.circle) {
+      return '50%'
+    }
+    if (props.round) {
+      return height
+    }
     return convertTheme(props.theme).borderRadius + 'px'
   }};
+  text-align: center;
   color: ${props => {
     const _theme = convertTheme(props.theme)
     if (props.text) {
@@ -130,8 +138,8 @@ export const StyledButton = styled.button<
     return '1px solid transparent'
   }};
   padding: ${props => {
-    if (props.text) {
-      return '0 0'
+    if (props.text || props.circle) {
+      return 'initial'
     }
     switch (props.size) {
       case 'tiny':
@@ -148,16 +156,7 @@ export const StyledButton = styled.button<
     if (props.text) {
       return 'initial'
     }
-    switch (props.size) {
-      case 'tiny':
-        return '24px'
-      case 'small':
-        return '32px'
-      case 'large':
-        return '40px'
-      default:
-        return '36px'
-    }
+    return convertTheme(props.theme).baseSizes[props.size]
   }};
   line-height: 1;
   font-family: inherit;
@@ -166,13 +165,16 @@ export const StyledButton = styled.button<
     return _theme.fontSizes[props.size]
   }};
   width: ${props => {
+    const width = convertTheme(props.theme).baseSizes[props.size]
+    if (props.circle) {
+      return width
+    }
     return props.block ? '100%' : 'initial'
   }};
   align-items: center;
   justify-content: center;
   user-select: none;
   -webkit-user-select: none;
-  text-align: center;
   cursor: ${props => {
     if (props.isLoading) {
       return 'wait'
@@ -187,7 +189,6 @@ export const StyledButton = styled.button<
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
-    min-width: 0;
   }
   .${prefix}__icon {
     font-size: ${props => {

@@ -20,14 +20,14 @@ export const Wave = forwardRef<WaveRefProps, WaveProps>(({ type = 'default', ele
       setActive(() => false)
       timer.current = 0
     }
-    Promise.resolve().then(() => {
+    setTimeout(() => {
       void selfRef.current?.offsetHeight
       setActive(() => true)
       timer.current = window.setTimeout(() => {
         setActive(() => false)
         timer.current = 0
       }, 1000)
-    })
+    }, 0)
   }
   useImperativeHandle(ref, () => ({
     play,
