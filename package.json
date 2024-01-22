@@ -8,10 +8,10 @@
     "prepare": "husky install",
     "lint": " eslint \"packages/**/*.+(cjs|js|ts|jsx|tsx)\"",
     "format": "npx prettier --write \"packages/**/*.+(cjs|js|ts|jsx|tsx)\"",
-    "docs:dev": "pnpm -C docs start",
-    "docs:build": "pnpm -C docs build",
-    "icons:generate": "pnpm -C packages/icons generate",
-    "generate:components": "pnpm -C scripts generate:components"
+    "docs:dev": "npx pnpm -C docs start",
+    "docs:build": "npx pnpm -C docs build",
+    "icons:generate": "npx pnpm -C packages/icons generate",
+    "generate:components": "npx pnpm -C scripts generate:components"
   },
   "keywords": [
     "react",

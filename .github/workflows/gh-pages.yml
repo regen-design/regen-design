@@ -1,0 +1,25 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: build github static pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["master"]
+
+jobs:
+  # Single deploy job since we're just deploying
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npx pnpm install
+      # Build the static site
+      - run: npm run docs:build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Upload entire repository
+          publish_dir: ./docs/build
+
