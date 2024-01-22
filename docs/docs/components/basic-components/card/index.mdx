@@ -3,10 +3,16 @@ sidebar_position: 3
 ---
 
 import { ThemeProvider } from '@regen-design/components'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+
+
+
 
 # 卡片 Card
 
 
-<ThemeProvider>
+<BrowserOnly>
+  {() => (<ThemeProvider>
 
-</ThemeProvider>
+  </ThemeProvider>)}
+</BrowserOnly>

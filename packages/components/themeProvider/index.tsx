@@ -14,7 +14,7 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ theme, children }) => {
     window?.document?.documentElement?.getAttribute('data-theme') || 'light'
   )
   useEffect(() => {
-    if (!window.document.documentElement) return
+    if (!window?.document?.documentElement) return
     if (mutationObserver.current) {
       mutationObserver.current.disconnect()
       mutationObserver.current = null
@@ -30,7 +30,8 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ theme, children }) => {
         }
       }
     })
-    mutationObserver.current.observe(window.document.documentElement, { attributes: true })
+    window?.document?.documentElement &&
+      mutationObserver.current.observe(window?.document?.documentElement, { attributes: true })
     return () => {
       mutationObserver.current?.disconnect()
     }

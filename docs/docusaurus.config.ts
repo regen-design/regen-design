@@ -31,7 +31,7 @@ const config: Config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'zh-Hans',
-    locales: ['zh-Hans', 'en'],
+    locales: ['zh-Hans'],
   },
   presets: [
     [
@@ -95,7 +95,7 @@ const config: Config = {
           items: [
             {
               label: '组件介绍',
-              to: '/docs/intro',
+              to: '/docs/components/basic-components/button/',
             },
           ],
         },

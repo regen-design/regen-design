@@ -2,6 +2,7 @@
 sidebar_position: 2
 ---
 
+import BrowserOnly from '@docusaurus/BrowserOnly'
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import { CodeBlock, ThemeProvider } from '@regen-design/components'
@@ -34,10 +35,12 @@ import IconsCode from '!!raw-loader!./Icons';
   </TabItem>
 </Tabs>
 
-<ThemeProvider>
-  <CodeBlock title="图标列表"
-             onlyView
-             code={String(IconsCode)}>
-    <Icons />
-  </CodeBlock>
-</ThemeProvider>
+<BrowserOnly>
+  {() => (<ThemeProvider>
+    <CodeBlock title="图标列表"
+               onlyView
+               code={String(IconsCode)}>
+      <Icons />
+    </CodeBlock>
+  </ThemeProvider>)}
+</BrowserOnly>
