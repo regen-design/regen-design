@@ -11,33 +11,7 @@ export const StyledCodeBlock = styled.div<
     isExpand: boolean
   }
 >`
-  border-radius: ${props => convertTheme(props.theme).borderRadius}px;
-  border: ${props => {
-    const _theme = convertTheme(props.theme)
-    return `1px solid ${_theme.theme === 'light' ? _theme.borderColor : _theme.borderDarkColor}`
-  }};
-  border-bottom: 0;
-  > .${prefix}-header {
-    padding: 16px;
-    display: flex;
-    justify-content: space-between;
-    > .${prefix}-title {
-      font-size: 18px;
-      color: ${props => props.theme.textColor};
-    }
-  }
-
-  > .${prefix}-body {
-    > .${prefix}-description {
-      margin-bottom: 16px;
-    }
-    padding: 0 16px 16px;
-    border-bottom: ${props => {
-      const _theme = convertTheme(props.theme)
-      return `1px solid ${_theme.theme === 'light' ? _theme.borderColor : _theme.borderDarkColor}`
-    }};
-  }
-  > .${prefix}-footer {
+  .${prefix}-footer {
     transition: height 300ms ease-out;
     overflow: hidden;
     position: relative;

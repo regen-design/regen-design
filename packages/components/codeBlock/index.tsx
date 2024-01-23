@@ -11,7 +11,7 @@ import { CopyIcon, CodeSimpleIcon, CheckIcon } from '@regen-design/icons'
 import { useCopy } from '@regen-design/hooks'
 import { StyleSheetManager } from 'styled-components'
 import isPropValid from '@emotion/is-prop-valid'
-import { Space } from '..'
+import { Card, Space } from '..'
 hljs.registerLanguage('javascript', javascript)
 export const CodeBlock: FC<CodeBlockProps> = ({
   title,
@@ -49,52 +49,67 @@ export const CodeBlock: FC<CodeBlockProps> = ({
   return (
     <StyleSheetManager shouldForwardProp={isPropValid}>
       <StyledCodeBlock className={`${prefixClass}`} isExpand={isExpand}>
-        <div className={`${prefixClass}-header`}>
-          <div className={`${prefixClass}-title`}>{title}</div>
-          <Space>
-            {!onlyView && (
-              <>
-                <Button
-                  size="tiny"
-                  text
-                  icon={isCopied ? <CheckIcon color="success" /> : <CopyIcon />}
-                  onClick={() => {
-                    handleClickCopy()
-                  }}
-                />
-                <Button
-                  text
-                  size="tiny"
-                  icon={<CodeSimpleIcon />}
-                  onClick={() => setIsExpand(!isExpand)}
-                />
-              </>
-            )}
-          </Space>
-        </div>
-        <div className={`${prefixClass}-body`}>
+        <Card
+          title={title}
+          extra={
+            <Space>
+              {!onlyView && (
+                <>
+                  <Button
+                    size="tiny"
+                    text
+                    icon={isCopied ? <CheckIcon color="success" /> : <CopyIcon />}
+                    onClick={() => {
+                      handleClickCopy()
+                    }}
+                  />
+                  <Button
+                    text
+                    size="tiny"
+                    icon={<CodeSimpleIcon />}
+                    onClick={() => setIsExpand(!isExpand)}
+                  />
+                </>
+              )}
+            </Space>
+          }
+          footerStyle={{ padding: 0, borderBottom: 0 }}
+          footer={
+            <div ref={footerRef} className={`${prefixClass}-footer`}>
+              <Button
+                icon={isCopied ? <CheckIcon color="success" /> : <CopyIcon />}
+                size="tiny"
+                className={`${prefixClass}--copy`}
+                onClick={() => {
+                  handleClickCopy()
+                }}
+              />
+              <pre>
+                <code style={{ display: 'block' }} ref={footerCodeRef}>
+                  {code}
+                </code>
+              </pre>
+            </div>
+          }
+        >
           {description && (
             <div className={`${prefixClass}-description`}>
               <Markdown>{description}</Markdown>
             </div>
           )}
           <div className={`${prefixClass}-view`}>{children}</div>
-        </div>
-        <div ref={footerRef} className={`${prefixClass}-footer`}>
-          <Button
-            icon={isCopied ? <CheckIcon color="success" /> : <CopyIcon />}
-            size="tiny"
-            className={`${prefixClass}--copy`}
-            onClick={() => {
-              handleClickCopy()
-            }}
-          />
-          <pre>
-            <code style={{ display: 'block' }} ref={footerCodeRef}>
-              {code}
-            </code>
-          </pre>
-        </div>
+        </Card>
+        {/*<div className={`${prefixClass}-header`}>*/}
+        {/*  <div className={`${prefixClass}-title`}>{title}</div>*/}
+        {/*</div>*/}
+        {/*<div className={`${prefixClass}-body`}>*/}
+        {/*  {description && (*/}
+        {/*    <div className={`${prefixClass}-description`}>*/}
+        {/*      <Markdown>{description}</Markdown>*/}
+        {/*    </div>*/}
+        {/*  )}*/}
+        {/*  <div className={`${prefixClass}-view`}>{children}</div>*/}
+        {/*</div>*/}
       </StyledCodeBlock>
     </StyleSheetManager>
   )
