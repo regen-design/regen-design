@@ -33,7 +33,9 @@ export const Button: FC<ButtonProps> = ({
     waveRef.current?.play()
     onClick && onClick(e)
   }
-  const buttonClass = classNames(className, prefixClass)
+  const buttonClass = classNames(className, prefixClass, {
+    [`${prefixClass}--${type}`]: type,
+  })
   useEffect(() => {
     if (loadingRef.current) {
       const width = loadingRef.current.offsetWidth
@@ -65,6 +67,7 @@ export const Button: FC<ButtonProps> = ({
         disabled={disabled}
         dashed={dashed}
         onClick={handleClick}
+        role="button"
       >
         {icon ? (
           <span

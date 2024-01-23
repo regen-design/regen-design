@@ -46,6 +46,8 @@
     "@commitlint/config-conventional": "^18.4.4",
     "@emotion/is-prop-valid": "^1.2.1",
     "@regen-design/constant": "workspace:^",
+    "@testing-library/jest-dom": "^6.2.1",
+    "@testing-library/react": "^14.1.2",
     "@types/node": "^20.11.0",
     "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
@@ -69,14 +71,12 @@
     "prettier": "^3.2.1",
     "raw-loader": "^4.0.2",
     "react-markdown": "^9.0.1",
-    "react-test-renderer": "^18.2.0",
     "react-transition-group": "^4.4.5",
     "readline": "^1.3.0",
     "styled-components": "^6.1.8",
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
-    "vitest": "^1.2.1",
-    "xml-formatter": "^3.6.0"
+    "vitest": "^1.2.1"
   },
   "dependencies": {
     "@regen-design/components": "workspace:^",

@@ -48,6 +48,7 @@ export const Wave = forwardRef<WaveRefProps, WaveProps>(
           color={color}
           element={element}
           aria-hidden
+          role="wave"
           className={`${NAME_SPACE}-wave ${waveClass}`}
         />
       </StyleSheetManager>
