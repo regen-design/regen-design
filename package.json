@@ -23,13 +23,14 @@
     "preinstall": "npx only-allow pnpm",
     "lint": " eslint \"packages/**/*.+(cjs|js|ts|jsx|tsx)\"",
     "format": "npx prettier --write \"packages/**/*.+(cjs|js|ts|jsx|tsx)\"",
-    "build": "npx rollup -c",
+    "build": "npm run rollup & npm run afterBuild",
     "docs:dev": "npx pnpm -C docs start",
     "docs:build": "npx pnpm -C docs build",
     "test": "vitest",
     "icons:generate": "npx pnpm -C packages/icons generate",
     "generate:components": "npx pnpm -C scripts generate:components",
-    "afterBuild": "npx pnpm -C scripts after-build"
+    "afterBuild": "npx pnpm -C scripts after-build",
+    "rollup": "npx rollup -c"
   },
   "repository": {
     "type": "git",
