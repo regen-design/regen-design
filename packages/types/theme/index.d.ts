@@ -29,7 +29,7 @@ export interface ThemeConfig {
    *   tiny: '12px',
    *   small: '14px',
    *   default: '16px',
-   *   large: '16px',
+   *   large: '18px',
    * @description The font sizes of the components
    * @type Record<Size, string>
    */
@@ -44,6 +44,16 @@ export interface ThemeConfig {
    *  @type Record<Size, string>
    */
   baseSizes: Record<Size, string>
+  /**
+   * @default
+   *  tiny: '10px',
+   *  small: '14px',
+   *  default: '16px',
+   *  large: '20px',
+   *  @description The padding sizes of the components
+   *  @type Record<Size, string>
+   */
+  paddingSizes: Record<Size, string>
   /**
    * @default 3
    * @description The border radius of the components

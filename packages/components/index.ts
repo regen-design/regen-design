@@ -1,4 +1,5 @@
 export * from './button'
+export * from './card'
 export * from './codeBlock'
 export * from './grid'
 export * from './gridItem'

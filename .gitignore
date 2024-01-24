@@ -4,6 +4,8 @@
 
 # Ignore dependent installation directories
 /node_modules
+/*/node_modules
+/*/.vitest
 
 # Ignore temporary files
 *.tmp

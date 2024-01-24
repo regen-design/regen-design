@@ -140,7 +140,12 @@ export const StyledButton = styled.button<
       return 0.5
     }
   }};
-  display: inline-flex;
+  display: ${props => {
+    if (props.block) {
+      return 'flex'
+    }
+    return 'inline-flex'
+  }};
   flex-wrap: nowrap;
   white-space: nowrap;
   outline: none;

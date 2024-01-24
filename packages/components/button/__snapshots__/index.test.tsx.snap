@@ -1,0 +1,485 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Button > should work with \`block\` prop 1`] = `
+<button
+  class="sc-beySPh iRhhd regen-button regen-button--default"
+  role="button"
+  type="default"
+>
+  <span
+    class="regen-button__icon regen-button__icon--loading"
+    style="margin: 0px; width: 0px;"
+  >
+    <i
+      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      color="currentColor"
+      role="icon"
+    >
+      <svg
+        aria-hidden="true"
+        data-icon="spinner"
+        style="width: 1em; height: 1em;"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12,24A12,12,0,1,1,22.714,6.59a1,1,0,1,1-1.785.9,10,10,0,1,0-.011,9.038,1,1,0,0,1,1.781.908A11.955,11.955,0,0,1,12,24Z"
+        />
+      </svg>
+    </i>
+  </span>
+  <span
+    class="regen-button__content"
+  >
+    block
+  </span>
+  <div
+    aria-hidden="true"
+    class="sc-gLLuof brHngp regen-wave "
+    role="wave"
+    type="default"
+  />
+</button>
+`;
+
+exports[`Button > should work with \`circle\` prop 1`] = `
+<button
+  class="sc-beySPh htavfO regen-button regen-button--default"
+  role="button"
+  type="default"
+>
+  <span
+    class="regen-button__icon regen-button__icon--loading"
+    style="margin: 0px; width: 0px;"
+  >
+    <i
+      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      color="currentColor"
+      role="icon"
+    >
+      <svg
+        aria-hidden="true"
+        data-icon="spinner"
+        style="width: 1em; height: 1em;"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12,24A12,12,0,1,1,22.714,6.59a1,1,0,1,1-1.785.9,10,10,0,1,0-.011,9.038,1,1,0,0,1,1.781.908A11.955,11.955,0,0,1,12,24Z"
+        />
+      </svg>
+    </i>
+  </span>
+  <span
+    class="regen-button__content"
+  >
+    circle
+  </span>
+  <div
+    aria-hidden="true"
+    class="sc-gLLuof brHngp regen-wave "
+    role="wave"
+    type="default"
+  />
+</button>
+`;
+
+exports[`Button > should work with \`color\` prop 1`] = `
+<button
+  class="sc-beySPh cKzMmx regen-button regen-button--default"
+  color="#f00"
+  role="button"
+  type="default"
+>
+  <span
+    class="regen-button__icon regen-button__icon--loading"
+    style="margin: 0px; width: 0px;"
+  >
+    <i
+      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      color="currentColor"
+      role="icon"
+    >
+      <svg
+        aria-hidden="true"
+        data-icon="spinner"
+        style="width: 1em; height: 1em;"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12,24A12,12,0,1,1,22.714,6.59a1,1,0,1,1-1.785.9,10,10,0,1,0-.011,9.038,1,1,0,0,1,1.781.908A11.955,11.955,0,0,1,12,24Z"
+        />
+      </svg>
+    </i>
+  </span>
+  <span
+    class="regen-button__content"
+  >
+    color
+  </span>
+  <div
+    aria-hidden="true"
+    class="sc-gLLuof fUaixP regen-wave "
+    color="#f00"
+    role="wave"
+    type="default"
+  />
+</button>
+`;
+
+exports[`Button > should work with \`dashed\` prop 1`] = `
+<button
+  class="sc-beySPh curGqt regen-button regen-button--default"
+  role="button"
+  type="default"
+>
+  <span
+    class="regen-button__icon regen-button__icon--loading"
+    style="margin: 0px; width: 0px;"
+  >
+    <i
+      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      color="currentColor"
+      role="icon"
+    >
+      <svg
+        aria-hidden="true"
+        data-icon="spinner"
+        style="width: 1em; height: 1em;"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12,24A12,12,0,1,1,22.714,6.59a1,1,0,1,1-1.785.9,10,10,0,1,0-.011,9.038,1,1,0,0,1,1.781.908A11.955,11.955,0,0,1,12,24Z"
+        />
+      </svg>
+    </i>
+  </span>
+  <span
+    class="regen-button__content"
+  >
+    dashed
+  </span>
+  <div
+    aria-hidden="true"
+    class="sc-gLLuof brHngp regen-wave "
+    role="wave"
+    type="default"
+  />
+</button>
+`;
+
+exports[`Button > should work with \`icon\` prop 1`] = `
+<button
+  class="sc-beySPh gtxcNf regen-button regen-button--default"
+  role="button"
+  type="default"
+>
+  <span
+    class="regen-button__icon "
+    style="margin: 0px;"
+  >
+    <span>
+      icon
+    </span>
+  </span>
+  <span
+    class="regen-button__content"
+  />
+  <div
+    aria-hidden="true"
+    class="sc-gLLuof brHngp regen-wave "
+    role="wave"
+    type="default"
+  />
+</button>
+`;
+
+exports[`Button > should work with \`loading\` prop 1`] = `
+<button
+  class="sc-beySPh fkBTsY regen-button regen-button--default"
+  role="button"
+  type="default"
+>
+  <span
+    class="regen-button__icon regen-button__icon--loading"
+    style="width: 0px;"
+  >
+    <i
+      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      color="currentColor"
+      role="icon"
+    >
+      <svg
+        aria-hidden="true"
+        data-icon="spinner"
+        style="width: 1em; height: 1em;"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12,24A12,12,0,1,1,22.714,6.59a1,1,0,1,1-1.785.9,10,10,0,1,0-.011,9.038,1,1,0,0,1,1.781.908A11.955,11.955,0,0,1,12,24Z"
+        />
+      </svg>
+    </i>
+  </span>
+  <span
+    class="regen-button__content"
+  >
+    loading
+  </span>
+  <div
+    aria-hidden="true"
+    class="sc-gLLuof brHngp regen-wave "
+    role="wave"
+    type="default"
+  />
+</button>
+`;
+
+exports[`Button > should work with \`round\` prop 1`] = `
+<button
+  class="sc-beySPh gDSzft regen-button regen-button--default"
+  role="button"
+  type="default"
+>
+  <span
+    class="regen-button__icon regen-button__icon--loading"
+    style="margin: 0px; width: 0px;"
+  >
+    <i
+      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      color="currentColor"
+      role="icon"
+    >
+      <svg
+        aria-hidden="true"
+        data-icon="spinner"
+        style="width: 1em; height: 1em;"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12,24A12,12,0,1,1,22.714,6.59a1,1,0,1,1-1.785.9,10,10,0,1,0-.011,9.038,1,1,0,0,1,1.781.908A11.955,11.955,0,0,1,12,24Z"
+        />
+      </svg>
+    </i>
+  </span>
+  <span
+    class="regen-button__content"
+  >
+    round
+  </span>
+  <div
+    aria-hidden="true"
+    class="sc-gLLuof brHngp regen-wave "
+    role="wave"
+    type="default"
+  />
+</button>
+`;
+
+exports[`Button > should work with \`size\` prop 1`] = `
+<button
+  class="sc-beySPh Xznjf regen-button regen-button--default"
+  role="button"
+  type="default"
+>
+  <span
+    class="regen-button__icon regen-button__icon--loading"
+    style="margin: 0px; width: 0px;"
+  >
+    <i
+      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      color="currentColor"
+      role="icon"
+    >
+      <svg
+        aria-hidden="true"
+        data-icon="spinner"
+        style="width: 1em; height: 1em;"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12,24A12,12,0,1,1,22.714,6.59a1,1,0,1,1-1.785.9,10,10,0,1,0-.011,9.038,1,1,0,0,1,1.781.908A11.955,11.955,0,0,1,12,24Z"
+        />
+      </svg>
+    </i>
+  </span>
+  <span
+    class="regen-button__content"
+  >
+    tiny
+  </span>
+  <div
+    aria-hidden="true"
+    class="sc-gLLuof brHngp regen-wave "
+    role="wave"
+    type="default"
+  />
+</button>
+`;
+
+exports[`Button > should work with \`size\` prop 2`] = `
+<button
+  class="sc-beySPh eeyMzH regen-button regen-button--default"
+  role="button"
+  type="default"
+>
+  <span
+    class="regen-button__icon regen-button__icon--loading"
+    style="margin: 0px; width: 0px;"
+  >
+    <i
+      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      color="currentColor"
+      role="icon"
+    >
+      <svg
+        aria-hidden="true"
+        data-icon="spinner"
+        style="width: 1em; height: 1em;"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12,24A12,12,0,1,1,22.714,6.59a1,1,0,1,1-1.785.9,10,10,0,1,0-.011,9.038,1,1,0,0,1,1.781.908A11.955,11.955,0,0,1,12,24Z"
+        />
+      </svg>
+    </i>
+  </span>
+  <span
+    class="regen-button__content"
+  >
+    small
+  </span>
+  <div
+    aria-hidden="true"
+    class="sc-gLLuof brHngp regen-wave "
+    role="wave"
+    type="default"
+  />
+</button>
+`;
+
+exports[`Button > should work with \`size\` prop 3`] = `
+<button
+  class="sc-beySPh gtxcNf regen-button regen-button--default"
+  role="button"
+  type="default"
+>
+  <span
+    class="regen-button__icon regen-button__icon--loading"
+    style="margin: 0px; width: 0px;"
+  >
+    <i
+      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      color="currentColor"
+      role="icon"
+    >
+      <svg
+        aria-hidden="true"
+        data-icon="spinner"
+        style="width: 1em; height: 1em;"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12,24A12,12,0,1,1,22.714,6.59a1,1,0,1,1-1.785.9,10,10,0,1,0-.011,9.038,1,1,0,0,1,1.781.908A11.955,11.955,0,0,1,12,24Z"
+        />
+      </svg>
+    </i>
+  </span>
+  <span
+    class="regen-button__content"
+  >
+    default
+  </span>
+  <div
+    aria-hidden="true"
+    class="sc-gLLuof brHngp regen-wave "
+    role="wave"
+    type="default"
+  />
+</button>
+`;
+
+exports[`Button > should work with \`size\` prop 4`] = `
+<button
+  class="sc-beySPh gbmhnG regen-button regen-button--default"
+  role="button"
+  type="default"
+>
+  <span
+    class="regen-button__icon regen-button__icon--loading"
+    style="margin: 0px; width: 0px;"
+  >
+    <i
+      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      color="currentColor"
+      role="icon"
+    >
+      <svg
+        aria-hidden="true"
+        data-icon="spinner"
+        style="width: 1em; height: 1em;"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12,24A12,12,0,1,1,22.714,6.59a1,1,0,1,1-1.785.9,10,10,0,1,0-.011,9.038,1,1,0,0,1,1.781.908A11.955,11.955,0,0,1,12,24Z"
+        />
+      </svg>
+    </i>
+  </span>
+  <span
+    class="regen-button__content"
+  >
+    large
+  </span>
+  <div
+    aria-hidden="true"
+    class="sc-gLLuof brHngp regen-wave "
+    role="wave"
+    type="default"
+  />
+</button>
+`;
+
+exports[`Button > should work with \`text\` prop 1`] = `
+<button
+  class="sc-beySPh gaoIzf regen-button regen-button--default"
+  role="button"
+  type="default"
+>
+  <span
+    class="regen-button__icon regen-button__icon--loading"
+    style="margin: 0px; width: 0px;"
+  >
+    <i
+      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      color="currentColor"
+      role="icon"
+    >
+      <svg
+        aria-hidden="true"
+        data-icon="spinner"
+        style="width: 1em; height: 1em;"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12,24A12,12,0,1,1,22.714,6.59a1,1,0,1,1-1.785.9,10,10,0,1,0-.011,9.038,1,1,0,0,1,1.781.908A11.955,11.955,0,0,1,12,24Z"
+        />
+      </svg>
+    </i>
+  </span>
+  <span
+    class="regen-button__content"
+  >
+    text
+  </span>
+</button>
+`;

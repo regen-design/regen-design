@@ -2,17 +2,40 @@
 sidebar_position: 3
 ---
 
-import { ThemeProvider } from '@regen-design/components'
+import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 import BrowserOnly from '@docusaurus/BrowserOnly'
-
-
-
+import Basic from "./Basic"
+import BasicCode from '!!raw-loader!./Basic'
+import Extra from "./Extra"
+import ExtraCode from '!!raw-loader!./Extra'
+import Footer from "./Footer"
+import FooterCode from '!!raw-loader!./Footer'
+import Size from "./Size"
+import SizeCode from '!!raw-loader!./Size'
 
 # 卡片 Card
 
 
 <BrowserOnly>
   {() => (<ThemeProvider>
-
+    <Grid yGap={16} cols={1}>
+      <CodeBlock title="基础"
+                 code={String(BasicCode)}>
+        <Basic />
+      </CodeBlock>
+      <CodeBlock title="尺寸"
+                 description={'卡片有 `tiny`、`small`、`default`、`large` 尺寸。'}
+                 code={String(SizeCode)}>
+        <Size />
+      </CodeBlock>
+      <CodeBlock title="头部扩展"
+                 code={String(ExtraCode)}>
+        <Extra />
+      </CodeBlock>
+      <CodeBlock title="底部扩展"
+                 code={String(FooterCode)}>
+        <Footer />
+      </CodeBlock>
+    </Grid>
   </ThemeProvider>)}
 </BrowserOnly>
