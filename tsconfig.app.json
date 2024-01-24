@@ -1,20 +1,22 @@
 {
   "include": [
-    "packages/**/*.{ts,tsx}",
+    "packages/**/*",
+    "main.ts"
   ],
   "exclude": [
-    "src/**/__tests__/*",
-    "packages/components/**/test/**"
+    "./node_modules",
+    "./packages/*/node_modules",
+    "./packages/*/_virtual",
   ],
   "compilerOptions": {
+    "target": "es6",
+    "module": "esnext",
     "composite": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
     "declaration": true,
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-    }
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
   }
 }

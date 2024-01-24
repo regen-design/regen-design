@@ -1,9 +1,12 @@
 {
+  "include": [
+
+  ],
   "compilerOptions": {
-    "jsx": "react-jsx",
     "composite": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "target": "ESNext",
     "types": [
       "node"
     ]
