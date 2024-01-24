@@ -1,6 +1,6 @@
 {
   "name": "regen-design",
-  "version": "0.0.0",
+  "version": "0.0.1-beta.2",
   "description": "A unique design style and React ui component library",
   "main": "lib/packages/index.js",
   "module": "es/packages/index.js",
@@ -15,11 +15,12 @@
   "files": [
     "es",
     "lib",
+    "dist",
+    "index.d.ts",
     "/LICENSE",
     "README.md"
   ],
   "scripts": {
-    "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",
     "lint": " eslint \"packages/**/*.+(cjs|js|ts|jsx|tsx)\"",
     "format": "npx prettier --write \"packages/**/*.+(cjs|js|ts|jsx|tsx)\"",

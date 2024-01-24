@@ -7,7 +7,6 @@ import commonjs from '@rollup/plugin-commonjs'
 import { defineConfig } from 'rollup'
 import babel from '@rollup/plugin-babel'
 import copy from 'rollup-plugin-copy'
-import dts from 'rollup-plugin-dts'
 
 export default [
   defineConfig({
