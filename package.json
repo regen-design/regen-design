@@ -1,6 +1,6 @@
 {
   "name": "regen-design",
-  "version": "0.0.1-beta.2",
+  "version": "0.0.1-beta.3",
   "description": "A unique design style and React ui component library",
   "main": "lib/packages/index.js",
   "module": "es/packages/index.js",
@@ -65,6 +65,7 @@
     "@babel/preset-env": "^7.23.8",
     "@babel/runtime": "^7.23.8",
     "@babel/runtime-corejs3": "^7.23.8",
+    "@changesets/cli": "^2.27.1",
     "@commitlint/cli": "^18.4.4",
     "@commitlint/config-conventional": "^18.4.4",
     "@emotion/is-prop-valid": "^1.2.1",

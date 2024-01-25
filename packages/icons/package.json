@@ -1,6 +1,6 @@
 {
   "name": "@regen-design/icons",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "",
   "main": "index.ts",
   "scripts": {
@@ -11,5 +11,9 @@
     "regen-design"
   ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }
