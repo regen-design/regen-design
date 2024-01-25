@@ -120,12 +120,12 @@
   },
   "dependencies": {
     "@regen-design/components": "workspace:^",
+    "@regen-design/constant": "workspace:^",
     "@regen-design/hooks": "workspace:^",
     "@regen-design/icons": "workspace:^",
+    "@regen-design/theme": "workspace:^",
     "@regen-design/types": "workspace:^",
     "@regen-design/utils": "workspace:^",
-    "@regen-design/theme": "workspace:^",
-    "@regen-design/constant": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
