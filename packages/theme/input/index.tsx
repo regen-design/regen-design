@@ -14,20 +14,43 @@ export const StyledInput = styled.div<
 >`
   width: 100%;
   max-width: 100%;
-  cursor: text;
   line-height: 1.5;
   z-index: auto;
   outline: none;
   box-sizing: border-box;
   position: relative;
   display: inline-flex;
+  cursor: ${props => {
+    if (props.disabled) {
+      return 'not-allowed'
+    }
+    return 'text'
+  }};
+  background-color: ${props => {
+    const _theme = convertTheme(props.theme)
+    if (props.disabled) {
+      return _theme.colors.light
+    }
+    return '#ffffff'
+  }};
+  color: ${props => {
+    const _theme = convertTheme(props.theme)
+    if (props.disabled) {
+      return _theme.colors.placeholder
+    }
+    return _theme.colors.dark
+  }};
   border-radius: ${props => {
     const _theme = convertTheme(props.theme)
+    if (props.round) {
+      const height = _theme.baseSizes[props.size] || _theme.baseSizes['default']
+      return `calc(${height} / 2)`
+    }
     return _theme.borderRadius + 'px'
   }};
   font-size: ${props => {
     const _theme = convertTheme(props.theme)
-    return _theme.fontSizes['default']
+    return _theme.fontSizes[props.size] || _theme.fontSizes['default']
   }};
 
   .${prefix}__state-border {
@@ -86,6 +109,24 @@ export const StyledInput = styled.div<
       const _theme = convertTheme(props.theme)
       return `calc(${_theme.paddingSizes['default']} - ${diff}px)`
     }};
+    .${prefix}__prefix {
+      margin-right: 4px;
+    }
+    .${prefix}__suffix {
+      margin-left: 4px;
+    }
+    .${prefix}__prefix, .${prefix}__suffix {
+      display: inline-flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: color 300ms ease-in-out;
+      color: ${props => {
+        const _theme = convertTheme(props.theme)
+        return _theme.colors['placeholder']
+      }};
+    }
 
     .${prefix}_input {
       flex-grow: 1;
@@ -106,12 +147,11 @@ export const StyledInput = styled.div<
         resize: none;
         font-family: inherit;
         font-size: inherit;
+        user-select: none;
         padding: ${props => {
-          if (props.type === 'textarea') {
-            const _theme = convertTheme(props.theme)
-            const p = `calc(${_theme.paddingSizes['default']} - ${diff}px)`
-            return `${p} 0`
-          }
+          const _theme = convertTheme(props.theme)
+          const p = `calc(${_theme.paddingSizes['default']} - ${diff * 2}px)`
+          return `${p} 0`
         }};
         display: ${props => {
           if (props.type === 'textarea') {
@@ -132,51 +172,65 @@ export const StyledInput = styled.div<
       }
 
       .${prefix}__input-el {
-        box-sizing: border-box;
-        text-align: inherit;
-        border: none;
-        outline: none;
-        vertical-align: bottom;
-        width: 100%;
-        caret-color: ${props => {
-          const _theme = convertTheme(props.theme)
-          return _theme.colors['primary']
-        }};
-        transition: all 0.3s ease-in;
-        font-size: inherit;
         height: ${props => {
           const _theme = convertTheme(props.theme)
-          return _theme.baseSizes['default']
+          return _theme.baseSizes[props.size] || _theme.baseSizes['default']
         }};
+        padding-block: 0;
+        padding-inline: 0;
       }
 
       .${prefix}__textarea-el {
-        box-sizing: border-box;
-        text-align: inherit;
+        height: 100%;
+      }
+
+      .${prefix}__textarea-el, .${prefix}__input-el {
+        width: 100%;
+        min-width: 0;
+        font-family: inherit;
         border: none;
         outline: none;
+        cursor: inherit;
+        text-align: inherit;
+        box-sizing: border-box;
         vertical-align: bottom;
-        width: 100%;
-        display: inline-block;
-        resize: none;
-        margin: 0;
-        min-width: 0;
+        font-size: inherit;
+        color: inherit;
         word-break: break-word;
+        display: inline-block;
+        line-height: 1.5;
+        margin: 0;
+        resize: none;
         white-space: pre-wrap;
+        pointer-events: ${props => {
+          if (props.disabled) {
+            return 'none'
+          }
+          return 'auto'
+        }};
+        user-select: ${props => {
+          if (props.disabled) {
+            return 'none'
+          }
+          return 'auto'
+        }};
+        background-color: ${props => {
+          const _theme = convertTheme(props.theme)
+          if (props.disabled) {
+            return _theme.colors.light
+          }
+        }};
         caret-color: ${props => {
           const _theme = convertTheme(props.theme)
           return _theme.colors['primary']
         }};
-        transition: all 0.3s ease-in;
-        padding-top: ${props => {
-          const _theme = convertTheme(props.theme)
-          return `calc(${_theme.paddingSizes['default']} - ${diff}px)`
+        padding: ${props => {
+          if (props.type === 'textarea') {
+            const _theme = convertTheme(props.theme)
+            const p = `calc(${_theme.paddingSizes['default']} - ${diff * 2}px)`
+            return `${p} 0`
+          }
         }};
-        padding-bottom: ${props => {
-          const _theme = convertTheme(props.theme)
-          return `calc(${_theme.paddingSizes['default']} - ${diff}px)`
-        }};
-        font-size: inherit;
       }
     }
   }

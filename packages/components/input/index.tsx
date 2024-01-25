@@ -1,4 +1,4 @@
-import { FC, InputHTMLAttributes, useRef, useState } from 'react'
+import { FC, InputHTMLAttributes, useEffect, useRef, useState } from 'react'
 import { InputProps } from '@regen-design/types'
 import { StyledInput, StyledInputPrefixClass as prefixClass } from '@regen-design/theme'
 import classNames from 'classnames'
@@ -7,14 +7,24 @@ export const Input: FC<InputProps> = ({
   className,
   placeholder,
   type = 'text',
-  disabled,
-  readOnly,
+  value = '',
+  disabled = false,
+  readOnly = false,
+  showCount = false,
+  round = false,
+  prefix,
+  suffix,
+  size = 'default',
+  onChange,
 }) => {
   const inputClass = classNames(prefixClass, className)
   const inputElementRef = useRef<HTMLInputElement>(null)
   const textareaElementRef = useRef<HTMLTextAreaElement>(null)
   const [isFocus, setIsFocus] = useState(false)
   const [inputValue, setInputValue] = useState('')
+  useEffect(() => {
+    setInputValue(value)
+  }, [value])
   const props: InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> = {
     type,
     disabled,
@@ -25,6 +35,7 @@ export const Input: FC<InputProps> = ({
       setIsFocus(true)
     },
     onChange: e => {
+      onChange && onChange(e.target.value)
       setInputValue(e.target.value)
     },
     onBlur: () => {
@@ -32,8 +43,18 @@ export const Input: FC<InputProps> = ({
     },
   }
   return (
-    <StyledInput role="input" isFocus={isFocus} type={type} className={inputClass} style={style}>
+    <StyledInput
+      role="input"
+      size={size}
+      isFocus={isFocus}
+      type={type}
+      disabled={disabled}
+      round={round}
+      className={inputClass}
+      style={style}
+    >
       <div className={`${prefixClass + '--wrapper'}`}>
+        {prefix && <div className={`${prefixClass}__prefix`}>{prefix}</div>}
         <div className={`${prefixClass}_input`}>
           {type === 'text' && <input {...props} ref={inputElementRef} />}
           {type === 'textarea' && <textarea {...props} ref={textareaElementRef} />}
@@ -43,6 +64,8 @@ export const Input: FC<InputProps> = ({
             </div>
           )}
         </div>
+        {suffix && <div className={`${prefixClass}__suffix`}>{suffix}</div>}
+        {showCount && <div className={`${prefixClass}__suffix`}>{value.length}</div>}
       </div>
       <div className={`${prefixClass}__border`}></div>
       <div className={`${prefixClass}__state-border`}></div>
