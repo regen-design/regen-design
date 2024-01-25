@@ -1,12 +1,11 @@
 {
   "include": [
-    "packages/**/*",
-    "main.ts"
+    "packages/**/*"
   ],
   "exclude": [
     "./node_modules",
     "./packages/*/node_modules",
-    "./packages/*/_virtual",
+    "./packages/*/_virtual"
   ],
   "compilerOptions": {
     "target": "es6",
@@ -14,9 +13,16 @@
     "composite": true,
     "jsx": "react-jsx",
     "declaration": true,
+    "declarationDir": "dist",
     "moduleResolution": "node",
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@regen-design": [
+        "./packages/*"
+      ]
+    }
   }
 }

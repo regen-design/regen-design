@@ -6,7 +6,6 @@ import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import { defineConfig } from 'rollup'
 import babel from '@rollup/plugin-babel'
-import copy from 'rollup-plugin-copy'
 
 export default [
   defineConfig({
@@ -14,19 +13,12 @@ export default [
     output: [
       {
         exports: 'named',
-        preserveModules: true,
         dir: 'dist/lib',
         format: 'cjs',
       },
       {
         exports: 'named',
-        preserveModules: true,
         dir: 'dist/es',
-        format: 'es',
-      },
-      {
-        dir: 'dist/dist',
-        preserveModules: false,
         format: 'es',
       },
     ],
@@ -50,13 +42,6 @@ export default [
         extensions: ['.js', '.ts', 'jsx', 'tsx'],
       }),
       terser(),
-      copy({
-        targets: [
-          { src: './package.json', dest: 'dist' },
-          { src: 'LICENSE', dest: 'dist' },
-          { src: 'README.md', dest: 'dist' },
-        ],
-      }),
     ],
   }),
 ]
