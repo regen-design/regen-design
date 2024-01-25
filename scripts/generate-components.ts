@@ -15,7 +15,7 @@ function createComponentTemplate(componentName: string) {
     import { Styled${ComponentName}, Styled${ComponentName}PrefixClass as prefixClass } from '@regen-design/theme'
     import classNames from 'classnames'
     export const ${ComponentName}: FC<${ComponentName}Props> = ({style,className}) => {
-      const ${componentName}Class = classNames(prefixClass, className, prefixClass + '-${componentName}')
+      const ${componentName}Class = classNames(prefixClass, className)
       return <Styled${ComponentName} role="${componentName}" className={${componentName}Class} style={style}></Styled${ComponentName}>
     }
   `

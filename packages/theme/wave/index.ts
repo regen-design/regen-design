@@ -2,6 +2,9 @@ import styled from 'styled-components'
 import { convertTheme } from '../tools'
 import { WaveProps, WaveSpreadAnimationKeyframesType } from '@regen-design/types/wave'
 import { ButtonWaveSpreadAnimationKeyframes } from '../animations'
+import { NAME_SPACE } from '@regen-design/constant'
+const prefix = `${NAME_SPACE}-wave`
+export const StyledWavePrefixClass = prefix
 export const StyledWave = styled.div<WaveProps>`
   position: absolute;
   left: 0;

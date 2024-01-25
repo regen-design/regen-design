@@ -11,7 +11,7 @@ export const Space: FC<SpaceProps> = ({
   alignItems = 'normal',
   justifyContent = 'normal',
 }) => {
-  const spaceClass = classNames(prefixClass, className, prefixClass + '-space')
+  const spaceClass = classNames(prefixClass, className)
   return (
     <StyledSpace
       alignItems={alignItems}

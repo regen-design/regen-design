@@ -9,6 +9,7 @@ export const defaultTheme: ThemeConfig = {
     info: '#5f99ff',
     dark: '#18181c',
     light: '#fafafa',
+    placeholder: '#a0a0a0',
   },
   fontSizes: {
     tiny: '12px',
@@ -23,10 +24,10 @@ export const defaultTheme: ThemeConfig = {
     large: '40px',
   },
   paddingSizes: {
-    tiny: '10px',
-    small: '14px',
-    default: '16px',
-    large: '20px',
+    tiny: '8px',
+    small: '12px',
+    default: '14px',
+    large: '16px',
   },
   borderRadius: 3,
   borderColor: '#dfdfdf',

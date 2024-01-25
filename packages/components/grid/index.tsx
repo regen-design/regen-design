@@ -13,7 +13,7 @@ export const Grid: FC<GridProps> = ({
   yGap = 0,
   xGap = 0,
 }) => {
-  const gridClass = classNames(prefixClass, className, prefixClass + '-grid')
+  const gridClass = classNames(prefixClass, className)
   return (
     <PrivateGridContext.Provider value={{ wrapper: 'grid', cols, yGap, xGap }}>
       <StyleSheetManager shouldForwardProp={isPropValid}>

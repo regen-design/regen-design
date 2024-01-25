@@ -10,7 +10,7 @@ export const GridItem: FC<GridItemProps> = ({
   offset = 0,
   span = 1,
 }) => {
-  const gridItemClass = classNames(prefixClass, className, prefixClass + '-gridItem')
+  const gridItemClass = classNames(prefixClass, className)
   const { cols, xGap, yGap, wrapper } = useContext(PrivateGridContext)
   if (wrapper !== 'grid') {
     console.error('GridItem must be used in Grid')

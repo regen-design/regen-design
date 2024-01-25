@@ -26,7 +26,7 @@
     "docs:build": "npx pnpm -C docs build",
     "test": "vitest",
     "icons:generate": "npx pnpm -C packages/icons generate",
-    "generate:components": "npx pnpm -C scripts generate:components",
+    "gen:components": "npx pnpm -C scripts gen:components",
     "afterBuild": "npx pnpm -C scripts after-build",
     "rollup": "npx rollup -c"
   },

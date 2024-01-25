@@ -1,6 +1,14 @@
 import { Size } from '../common'
 
-export type Color = 'primary' | 'danger' | 'success' | 'warning' | 'info' | 'dark' | 'light'
+export type Color =
+  | 'primary'
+  | 'danger'
+  | 'success'
+  | 'warning'
+  | 'info'
+  | 'dark'
+  | 'light'
+  | 'placeholder'
 
 export type Animation = 'duration'
 
@@ -14,6 +22,7 @@ export interface ThemeConfig {
    *  info: '#5f99ff',
    *  dark: '#18181c',
    *  light: '#fafafa',
+   *  placeholder: '#a0a0a0',
    * @description The colors of the components
    * @type Record<Color, string>
    */
@@ -46,10 +55,10 @@ export interface ThemeConfig {
   baseSizes: Record<Size, string>
   /**
    * @default
-   *  tiny: '10px',
-   *  small: '14px',
-   *  default: '16px',
-   *  large: '20px',
+   *  tiny: '8px',
+   *  small: '12px',
+   *  default: '14px',
+   *  large: '16px',
    *  @description The padding sizes of the components
    *  @type Record<Size, string>
    */

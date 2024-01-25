@@ -13,7 +13,7 @@ export const Card: FC<CardProps> = ({
   footerClassName = '',
   size = 'default',
 }) => {
-  const cardClass = classNames(prefixClass, className, prefixClass + '-card')
+  const cardClass = classNames(prefixClass, className)
   return (
     <StyledCard role="card" className={cardClass} style={style} size={size}>
       <div className={prefixClass + '-header'}>
