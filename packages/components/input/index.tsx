@@ -1,7 +1,11 @@
-import { FC, InputHTMLAttributes, useEffect, useRef, useState } from 'react'
+import { FC, InputHTMLAttributes, useEffect, useMemo, useRef, useState } from 'react'
 import { InputProps } from '@regen-design/types'
 import { StyledInput, StyledInputPrefixClass as prefixClass } from '@regen-design/theme'
+import GraphemeSplitter from 'grapheme-splitter'
 import classNames from 'classnames'
+
+const splitter = new GraphemeSplitter()
+
 export const Input: FC<InputProps> = ({
   style,
   className,
@@ -12,8 +16,10 @@ export const Input: FC<InputProps> = ({
   readOnly = false,
   showCount = false,
   round = false,
+  realLength = false,
   prefix,
   suffix,
+  maxLength,
   size = 'default',
   onChange,
 }) => {
@@ -35,13 +41,28 @@ export const Input: FC<InputProps> = ({
       setIsFocus(true)
     },
     onChange: e => {
-      onChange && onChange(e.target.value)
-      setInputValue(e.target.value)
+      let _value = e.target.value
+      if (realLength) {
+        const r_length = splitter.countGraphemes(_value)
+        if (r_length > maxLength) {
+          const splitStr = splitter.splitGraphemes(_value)
+          _value = splitStr.slice(0, maxLength).join('')
+        }
+      } else if (_value.length > maxLength) {
+        _value = _value.slice(0, maxLength)
+      }
+      onChange && onChange(_value)
+      setInputValue(_value)
     },
     onBlur: () => {
       setIsFocus(false)
     },
   }
+  const valueLength = useMemo(() => {
+    if (!value) return 0
+    if (!realLength) return value.length
+    return splitter.countGraphemes(value)
+  }, [value, realLength])
   return (
     <StyledInput
       role="input"
@@ -65,7 +86,12 @@ export const Input: FC<InputProps> = ({
           )}
         </div>
         {suffix && <div className={`${prefixClass}__suffix`}>{suffix}</div>}
-        {showCount && <div className={`${prefixClass}__suffix`}>{value.length}</div>}
+        {showCount && (
+          <div className={`${prefixClass}__suffix`}>
+            {valueLength}
+            {maxLength && `/${maxLength}`}
+          </div>
+        )}
       </div>
       <div className={`${prefixClass}__border`}></div>
       <div className={`${prefixClass}__state-border`}></div>

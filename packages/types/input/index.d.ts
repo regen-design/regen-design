@@ -69,4 +69,16 @@ export interface InputProps extends CommonType {
    * @type boolean
    */
   showCount?: boolean
+  /**
+   * @description Get the real length of a string - by correctly counting astral symbols and ignoring ansi escape codes
+   * @default false
+   * @type boolean
+   */
+  realLength?: boolean
+  /**
+   * @description maxLength
+   * @default undefined
+   * @type number
+   */
+  maxLength?: number
 }
