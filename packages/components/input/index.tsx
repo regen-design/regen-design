@@ -1,8 +1,9 @@
-import { FC, InputHTMLAttributes, useEffect, useMemo, useRef, useState } from 'react'
+import { ChangeEvent, FC, InputHTMLAttributes, useEffect, useMemo, useRef, useState } from 'react'
 import { InputProps } from '@regen-design/types'
 import { StyledInput, StyledInputPrefixClass as prefixClass } from '@regen-design/theme'
 import GraphemeSplitter from 'grapheme-splitter'
 import classNames from 'classnames'
+import { useDebounce } from '@regen-design/hooks'
 
 const splitter = new GraphemeSplitter()
 
@@ -17,6 +18,7 @@ export const Input: FC<InputProps> = ({
   showCount = false,
   round = false,
   realLength = false,
+  debounce,
   prefix,
   suffix,
   maxLength,
@@ -31,6 +33,24 @@ export const Input: FC<InputProps> = ({
   useEffect(() => {
     setInputValue(value)
   }, [value])
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    let _value = e.target.value
+    if (realLength) {
+      const r_length = splitter.countGraphemes(_value)
+      if (r_length > maxLength) {
+        const splitStr = splitter.splitGraphemes(_value)
+        _value = splitStr.slice(0, maxLength).join('')
+      }
+    } else if (_value.length > maxLength) {
+      _value = _value.slice(0, maxLength)
+    }
+    onChange && onChange(_value)
+    setInputValue(_value)
+  }
+  const [handleDebounceChange] = useDebounce(e => {
+    handleChange(e)
+  }, debounce)
+
   const props: InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> = {
     type,
     disabled,
@@ -41,18 +61,12 @@ export const Input: FC<InputProps> = ({
       setIsFocus(true)
     },
     onChange: e => {
-      let _value = e.target.value
-      if (realLength) {
-        const r_length = splitter.countGraphemes(_value)
-        if (r_length > maxLength) {
-          const splitStr = splitter.splitGraphemes(_value)
-          _value = splitStr.slice(0, maxLength).join('')
-        }
-      } else if (_value.length > maxLength) {
-        _value = _value.slice(0, maxLength)
+      setInputValue(e.target.value)
+      if (!debounce) {
+        handleChange(e)
+      } else {
+        handleDebounceChange(e)
       }
-      onChange && onChange(_value)
-      setInputValue(_value)
     },
     onBlur: () => {
       setIsFocus(false)

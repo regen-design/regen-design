@@ -10,6 +10,18 @@ export interface InputProps extends CommonType {
    */
   placeholder?: string
   /**
+   * @description defaultValue
+   * @default ''
+   * @type string
+   */
+  defaultValue?: string
+  /**
+   * @description debounce time (ms)
+   * @default undefined
+   * @type number
+   */
+  debounce?: number
+  /**
    * @description value
    * @default ''
    * @type string
