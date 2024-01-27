@@ -113,6 +113,13 @@ export const StyledInput = styled.div<
       margin-right: 4px;
     }
     .${prefix}__suffix {
+      &.active {
+        width: auto;
+        transform: scale(1);
+        margin-left: 4px;
+      }
+      width: auto;
+      transform: scale(0);
       .${prefix}__clear, .${prefix}__eye {
         cursor: pointer;
         transition: color 300ms ease-in-out;
@@ -127,7 +134,6 @@ export const StyledInput = styled.div<
           return _theme.colors['placeholder']
         }};
       }
-      margin-left: 4px;
     }
     .${prefix}__prefix, .${prefix}__suffix {
       display: inline-flex;
@@ -135,7 +141,10 @@ export const StyledInput = styled.div<
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: color 300ms ease-in-out;
+      transition:
+        color 300ms ease-in-out,
+        margin-left 300ms ease-in-out,
+        transform 300ms ease-in-out;
       color: ${props => {
         const _theme = convertTheme(props.theme)
         return _theme.colors['placeholder']

@@ -148,9 +148,17 @@ export const Input: FC<InputProps> = ({
             </div>
           )}
         </div>
-        {suffix && <div className={`${prefixClass}__suffix`}>{suffix}</div>}
-        {type === 'password' && showPassword && (
-          <div className={`${prefixClass}__suffix`}>
+        {clearable && (
+          <div className={`${prefixClass}__suffix ${inputValue.length > 0 ? 'active' : ''}`}>
+            <div className={`${prefixClass}__clear`} onClick={handleClear}>
+              <CloseCircleIcon />
+            </div>
+          </div>
+        )}
+
+        <div className={`${prefixClass}__suffix ${suffix ? 'active' : ''}`}>{suffix}</div>
+        {type === 'password' && (
+          <div className={`${prefixClass}__suffix ${showPassword ? 'active' : ''}`}>
             <div
               className={`${prefixClass}__eye`}
               onClick={() => {
@@ -166,13 +174,6 @@ export const Input: FC<InputProps> = ({
               {isVisible
                 ? passwordVisibleIcon || <EyeIcon />
                 : passwordInvisibleIcon || <EyeInvisibleIcon />}
-            </div>
-          </div>
-        )}
-        {clearable && inputValue.length > 0 && (
-          <div className={`${prefixClass}__suffix`}>
-            <div className={`${prefixClass}__clear`} onClick={handleClear}>
-              <CloseCircleIcon />
             </div>
           </div>
         )}
