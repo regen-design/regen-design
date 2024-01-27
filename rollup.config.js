@@ -1,5 +1,5 @@
 import del from 'rollup-plugin-delete'
-import { terser } from 'rollup-plugin-terser'
+import terser from '@rollup/plugin-terser'
 import typescript from 'rollup-plugin-typescript2'
 import postcss from 'rollup-plugin-postcss'
 import resolve from '@rollup/plugin-node-resolve'
