@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { convertTheme } from '../tools'
 import { CodeBlockProps } from '@regen-design/types'
 import { NAME_SPACE } from '@regen-design/constant'
+import { darken, lighten } from 'polished'
 
 const prefix = `${NAME_SPACE}-code-block`
 
@@ -18,7 +19,8 @@ export const StyledCodeBlock = styled.div<
     border-bottom: ${props => {
       if (props.isExpand) {
         const _theme = convertTheme(props.theme)
-        return `1px solid ${_theme.borderColor}`
+        const color = _theme.theme === 'dark' ? _theme.borderDarkColor : _theme.borderColor
+        return `1px solid ${color}`
       } else {
         return 'none'
       }
@@ -30,8 +32,20 @@ export const StyledCodeBlock = styled.div<
       top: 20px;
     }
     > pre {
+      background-color: ${props => {
+        const _theme = convertTheme(props.theme)
+        if (_theme.theme === 'dark') {
+          return darken(0.1, _theme.colors.dark)
+        } else {
+          return lighten(0.1, _theme.colors.light)
+        }
+      }};
+      border-radius: 0;
+      color: inherit;
+      padding: 16px;
+      overflow: auto;
+      margin: 0;
       position: relative;
-      margin-bottom: 0;
       > code {
         white-space: pre-wrap;
         word-break: break-word;

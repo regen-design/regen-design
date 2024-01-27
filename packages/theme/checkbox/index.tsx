@@ -2,6 +2,7 @@ import { NAME_SPACE } from '@regen-design/constant'
 import { CheckboxProps } from '@regen-design/types'
 import styled from 'styled-components'
 import { convertTheme } from '../tools'
+import { lighten, rgba } from 'polished'
 
 const prefix = `${NAME_SPACE}-checkbox`
 export const StyledCheckboxPrefixClass = prefix
@@ -39,15 +40,17 @@ export const StyledCheckbox = styled.div<CheckboxProps>`
   .${prefix}-wrapper {
     .${prefix}-box {
       background-color: ${props => {
+        const _theme = convertTheme(props.theme)
         if (props.disabled) {
-          const _theme = convertTheme(props.theme)
+          if (_theme.theme === 'dark') {
+            return rgba('#ffffff', 0.1)
+          }
           return _theme.colors.light
         }
         if (props.checked) {
-          const _theme = convertTheme(props.theme)
           return _theme.colors.primary
         } else {
-          return 'transparent'
+          return 'inherit'
         }
       }};
       transition: background-color 0.3s ease;
@@ -74,11 +77,14 @@ export const StyledCheckbox = styled.div<CheckboxProps>`
         }
       }};
       color: ${props => {
+        const _theme = convertTheme(props.theme)
         if (props.disabled) {
-          const _theme = convertTheme(props.theme)
+          if (_theme.theme === 'dark') {
+            return lighten(0.25, _theme.colors.dark)
+          }
           return _theme.colors.placeholder
         }
-        return '#ffffff'
+        return _theme.colors.light
       }};
       transform-origin: center center;
       transition: transform 0.3s ease;
@@ -102,6 +108,9 @@ export const StyledCheckbox = styled.div<CheckboxProps>`
       border: 1px solid
         ${props => {
           const _theme = convertTheme(props.theme)
+          if (_theme.theme === 'dark') {
+            return _theme.borderDarkColor
+          }
           if (props.disabled) {
             return _theme.colors.placeholder
           }

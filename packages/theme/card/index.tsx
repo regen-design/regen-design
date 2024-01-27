@@ -50,7 +50,11 @@ export const StyledCard = styled.div<CardProps>`
   }
   > .${prefix}-footer {
     position: relative;
-    border-bottom: 1px solid ${props => convertTheme(props.theme).borderColor};
+    border-bottom: ${props => {
+      const _theme = convertTheme(props.theme)
+      const color = _theme.theme === 'dark' ? _theme.borderDarkColor : _theme.borderColor
+      return `1px solid ${color}`
+    }};
     padding: ${props => {
       const _theme = convertTheme(props.theme)
       const size = _theme.paddingSizes[props.size]

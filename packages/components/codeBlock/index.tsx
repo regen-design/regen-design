@@ -1,11 +1,16 @@
 // @flow
-import { StyledCodeBlock, StyledCodeBlockPrefixClass as prefixClass } from '@regen-design/theme'
+import {
+  StyledCodeBlock,
+  StyledCodeBlockPrefixClass as prefixClass,
+  useTheme,
+} from '@regen-design/theme'
 import { CodeBlockProps } from '@regen-design/types'
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { Button } from '../button'
 import hljs from 'highlight.js/lib/core'
 import javascript from 'highlight.js/lib/languages/javascript'
-import 'highlight.js/styles/github.css'
+import xml from 'highlight.js/lib/languages/xml'
+import './index.css'
 import Markdown from 'react-markdown'
 import { CopyIcon, CodeSimpleIcon, CheckIcon } from '@regen-design/icons'
 import { useCopy } from '@regen-design/hooks'
@@ -14,6 +19,7 @@ import isPropValid from '@emotion/is-prop-valid'
 import { Card, Space } from '..'
 import classNames from 'classnames'
 hljs.registerLanguage('javascript', javascript)
+hljs.registerLanguage('xml', xml)
 export const CodeBlock: FC<CodeBlockProps> = ({
   style = {},
   className = '',
@@ -29,6 +35,10 @@ export const CodeBlock: FC<CodeBlockProps> = ({
   const footerRef = useRef<HTMLDivElement>(null)
   const [footerHeight, setFooterHeight] = useState(0)
   const [handleCopy, isCopied] = useCopy()
+  const theme = useTheme()
+  const hljsClassName = useMemo(() => {
+    return theme.theme === 'dark' ? 'dark-theme codeBlock_hljs' : 'codeBlock_hljs'
+  }, [theme])
   useEffect(() => {
     setIsExpand(onlyCode)
   }, [onlyCode])
@@ -89,7 +99,7 @@ export const CodeBlock: FC<CodeBlockProps> = ({
                 }}
               />
               <pre>
-                <code style={{ display: 'block' }} ref={footerCodeRef}>
+                <code className={hljsClassName} style={{ display: 'block' }} ref={footerCodeRef}>
                   {code}
                 </code>
               </pre>
@@ -103,17 +113,6 @@ export const CodeBlock: FC<CodeBlockProps> = ({
           )}
           <div className={`${prefixClass}-view`}>{children}</div>
         </Card>
-        {/*<div className={`${prefixClass}-header`}>*/}
-        {/*  <div className={`${prefixClass}-title`}>{title}</div>*/}
-        {/*</div>*/}
-        {/*<div className={`${prefixClass}-body`}>*/}
-        {/*  {description && (*/}
-        {/*    <div className={`${prefixClass}-description`}>*/}
-        {/*      <Markdown>{description}</Markdown>*/}
-        {/*    </div>*/}
-        {/*  )}*/}
-        {/*  <div className={`${prefixClass}-view`}>{children}</div>*/}
-        {/*</div>*/}
       </StyledCodeBlock>
     </StyleSheetManager>
   )

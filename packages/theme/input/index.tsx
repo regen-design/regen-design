@@ -28,8 +28,15 @@ export const StyledInput = styled.div<
   }};
   background-color: ${props => {
     const _theme = convertTheme(props.theme)
+
     if (props.disabled) {
+      if (_theme.theme === 'dark') {
+        return rgba('#ffffff', 0.25)
+      }
       return _theme.colors.light
+    }
+    if (_theme.theme === 'dark') {
+      return rgba('#ffffff', 0.1)
     }
     return '#ffffff'
   }};
@@ -37,6 +44,9 @@ export const StyledInput = styled.div<
     const _theme = convertTheme(props.theme)
     if (props.disabled) {
       return _theme.colors.placeholder
+    }
+    if (_theme.theme === 'dark') {
+      return _theme.colors.light
     }
     return _theme.colors.dark
   }};
@@ -66,7 +76,7 @@ export const StyledInput = styled.div<
       box-shadow 300ms ease-in-out;
     border: ${props => {
       if (!props.isFocus) {
-        return 'none'
+        return `1px solid transparent`
       }
       const _theme = convertTheme(props.theme)
       return `1px solid ${_theme.colors['primary']}`
@@ -89,11 +99,13 @@ export const StyledInput = styled.div<
     height: 100%;
     pointer-events: none;
     border-radius: inherit;
-    border: 1px solid
-      ${props => {
-        const _theme = convertTheme(props.theme)
-        return _theme.borderColor
-      }};
+    border: ${props => {
+      const _theme = convertTheme(props.theme)
+      if (_theme.theme === 'dark') {
+        return null
+      }
+      return `1px solid ${_theme.borderColor}`
+    }};
   }
 
   .${prefix}--wrapper {
@@ -126,6 +138,9 @@ export const StyledInput = styled.div<
         &:hover {
           color: ${props => {
             const _theme = convertTheme(props.theme)
+            if (_theme.theme === 'dark') {
+              return _theme.colors['light']
+            }
             return _theme.colors['dark']
           }};
         }
@@ -240,8 +255,12 @@ export const StyledInput = styled.div<
         background-color: ${props => {
           const _theme = convertTheme(props.theme)
           if (props.disabled) {
+            if (_theme.theme === 'dark') {
+              return 'inherit'
+            }
             return _theme.colors.light
           }
+          return 'transparent'
         }};
         caret-color: ${props => {
           const _theme = convertTheme(props.theme)
