@@ -6,25 +6,28 @@ import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import { defineConfig } from 'rollup'
 import babel from '@rollup/plugin-babel'
+import * as path from 'path'
+import { fileURLToPath } from 'url'
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 export default [
   defineConfig({
-    input: './packages/index.ts',
+    input: path.resolve(__dirname, './packages/index.ts'),
     output: [
       {
         exports: 'named',
-        dir: 'dist/lib',
+        dir: path.resolve(__dirname, 'dist/lib'),
         format: 'cjs',
       },
       {
         exports: 'named',
-        dir: 'dist/es',
+        dir: path.resolve(__dirname, 'dist/es'),
         format: 'es',
       },
     ],
     external: ['react', 'react-dom', '/node_modules/'],
     plugins: [
-      del({ targets: 'dist/*' }),
+      del({ targets: path.resolve(__dirname, 'dist/*') }),
       resolve(),
       commonjs(),
       postcss({
@@ -32,13 +35,13 @@ export default [
         minimize: true,
       }),
       typescript({
-        tsconfig: 'tsconfig.app.json',
+        tsconfig: path.resolve(__dirname, 'tsconfig.app.json'),
         tslib: 'tslib',
       }),
       babel({
         babelHelpers: 'bundled',
-        include: 'src/**',
-        exclude: 'node_modules/**',
+        include: path.resolve(__dirname, 'packages/**'),
+        exclude: path.resolve(__dirname, 'node_modules/**'),
         extensions: ['.js', '.ts', 'jsx', 'tsx'],
       }),
       terser(),

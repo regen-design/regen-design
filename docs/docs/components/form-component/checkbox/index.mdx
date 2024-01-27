@@ -8,6 +8,8 @@ import Basic from "./Basic"
 import BasicCode from '!!raw-loader!./Basic'
 import Size from "./Size"
 import SizeCode from '!!raw-loader!./Size'
+import Group from "./Group"
+import GroupCode from '!!raw-loader!./Group'
 
 # 复选框 Checkbox
 
@@ -20,6 +22,10 @@ import SizeCode from '!!raw-loader!./Size'
         <CodeBlock title="基础"
                    code={String(BasicCode)}>
           <Basic />
+        </CodeBlock>
+        <CodeBlock title="checkbox组"
+                   code={String(GroupCode)}>
+          <Group />
         </CodeBlock>
       </Grid>
       <Grid yGap={16} cols={1}>

@@ -26,10 +26,13 @@ export const CodeBlock: FC<CodeBlockProps> = ({
   title,
   description,
   children,
-  code,
+  code: _code,
   onlyCode = false,
   onlyView = false,
 }) => {
+  const code = useMemo(() => {
+    return _code.replace(/from '@regen-design\/(.+?)'/g, "from 'regen-design'")
+  }, [_code])
   const [isExpand, setIsExpand] = useState(false)
   const footerCodeRef = useRef<HTMLElement>(null)
   const footerRef = useRef<HTMLDivElement>(null)

@@ -4,6 +4,7 @@ import * as prettier from 'prettier'
 const prettierConfigString = fs.readFileSync(path.join(__dirname, '../.prettierrc'), 'utf-8')
 const prettierConfig = JSON.parse(prettierConfigString || '{}')
 const whiteFolders = ['icons']
+const componentsWhiteFolders = []
 const isNotPackageFolder = (folder: string) => /^\.(.*)$/.test(folder)
 const isNotFolder = (folder: string) => /.*\..*/.test(folder)
 function rootFolderAddExport() {
@@ -17,9 +18,11 @@ function rootFolderAddExport() {
     const folderPath = path.resolve(rootFolder, folder)
     const folders = fs.readdirSync(folderPath)
     let folderExportContent = ''
+    const parentFolder = folder
     folders.map(folder => {
       if (isNotPackageFolder(folder)) return
       if (isNotFolder(folder)) return
+      if (componentsWhiteFolders.includes(folder) && parentFolder === 'components') return
       folderExportContent += `export * from './${folder}'\n`
     })
     const exportFile = path.resolve(folderPath, folder === 'types' ? 'index.d.ts' : 'index.ts')
