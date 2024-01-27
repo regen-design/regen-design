@@ -4,6 +4,7 @@ import { StyledInput, StyledInputPrefixClass as prefixClass } from '@regen-desig
 import GraphemeSplitter from 'grapheme-splitter'
 import classNames from 'classnames'
 import { useDebounce } from '@regen-design/hooks'
+import { CloseCircleIcon, EyeIcon, EyeInvisibleIcon } from '@regen-design/icons'
 
 const splitter = new GraphemeSplitter()
 
@@ -12,27 +13,46 @@ export const Input: FC<InputProps> = ({
   className,
   placeholder,
   type = 'text',
-  value = '',
+  value = undefined,
+  showPasswordOn = 'click',
   disabled = false,
   readOnly = false,
   showCount = false,
   round = false,
   realLength = false,
+  clearable = false,
+  showPassword = true,
+  defaultValue = '',
+  passwordVisibleIcon,
+  passwordInvisibleIcon,
   debounce,
   prefix,
   suffix,
   maxLength,
   size = 'default',
   onChange,
+  onClear,
+  onFocus,
+  onBlur,
+  onPressEnter,
+  onKeyDown,
+  onKeyUp,
+  onInput,
 }) => {
   const inputClass = classNames(prefixClass, className)
   const inputElementRef = useRef<HTMLInputElement>(null)
   const textareaElementRef = useRef<HTMLTextAreaElement>(null)
   const [isFocus, setIsFocus] = useState(false)
   const [inputValue, setInputValue] = useState('')
+  const [isVisible, setIsVisible] = useState(false)
+
   useEffect(() => {
-    setInputValue(value)
-  }, [value])
+    if (value === undefined) {
+      setInputValue(defaultValue)
+    } else {
+      setInputValue(value)
+    }
+  }, [value, defaultValue])
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     let _value = e.target.value
     if (realLength) {
@@ -50,15 +70,23 @@ export const Input: FC<InputProps> = ({
   const [handleDebounceChange] = useDebounce(e => {
     handleChange(e)
   }, debounce)
-
+  const handleClear = () => {
+    setInputValue('')
+    onClear && onClear()
+    onChange && onChange('')
+  }
   const props: InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> = {
     type,
     disabled,
     readOnly,
     value: inputValue,
     className: `${prefixClass}__${type === 'textarea' ? 'textarea' : 'input'}-el`,
-    onFocus: () => {
+    onFocus: e => {
       setIsFocus(true)
+      onFocus && onFocus(e)
+    },
+    onInput: e => {
+      onInput && onInput(e)
     },
     onChange: e => {
       setInputValue(e.target.value)
@@ -68,15 +96,25 @@ export const Input: FC<InputProps> = ({
         handleDebounceChange(e)
       }
     },
-    onBlur: () => {
+    onKeyDown: e => {
+      if (e.key === 'Enter') {
+        onPressEnter && onPressEnter(e)
+      }
+      onKeyDown && onKeyDown(e)
+    },
+    onKeyUp: e => {
+      onKeyUp && onKeyUp(e)
+    },
+    onBlur: e => {
       setIsFocus(false)
+      onBlur && onBlur(e)
     },
   }
   const valueLength = useMemo(() => {
-    if (!value) return 0
-    if (!realLength) return value.length
-    return splitter.countGraphemes(value)
-  }, [value, realLength])
+    if (!inputValue) return 0
+    if (!realLength) return inputValue.length
+    return splitter.countGraphemes(inputValue)
+  }, [inputValue, realLength])
   return (
     <StyledInput
       role="input"
@@ -92,6 +130,9 @@ export const Input: FC<InputProps> = ({
         {prefix && <div className={`${prefixClass}__prefix`}>{prefix}</div>}
         <div className={`${prefixClass}_input`}>
           {type === 'text' && <input {...props} ref={inputElementRef} />}
+          {type === 'password' && (
+            <input {...props} type={isVisible ? 'text' : 'password'} ref={inputElementRef} />
+          )}
           {type === 'textarea' && <textarea {...props} ref={textareaElementRef} />}
           {!inputValue.length && (
             <div className={`${prefixClass}__placeholder`}>
@@ -100,6 +141,33 @@ export const Input: FC<InputProps> = ({
           )}
         </div>
         {suffix && <div className={`${prefixClass}__suffix`}>{suffix}</div>}
+        {type === 'password' && showPassword && (
+          <div className={`${prefixClass}__suffix`}>
+            <div
+              className={`${prefixClass}__eye`}
+              onClick={() => {
+                showPasswordOn === 'click' && setIsVisible(!isVisible)
+              }}
+              onMouseDown={() => {
+                showPasswordOn === 'mousedown' && setIsVisible(true)
+              }}
+              onMouseUp={() => {
+                showPasswordOn === 'mousedown' && setIsVisible(false)
+              }}
+            >
+              {isVisible
+                ? passwordVisibleIcon || <EyeIcon />
+                : passwordInvisibleIcon || <EyeInvisibleIcon />}
+            </div>
+          </div>
+        )}
+        {clearable && inputValue.length > 0 && (
+          <div className={`${prefixClass}__suffix`}>
+            <div className={`${prefixClass}__clear`} onClick={handleClear}>
+              <CloseCircleIcon />
+            </div>
+          </div>
+        )}
         {showCount && (
           <div className={`${prefixClass}__suffix`}>
             {valueLength}

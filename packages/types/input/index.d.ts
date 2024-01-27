@@ -1,7 +1,9 @@
 import { CommonType, Size } from '../common'
-import { ReactNode } from 'react'
+import { InputHTMLAttributes, ReactNode } from 'react'
 
 export type InputType = 'text' | 'password' | 'textarea'
+
+type InputTextareaAttributes = InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>
 export interface InputProps extends CommonType {
   /**
    * @description placeholder
@@ -23,16 +25,10 @@ export interface InputProps extends CommonType {
   debounce?: number
   /**
    * @description value
-   * @default ''
+   * @default undefined
    * @type string
    */
   value?: string
-  /**
-   * @description onChange
-   * @default undefined
-   * @type (value: string) => void
-   */
-  onChange?: (value: string) => void
   /**
    * @description disabled
    * @default false
@@ -76,11 +72,41 @@ export interface InputProps extends CommonType {
    */
   suffix?: ReactNode
   /**
+   * @description  show password on event
+   * @default click
+   * @type
+   */
+  showPasswordOn?: 'click' | 'mousedown'
+  /**
+   * @description show password icon
+   * @default true
+   * @type boolean
+   */
+  showPassword?: boolean
+  /**
+   * @description password visible icon
+   * @default undefined
+   * @type ReactNode
+   */
+  passwordVisibleIcon?: ReactNode
+  /**
+   * @description password invisible icon
+   * @default undefined
+   * @type ReactNode
+   */
+  passwordInvisibleIcon?: ReactNode
+  /**
    * @description show count
    * @default false
    * @type boolean
    */
   showCount?: boolean
+  /**
+   * @description clearable
+   * @default false
+   * @type boolean
+   */
+  clearable?: boolean
   /**
    * @description Get the real length of a string - by correctly counting astral symbols and ignoring ansi escape codes
    * @default false
@@ -93,4 +119,52 @@ export interface InputProps extends CommonType {
    * @type number
    */
   maxLength?: number
+  /**
+   * @description onChange
+   * @default undefined
+   * @type (value: string) => void
+   */
+  onChange?: (value: string) => void
+  /**
+   * @description onFocus
+   * @default undefined
+   * @type InputTextareaAttributes['onFocus']
+   */
+  onFocus?: InputTextareaAttributes['onFocus']
+  /**
+   * @description onBlur
+   * @default undefined
+   * @type InputTextareaAttributes['onBlur']
+   */
+  onBlur?: InputTextareaAttributes['onBlur']
+  /**
+   * @description onPressEnter
+   * @default undefined
+   * @type KeyboardEventHandler<HTMLInputElement | HTMLTextAreaElement>
+   */
+  onPressEnter?: KeyboardEventHandler<HTMLInputElement | HTMLTextAreaElement>
+  /**
+   * @description onClear
+   * @default undefined
+   * @type () => void
+   */
+  onClear?: () => void
+  /**
+   * @description onInput
+   * @default undefined
+   * @type InputTextareaAttributes['onInput']
+   */
+  onInput?: InputTextareaAttributes['onInput']
+  /**
+   * @description onKeyDown
+   * @default undefined
+   * @type InputTextareaAttributes['onKeyDown']
+   */
+  onKeyDown?: InputTextareaAttributes['onKeyDown']
+  /**
+   * @description onKeyUp
+   * @default undefined
+   * @type InputTextareaAttributes['onKeyUp']
+   */
+  onKeyUp?: InputTextareaAttributes['onKeyUp']
 }

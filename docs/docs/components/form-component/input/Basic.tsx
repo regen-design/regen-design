@@ -5,7 +5,7 @@ export default function Demo() {
   const [value, setValue] = useState('')
   return (
     <Space>
-      <Input placeholder={'基本的Input'} value={value} onChange={setValue} />
+      <Input placeholder={'基本的Input'} defaultValue={'1234567890'} />
       <Input placeholder={'基本的Textarea'} value={value} onChange={setValue} type="textarea" />
     </Space>
   )

@@ -113,6 +113,20 @@ export const StyledInput = styled.div<
       margin-right: 4px;
     }
     .${prefix}__suffix {
+      .${prefix}__clear, .${prefix}__eye {
+        cursor: pointer;
+        transition: color 300ms ease-in-out;
+        &:hover {
+          color: ${props => {
+            const _theme = convertTheme(props.theme)
+            return _theme.colors['dark']
+          }};
+        }
+        color: ${props => {
+          const _theme = convertTheme(props.theme)
+          return _theme.colors['placeholder']
+        }};
+      }
       margin-left: 4px;
     }
     .${prefix}__prefix, .${prefix}__suffix {

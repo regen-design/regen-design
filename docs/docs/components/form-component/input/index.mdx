@@ -16,6 +16,11 @@ import Disabled from "./Disabled"
 import DisabledCode from '!!raw-loader!./Disabled'
 import Count from "./Count"
 import CountCode from '!!raw-loader!./Count'
+import Clearable from "./Clearable"
+import ClearableCode from '!!raw-loader!./Clearable'
+import Password from "./Password"
+import PasswordCode from '!!raw-loader!./Password'
+
 
 # 文本输入 Input
 
@@ -38,11 +43,19 @@ import CountCode from '!!raw-loader!./Count'
                    code={String(DisabledCode)}>
           <Disabled />
         </CodeBlock>
+        <CodeBlock title="可清除"
+                   code={String(ClearableCode)}>
+          <Clearable />
+        </CodeBlock>
       </Grid>
       <Grid yGap={16} cols={1}>
         <CodeBlock title="尺寸"
                    code={String(SizeCode)}>
           <Size />
+        </CodeBlock>
+        <CodeBlock title="密码"
+                   code={String(PasswordCode)}>
+          <Password />
         </CodeBlock>
         <CodeBlock title="前缀&后缀"
                    code={String(PrefixSuffixCode)}>
