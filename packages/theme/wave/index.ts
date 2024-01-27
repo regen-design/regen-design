@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { convertTheme } from '../tools'
-import { WaveProps, WaveSpreadAnimationKeyframesType } from '@regen-design/types/wave'
-import { ButtonWaveSpreadAnimationKeyframes } from '../animations'
+import { WaveProps } from '@regen-design/types/wave'
+import { WaveSpreadAnimationKeyframes } from '../animations'
 import { NAME_SPACE } from '@regen-design/constant'
 const prefix = `${NAME_SPACE}-wave`
 export const StyledWavePrefixClass = prefix
@@ -20,12 +20,7 @@ export const StyledWave = styled.div<WaveProps>`
   &.active {
     z-index: 1;
     animation-name: ${props => {
-      let keyframes: WaveSpreadAnimationKeyframesType
-      switch (props.element) {
-        case 'button':
-          keyframes = ButtonWaveSpreadAnimationKeyframes
-          break
-      }
+      const keyframes = WaveSpreadAnimationKeyframes
       const _theme = convertTheme(props.theme)
       let colorType = _theme.colors[props.type] || _theme.colors.primary
       if (props.color) {

@@ -12,8 +12,11 @@ import { useCopy } from '@regen-design/hooks'
 import { StyleSheetManager } from 'styled-components'
 import isPropValid from '@emotion/is-prop-valid'
 import { Card, Space } from '..'
+import classNames from 'classnames'
 hljs.registerLanguage('javascript', javascript)
 export const CodeBlock: FC<CodeBlockProps> = ({
+  style = {},
+  className = '',
   title,
   description,
   children,
@@ -46,9 +49,10 @@ export const CodeBlock: FC<CodeBlockProps> = ({
   const handleClickCopy = () => {
     handleCopy(code)
   }
+  const codeBlockClass = classNames(prefixClass, className)
   return (
     <StyleSheetManager shouldForwardProp={isPropValid}>
-      <StyledCodeBlock className={`${prefixClass}`} isExpand={isExpand}>
+      <StyledCodeBlock style={style} className={`${codeBlockClass}`} isExpand={isExpand}>
         <Card
           title={title}
           extra={

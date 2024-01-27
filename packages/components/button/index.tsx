@@ -19,6 +19,7 @@ export const Button: FC<ButtonProps> = ({
   loading = false,
   color,
   onClick,
+  style = {},
   className = '',
   size = 'default',
   icon = null,
@@ -54,6 +55,7 @@ export const Button: FC<ButtonProps> = ({
   return (
     <StyleSheetManager shouldForwardProp={isPropValid}>
       <StyledButton
+        style={style}
         className={`${buttonClass}`}
         ref={buttonRef}
         type={type}
@@ -86,7 +88,7 @@ export const Button: FC<ButtonProps> = ({
           </span>
         )}
         <span className={`${prefixClass}__content`}>{children || ''}</span>
-        {!text && <Wave element="button" color={color} type={type} ref={waveRef} />}
+        {!text && <Wave color={color} type={type} ref={waveRef} />}
       </StyledButton>
     </StyleSheetManager>
   )

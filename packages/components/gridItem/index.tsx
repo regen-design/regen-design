@@ -4,8 +4,8 @@ import { StyledGridItem, StyledGridItemPrefixClass as prefixClass } from '@regen
 import classNames from 'classnames'
 import { PrivateGridContext } from '../grid'
 export const GridItem: FC<GridItemProps> = ({
-  style,
-  className,
+  style = {},
+  className = '',
   children,
   offset = 0,
   span = 1,

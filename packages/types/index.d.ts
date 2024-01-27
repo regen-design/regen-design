@@ -1,5 +1,6 @@
 export * from './button'
 export * from './card'
+export * from './checkbox'
 export * from './codeBlock'
 export * from './common'
 export * from './grid'

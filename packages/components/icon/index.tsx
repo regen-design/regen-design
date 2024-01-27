@@ -8,8 +8,8 @@ import isPropValid from '@emotion/is-prop-valid'
 
 export const Icon: FC<IconProps> = ({
   name,
-  className,
-  style,
+  style = {},
+  className = '',
   children,
   svgViewBox,
   color = 'currentColor',

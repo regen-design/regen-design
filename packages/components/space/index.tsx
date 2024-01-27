@@ -3,8 +3,8 @@ import { SpaceProps } from '@regen-design/types'
 import { StyledSpace, StyledSpacePrefixClass as prefixClass } from '@regen-design/theme'
 import classNames from 'classnames'
 export const Space: FC<SpaceProps> = ({
-  style,
-  className,
+  style = {},
+  className = '',
   children,
   xGap = 12,
   yGap = 8,

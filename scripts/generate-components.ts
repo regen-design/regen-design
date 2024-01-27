@@ -14,7 +14,7 @@ function createComponentTemplate(componentName: string) {
     import { ${ComponentName}Props } from '@regen-design/types'
     import { Styled${ComponentName}, Styled${ComponentName}PrefixClass as prefixClass } from '@regen-design/theme'
     import classNames from 'classnames'
-    export const ${ComponentName}: FC<${ComponentName}Props> = ({style,className}) => {
+    export const ${ComponentName}: FC<${ComponentName}Props> = ({style={},className=""}) => {
       const ${componentName}Class = classNames(prefixClass, className)
       return <Styled${ComponentName} role="${componentName}" className={${componentName}Class} style={style}></Styled${ComponentName}>
     }
@@ -46,7 +46,7 @@ function createTypesTemplate(componentName: string) {
 function createFileTask(folderName: string) {
   return (folderTypeName: string, fileName: string, content: string = ''): Promise<void> => {
     const folderPath = path.resolve(__dirname, `../packages/${folderTypeName}/` + folderName)
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       const createFile = () => {
         const indexFile = path.resolve(folderPath, fileName)
         fs.writeFile(indexFile, content, err => {

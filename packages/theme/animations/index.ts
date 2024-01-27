@@ -2,7 +2,7 @@ import { keyframes } from 'styled-components'
 import { WaveSpreadAnimationKeyframesType } from '@regen-design/types'
 import { darken, lighten } from 'polished'
 
-export const ButtonWaveSpreadAnimationKeyframes: WaveSpreadAnimationKeyframesType = options => {
+export const WaveSpreadAnimationKeyframes: WaveSpreadAnimationKeyframesType = options => {
   let color = '#ffffff'
   const waveDeepAmount = options.waveDeepAmount || 0
   if (options.theme === 'light') {

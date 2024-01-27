@@ -6,8 +6,8 @@ import { StyleSheetManager } from 'styled-components'
 import isPropValid from '@emotion/is-prop-valid'
 export const PrivateGridContext = createContext({ wrapper: 'grid', cols: 0, yGap: 0, xGap: 0 })
 export const Grid: FC<GridProps> = ({
-  style,
-  className,
+  style = {},
+  className = '',
   children,
   cols = 4,
   yGap = 0,

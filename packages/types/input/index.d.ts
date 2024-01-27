@@ -4,7 +4,7 @@ import { InputHTMLAttributes, ReactNode } from 'react'
 export type InputType = 'text' | 'password' | 'textarea'
 
 type InputTextareaAttributes = InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>
-export interface InputProps extends CommonType {
+export interface InputProps extends Omit<CommonType, 'children'> {
   /**
    * @description placeholder
    * @default ''

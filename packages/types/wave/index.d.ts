@@ -2,7 +2,6 @@ import { CommonType, Type } from '../common'
 import { ThemeConfig } from '../theme'
 import Keyframes from 'styled-components/dist/models/Keyframes'
 
-type ElementType = 'button'
 export interface WaveProps extends Pick<CommonType, 'theme'> {
   /**
    * @default 'default'
@@ -10,11 +9,6 @@ export interface WaveProps extends Pick<CommonType, 'theme'> {
    * @type Type
    */
   type?: Type
-  /**
-   * @description Wave type
-   * @type ElementType
-   */
-  element?: ElementType
   /**
    * @default undefined
    * @description custom color

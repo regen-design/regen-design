@@ -3,9 +3,9 @@ import { CardProps } from '@regen-design/types'
 import { StyledCard, StyledCardPrefixClass as prefixClass } from '@regen-design/theme'
 import classNames from 'classnames'
 export const Card: FC<CardProps> = ({
-  style,
+  style = {},
+  className = '',
   title,
-  className,
   children,
   extra = null,
   footer = null,

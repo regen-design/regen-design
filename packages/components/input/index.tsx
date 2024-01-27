@@ -9,8 +9,8 @@ import { CloseCircleIcon, EyeIcon, EyeInvisibleIcon } from '@regen-design/icons'
 const splitter = new GraphemeSplitter()
 
 export const Input: FC<InputProps> = ({
-  style,
-  className,
+  style = {},
+  className = '',
   placeholder,
   type = 'text',
   value = undefined,
