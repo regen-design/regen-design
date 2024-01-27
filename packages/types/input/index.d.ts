@@ -42,6 +42,18 @@ export interface InputProps extends CommonType {
    */
   readOnly?: boolean
   /**
+   * @description only number
+   * @default false
+   * @type boolean
+   */
+  onlyNumber?: boolean
+  /**
+   * @description trim
+   * @default false
+   * @type boolean
+   */
+  trim?: boolean
+  /**
    * @description type
    * @default text
    * @type InputType

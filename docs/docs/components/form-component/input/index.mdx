@@ -20,7 +20,8 @@ import Clearable from "./Clearable"
 import ClearableCode from '!!raw-loader!./Clearable'
 import Password from "./Password"
 import PasswordCode from '!!raw-loader!./Password'
-
+import SpecificValue from "./SpecificValue"
+import SpecificValueCode from '!!raw-loader!./SpecificValue'
 
 # 文本输入 Input
 
@@ -46,6 +47,10 @@ import PasswordCode from '!!raw-loader!./Password'
         <CodeBlock title="可清除"
                    code={String(ClearableCode)}>
           <Clearable />
+        </CodeBlock>
+        <CodeBlock title="只允许输入特定值"
+                   code={String(SpecificValueCode)}>
+          <SpecificValue />
         </CodeBlock>
       </Grid>
       <Grid yGap={16} cols={1}>

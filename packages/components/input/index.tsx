@@ -22,6 +22,8 @@ export const Input: FC<InputProps> = ({
   realLength = false,
   clearable = false,
   showPassword = true,
+  onlyNumber = false,
+  trim = false,
   defaultValue = '',
   passwordVisibleIcon,
   passwordInvisibleIcon,
@@ -63,6 +65,12 @@ export const Input: FC<InputProps> = ({
       }
     } else if (_value.length > maxLength) {
       _value = _value.slice(0, maxLength)
+    }
+    if (onlyNumber) {
+      _value = _value.replace(/\D/g, '')
+    }
+    if (trim) {
+      _value = _value.trim()
     }
     onChange && onChange(_value)
     setInputValue(_value)
