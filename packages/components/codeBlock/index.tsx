@@ -1,4 +1,3 @@
-// @flow
 import {
   StyledCodeBlock,
   StyledCodeBlockPrefixClass as prefixClass,
@@ -10,7 +9,6 @@ import { Button } from '../button'
 import hljs from 'highlight.js/lib/core'
 import javascript from 'highlight.js/lib/languages/javascript'
 import xml from 'highlight.js/lib/languages/xml'
-import './index.css'
 import Markdown from 'react-markdown'
 import { CopyIcon, CodeSimpleIcon, CheckIcon } from '@regen-design/icons'
 import { useCopy } from '@regen-design/hooks'
