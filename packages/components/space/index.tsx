@@ -10,12 +10,14 @@ export const Space: FC<SpaceProps> = ({
   yGap = 8,
   alignItems = 'normal',
   justifyContent = 'normal',
+  flexWrap = false,
 }) => {
   const spaceClass = classNames(prefixClass, className)
   return (
     <StyledSpace
       alignItems={alignItems}
       justifyContent={justifyContent}
+      flexWrap={flexWrap}
       xGap={xGap}
       yGap={yGap}
       role="space"

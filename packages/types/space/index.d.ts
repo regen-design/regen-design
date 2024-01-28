@@ -25,4 +25,10 @@ export interface SpaceProps extends CommonType {
    * @type  CSSProperties['justifyContent']
    */
   justifyContent?: CSSProperties['justifyContent']
+  /**
+   * @default false
+   * @description flex wrap
+   * @type CSSProperties['flexWrap']
+   */
+  flexWrap?: boolean
 }

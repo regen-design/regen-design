@@ -12,8 +12,10 @@ import Size from "./Size"
 import SizeCode from '!!raw-loader!./Size'
 import Group from "./Group"
 import GroupCode from '!!raw-loader!./Group'
+import ButtonGroup from "./ButtonGroup"
+import ButtonGroupCode from '!!raw-loader!./ButtonGroup'
 
-# 复选框 Checkbox
+# 单选框 Radio
 
 <BrowserOnly>
   {() => (<ThemeProvider>
@@ -25,9 +27,13 @@ import GroupCode from '!!raw-loader!./Group'
                    code={String(BasicCode)}>
           <Basic />
         </CodeBlock>
-        <CodeBlock title="复选组"
+        <CodeBlock title="单选组"
                    code={String(GroupCode)}>
           <Group />
+        </CodeBlock>
+        <CodeBlock title="按钮单选组"
+                   code={String(ButtonGroupCode)}>
+          <ButtonGroup />
         </CodeBlock>
       </Grid>
       <Grid yGap={16} cols={1}>
