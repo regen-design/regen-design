@@ -6,6 +6,8 @@ import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import Basic from "./Basic"
 import BasicCode from '!!raw-loader!./Basic'
+import Disabled from "./Disabled"
+import DisabledCode from '!!raw-loader!./Disabled'
 import Size from "./Size"
 import SizeCode from '!!raw-loader!./Size'
 import Group from "./Group"
@@ -29,6 +31,10 @@ import GroupCode from '!!raw-loader!./Group'
         </CodeBlock>
       </Grid>
       <Grid yGap={16} cols={1}>
+        <CodeBlock title="尺寸"
+                   code={String(DisabledCode)}>
+          <Disabled />
+        </CodeBlock>
         <CodeBlock title="尺寸"
                    code={String(SizeCode)}>
           <Size />
