@@ -10,7 +10,7 @@ export const Space: FC<SpaceProps> = ({
   yGap = 8,
   alignItems = 'normal',
   justifyContent = 'normal',
-  flexWrap = false,
+  flexWrap,
 }) => {
   const spaceClass = classNames(prefixClass, className)
   return (

@@ -9,5 +9,5 @@ export const StyledSpace = styled.div<SpaceProps>`
   justify-content: ${({ justifyContent }) => justifyContent};
   align-items: ${({ alignItems }) => alignItems};
   gap: ${({ yGap, xGap }) => `${yGap}px ${xGap}px`};
-  flex-wrap: ${({ flexWrap }) => (flexWrap ? 'wrap' : 'nowrap')};
+  flex-wrap: ${({ flexWrap }) => flexWrap};
 `
