@@ -28,7 +28,9 @@
     "@docusaurus/theme-live-codeblock": "^3.1.0",
     "@docusaurus/tsconfig": "3.1.0",
     "@docusaurus/types": "3.1.0",
+    "node-polyfill-webpack-plugin": "^3.0.0",
     "raw-loader": "^4.0.2",
+    "stream-http": "^3.2.0",
     "typescript": "~5.2.2"
   },
   "browserslist": {

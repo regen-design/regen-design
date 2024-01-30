@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "auto:export": "npx ts-node ./rootAutoExport.ts",
-    "gen:components": "npx ts-node ./generate-components.ts",
-    "after-build": "npx ts-node after-build.ts"
+    "gen:components": "npx ts-node generateComponents.ts",
+    "afterBuild": "npx ts-node afterBuild.ts"
   },
   "keywords": [],
   "author": "",

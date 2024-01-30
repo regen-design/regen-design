@@ -27,8 +27,7 @@
     "test": "vitest",
     "icons:generate": "npx pnpm -C packages/icons generate",
     "gen:components": "npx pnpm -C scripts gen:components",
-    "afterBuild": "npx pnpm -C scripts after-build",
-    "updatePackageJson": "npx pnpm -C scripts updatePackageJson",
+    "afterBuild": "npx pnpm -C scripts afterBuild",
     "rollup": "npx rollup -c"
   },
   "repository": {
@@ -85,6 +84,7 @@
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "classnames": "^2.5.1",
     "commander": "^11.1.0",
+    "comment-parser": "^1.4.1",
     "cz-customizable": "^7.0.0",
     "esbuild": "^0.19.12",
     "eslint": "^8.56.0",
