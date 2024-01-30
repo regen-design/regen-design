@@ -10,4 +10,5 @@ export const StyledSpace = styled.div<SpaceProps>`
   align-items: ${({ alignItems }) => alignItems};
   gap: ${({ yGap, xGap }) => `${yGap}px ${xGap}px`};
   flex-wrap: ${({ flexWrap }) => flexWrap};
+  flex-direction: ${({ flexDirection }) => flexDirection};
 `

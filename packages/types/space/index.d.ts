@@ -31,4 +31,10 @@ export interface SpaceProps extends CommonType {
    * @type CSSProperties['flexWrap']
    */
   flexWrap?: CSSProperties['flexWrap']
+  /**
+   * @default 'row'
+   * @description flex direction
+   * @type CSSProperties['flexDirection']
+   */
+  flexDirection?: CSSProperties['flexDirection']
 }

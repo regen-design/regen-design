@@ -36,6 +36,15 @@ export const StyledRadio = styled.div<
     outline: none;
     position: relative;
     z-index: auto;
+    border-radius: ${props => {
+      const radius = convertTheme(props.theme).borderRadius
+      if (props.index === 0) {
+        return `${radius}px 0 0 ${radius}px`
+      }
+      if (props.index === props.optionsLength - 1) {
+        return `0 ${radius}px ${radius}px 0`
+      }
+    }};
     color: ${props => {
       const _theme = convertTheme(props.theme)
       if (props.disabled) {
@@ -57,23 +66,20 @@ export const StyledRadio = styled.div<
       }
       return `1px solid ${color}`
     }};
-    border-left: ${() => {
+    border-left-width: ${props => {
+      if (props.index === 0) {
+        return `1px`
+      }
       return 0
     }};
-    border-right: ${() => {
+    border-right-width: ${props => {
+      if (props.index === props.optionsLength - 1) {
+        return `1px`
+      }
       return 0
     }};
     padding: ${props => {
-      switch (props.size) {
-        case 'tiny':
-          return '0 8px'
-        case 'small':
-          return '0 12px'
-        case 'large':
-          return '0 16px'
-        default:
-          return '0 12px'
-      }
+      return `0 ${convertTheme(props.theme).paddingSizes[props.size]}`
     }};
     height: ${props => {
       return convertTheme(props.theme).baseSizes[props.size]

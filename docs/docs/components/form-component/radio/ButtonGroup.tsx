@@ -6,11 +6,39 @@ export default function Demo() {
     { label: 'Apple', value: 'Apple' },
     { label: 'Pear', value: 'Pear' },
     { label: 'Orange', value: 'Orange' },
+    { label: 'Banana', value: 'Banana' },
   ]
   const [value, setValue] = useState('')
   return (
-    <Space alignItems={'center'}>
-      <RadioGroup value={value} optionType={'button'} options={options} onChange={setValue} />
+    <Space flexDirection={'column'}>
+      <RadioGroup
+        size={'tiny'}
+        value={value}
+        optionType={'button'}
+        options={options}
+        onChange={setValue}
+      />
+      <RadioGroup
+        size={'small'}
+        value={value}
+        optionType={'button'}
+        options={options}
+        onChange={setValue}
+      />
+      <RadioGroup
+        size={'default'}
+        value={value}
+        optionType={'button'}
+        options={options}
+        onChange={setValue}
+      />
+      <RadioGroup
+        size={'large'}
+        value={value}
+        optionType={'button'}
+        options={options}
+        onChange={setValue}
+      />
     </Space>
   )
 }

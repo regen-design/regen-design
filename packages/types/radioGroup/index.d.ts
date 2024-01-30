@@ -30,4 +30,10 @@ export interface RadioGroupProps extends CommonType {
    * @type default | button
    */
   optionType?: 'default' | 'button'
+  /**
+   * @description  size of group
+   * @default default
+   * @type Size
+   */
+  size?: Size
 }

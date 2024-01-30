@@ -21,6 +21,7 @@ export const RadioGroup: FC<RadioGroupProps> = ({
   value,
   onChange,
   optionType = 'default',
+  size = 'default',
 }) => {
   const radioGroupClass = classNames(prefixClass, className)
   const [checked, setChecked] = useState<string>('')
@@ -41,17 +42,9 @@ export const RadioGroup: FC<RadioGroupProps> = ({
           {options.map((option, index) => {
             return (
               <Fragment key={index}>
-                {optionType === 'button' && index < options.length && (
-                  <div
-                    className={`${prefixClass}__divider ${
-                      currentIndex >= 0 && (currentIndex === index || currentIndex === index - 1)
-                        ? `${prefixClass}__divider--active`
-                        : ''
-                    }`}
-                  />
-                )}
                 <Radio
                   index={index}
+                  size={size}
                   checked={checked === option.value}
                   disabled={option.disabled}
                   onChange={_checked => {
@@ -63,10 +56,10 @@ export const RadioGroup: FC<RadioGroupProps> = ({
                 >
                   {option.label}
                 </Radio>
-                {optionType === 'button' && index === options.length - 1 && (
+                {optionType === 'button' && index < options.length - 1 && (
                   <div
                     className={`${prefixClass}__divider ${
-                      currentIndex >= 0 && currentIndex === index
+                      currentIndex >= 0 && (currentIndex === index || currentIndex === index + 1)
                         ? `${prefixClass}__divider--active`
                         : ''
                     }`}
