@@ -11,7 +11,8 @@ export type Color =
   | 'placeholder'
 
 export type Animation = 'duration'
-
+export type ComponentsType = 'switch'
+export type TransitionType = 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear'
 export interface ThemeConfig {
   /**
    * @description The colors of the components
@@ -68,4 +69,21 @@ export interface ThemeConfig {
    * @type Record<Animation, string | number>
    */
   animations: Record<Animation, string | number>
+  /**
+   * @description transition variables
+   * @type Record<TransitionType, string>
+   */
+  transition: Record<TransitionType, string>
+  /**
+   * @description The components variables
+   * @type Record<ComponentsType, Record<Size, string>>
+   */
+  components: Record<
+    ComponentsType,
+    {
+      width: Record<Size, string>
+      height: Record<Size, string>
+      backgroundColor: Record<'light' | 'dark', string>
+    }
+  >
 }

@@ -37,5 +37,31 @@ export const defaultTheme: ThemeConfig = {
   animations: {
     duration: 300,
   },
+  transition: {
+    'ease-in': 'cubic-bezier(0.4, 0, 1, 1)',
+    'ease-out': 'cubic-bezier(0, 0, 0.2, 1)',
+    'ease-in-out': 'cubic-bezier(0.4, 0, 0.2, 1)',
+    linear: 'linear',
+  },
+  components: {
+    switch: {
+      width: {
+        tiny: '28px',
+        small: '36px',
+        default: '44px',
+        large: '52px',
+      },
+      height: {
+        tiny: '14px',
+        small: '18px',
+        default: '22px',
+        large: '26px',
+      },
+      backgroundColor: {
+        light: 'rgba(0, 0, 0, .14)',
+        dark: 'rgba(255, 255, 255, .20)',
+      },
+    },
+  },
   theme: 'light',
 }
