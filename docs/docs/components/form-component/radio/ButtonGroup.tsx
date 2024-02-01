@@ -11,34 +11,7 @@ export default function Demo() {
   const [value, setValue] = useState('')
   return (
     <Space flexDirection={'column'}>
-      <RadioGroup
-        size={'tiny'}
-        value={value}
-        optionType={'button'}
-        options={options}
-        onChange={setValue}
-      />
-      <RadioGroup
-        size={'small'}
-        value={value}
-        optionType={'button'}
-        options={options}
-        onChange={setValue}
-      />
-      <RadioGroup
-        size={'default'}
-        value={value}
-        optionType={'button'}
-        options={options}
-        onChange={setValue}
-      />
-      <RadioGroup
-        size={'large'}
-        value={value}
-        optionType={'button'}
-        options={options}
-        onChange={setValue}
-      />
+      <RadioGroup value={value} optionType={'button'} options={options} onChange={setValue} />
     </Space>
   )
 }

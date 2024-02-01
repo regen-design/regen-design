@@ -20,6 +20,7 @@ export const StyledRadioGroup = styled.div<RadioGroupProps>`
         return _theme.colors.primary
       }};
     }
+    transition: background-color 300ms ease-in-out;
     background-color: ${props => {
       const _theme = convertTheme(props.theme)
       if (_theme.theme === 'dark') {

@@ -23,7 +23,7 @@ export interface WaveRefProps {
 
 export type WaveSpreadAnimationKeyframesType = (options: {
   color: string
-  waveBlurRadius: string
+  waveBlurRadius: number
   waveDeepAmount: number
   theme: ThemeConfig['theme']
 }) => Keyframes

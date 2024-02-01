@@ -29,6 +29,13 @@ export const StyledRadio = styled.div<
   margin: 0;
   padding: 0;
   &:focus {
+    .${prefix}-button {
+      box-shadow: ${props => {
+        const _theme = convertTheme(props.theme)
+        const color = _theme.colors.primary
+        return `0 0 0 ${_theme.waveBlurRadius / 2}px ${rgba(color, 0.25)}`
+      }};
+    }
     .${prefix}-wrapper {
       .${prefix}-box__border {
         border: ${props => {
@@ -52,7 +59,12 @@ export const StyledRadio = styled.div<
     white-space: nowrap;
     outline: none;
     position: relative;
-    z-index: auto;
+    z-index: ${props => {
+      if (props.checked) {
+        return 1
+      }
+      return 'auto'
+    }};
     border-radius: ${props => {
       const radius = convertTheme(props.theme).borderRadius
       if (props.index === 0) {
@@ -83,6 +95,9 @@ export const StyledRadio = styled.div<
       }
       return `1px solid ${color}`
     }};
+    transition:
+      border 300ms ease-in-out,
+      box-shadow 0.3s ease;
     border-left-width: ${props => {
       if (props.index === 0) {
         return `1px`
