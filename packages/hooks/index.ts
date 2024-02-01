@@ -1,5 +1,5 @@
-export * from './useDebounce'
 export * from './useCopy'
-export * from './useUpdate'
+export * from './useDebounce'
 export * from './useLatest'
 export * from './useMergedState'
+export * from './useUpdate'

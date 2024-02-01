@@ -1,0 +1,49 @@
+import { FC } from 'react'
+import { TableProps } from '@regen-design/types'
+import { StyledTable, StyledTablePrefixClass as prefixClass } from '@regen-design/theme'
+import classNames from 'classnames'
+export const Table: FC<TableProps> = ({
+  style = {},
+  className = '',
+  dataSource = [],
+  columns = [],
+}) => {
+  const tableClass = classNames(prefixClass, className)
+  return (
+    <StyledTable role="table" className={tableClass} style={style}>
+      {columns.length > 0 && (
+        <thead>
+          <tr>
+            {columns.map((column, index) => {
+              const { title, dataIndex, key, width, align } = column
+              return (
+                <th key={key || dataIndex || index} style={{ width, textAlign: align }}>
+                  {title}
+                </th>
+              )
+            })}
+          </tr>
+        </thead>
+      )}
+      {dataSource.length > 0 && (
+        <tbody>
+          {dataSource.map((row, index) => {
+            return (
+              <tr key={index}>
+                {columns.map((column, index) => {
+                  const { dataIndex, key, width, align, render } = column
+                  const value = row[dataIndex]
+                  return (
+                    <td key={key || dataIndex || index} style={{ width, textAlign: align }}>
+                      {render ? render(value, row, index) : value}
+                    </td>
+                  )
+                })}
+              </tr>
+            )
+          })}
+        </tbody>
+      )}
+    </StyledTable>
+  )
+}
