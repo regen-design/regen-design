@@ -157,7 +157,7 @@ export const StyledCheckbox = styled.div<CheckboxProps>`
     line-height: 1.5;
     border-radius: ${props => {
       const _theme = convertTheme(props.theme)
-      return `${_theme.borderRadius}px`
+      return _theme.borderRadius + 'px'
     }};
   }
 `

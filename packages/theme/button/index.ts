@@ -35,7 +35,7 @@ export const StyledButton = styled.button<
     if (props.circle) {
       return '50%'
     }
-    if (props.round) {
+    if (props.rounded) {
       return height
     }
     return convertTheme(props.theme).borderRadius + 'px'

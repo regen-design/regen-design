@@ -14,7 +14,7 @@ export const Button: FC<ButtonProps> = ({
   dashed = false,
   text = false,
   circle = false,
-  round = false,
+  rounded = false,
   block = false,
   loading = false,
   color,
@@ -62,7 +62,7 @@ export const Button: FC<ButtonProps> = ({
         size={size}
         text={text}
         circle={circle}
-        round={round}
+        rounded={rounded}
         block={block}
         color={color}
         isLoading={loading}

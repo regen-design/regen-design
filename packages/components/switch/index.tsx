@@ -10,6 +10,7 @@ export const Switch: FC<SwitchProps> = ({
   disabled,
   checked,
   onChange,
+  rounded = true,
   size = 'default',
   checkedChildren,
   unCheckedChildren,
@@ -44,6 +45,7 @@ export const Switch: FC<SwitchProps> = ({
       style={style}
       checked={innerValue}
       disabled={disabled}
+      rounded={rounded}
       innerWidth={maxInnerWidth}
       size={size}
       tabIndex={0}

@@ -58,10 +58,10 @@ export interface ButtonProps extends CommonType {
   circle?: boolean
   /**
    * @default false
-   * @description button is round
+   * @description button is rounded
    * @type boolean
    */
-  round?: boolean
+  rounded?: boolean
   /**
    * @default undefined
    * @description button click event

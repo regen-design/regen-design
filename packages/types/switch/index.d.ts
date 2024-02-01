@@ -20,6 +20,12 @@ export interface SwitchProps extends Omit<CommonType, 'children'> {
    */
   disabled?: boolean
   /**
+   * @description is rounded
+   * @default true
+   * @type boolean
+   */
+  rounded?: boolean
+  /**
    * @description size
    * @default 'default'
    * @type Size

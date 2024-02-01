@@ -70,7 +70,7 @@ export interface InputProps extends Omit<CommonType, 'children'> {
    * @default false
    * @type boolean
    */
-  round?: boolean
+  rounded?: boolean
   /**
    * @description prefix node
    * @default undefined

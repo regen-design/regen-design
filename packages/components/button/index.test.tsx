@@ -65,8 +65,8 @@ describe('Button', () => {
     const height = style.getPropertyValue('height')
     expect(width).toBe(height)
   })
-  test('should work with `round` prop', () => {
-    render(<Button round>round</Button>)
+  test('should work with `rounded` prop', () => {
+    render(<Button rounded>rounded</Button>)
     const button = screen.getByRole('button')
     expect(button).toMatchSnapshot()
     const style = window.getComputedStyle(button)

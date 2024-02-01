@@ -7,7 +7,7 @@ export default function Demo() {
       <Button circle>
         <AddIcon />
       </Button>
-      <Button round>round</Button>
+      <Button rounded>rounded</Button>
       <Button>square</Button>
     </Space>
   )

@@ -56,7 +56,10 @@ export const StyledSwitch = styled.div<SwitchProps & { innerWidth: number }>`
   border-radius: ${props => {
     const _themes = convertTheme(props.theme)
     const height = _themes.components.switch.height[props.size]
-    return `calc(${height} / 2)`
+    if (props.rounded) {
+      return `calc(${height} / 2)`
+    }
+    return _themes.borderRadius + 'px'
   }};
   .${prefix}-inner {
     overflow: hidden;

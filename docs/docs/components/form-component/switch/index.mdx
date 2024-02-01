@@ -12,6 +12,8 @@ import Size from "./Size"
 import SizeCode from '!!raw-loader!./Size'
 import Content from "./Content"
 import ContentCode from '!!raw-loader!./Content'
+import Shape from "./Shape"
+import ShapeCode from '!!raw-loader!./Shape'
 
 # 开关 Switch
 
@@ -28,6 +30,10 @@ import ContentCode from '!!raw-loader!./Content'
         <CodeBlock title="尺寸"
                    code={String(SizeCode)}>
           <Size />
+        </CodeBlock>
+        <CodeBlock title="形状"
+                   code={String(ShapeCode)}>
+          <Shape />
         </CodeBlock>
       </Grid>
       <Grid yGap={16} cols={1}>

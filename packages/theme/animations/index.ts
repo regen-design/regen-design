@@ -17,7 +17,7 @@ export const WaveSpreadAnimationKeyframes: WaveSpreadAnimationKeyframesType = op
     }
     100% {
         opacity: 0;
-        box-shadow: 0 0 1px ${options.waveBlurRadius}px ${color};
+        box-shadow: 0 0 1px ${options.waveBlurRadius} ${color};
     }
 `
 }

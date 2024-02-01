@@ -13,7 +13,7 @@ export default function Demo() {
         value={value}
         onChange={setValue}
       />
-      <Input placeholder={'可以清除'} clearable round value={value} onChange={setValue} />
+      <Input placeholder={'可以清除'} clearable rounded value={value} onChange={setValue} />
     </Space>
   )
 }

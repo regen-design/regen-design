@@ -18,7 +18,7 @@ export const Input: FC<InputProps> = ({
   disabled = false,
   readOnly = false,
   showCount = false,
-  round = false,
+  rounded = false,
   realLength = false,
   clearable = false,
   showPassword = true,
@@ -130,7 +130,7 @@ export const Input: FC<InputProps> = ({
       isFocus={isFocus}
       type={type}
       disabled={disabled}
-      round={round}
+      rounded={rounded}
       className={inputClass}
       style={style}
     >

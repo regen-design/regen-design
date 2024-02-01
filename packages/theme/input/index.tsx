@@ -52,7 +52,7 @@ export const StyledInput = styled.div<
   }};
   border-radius: ${props => {
     const _theme = convertTheme(props.theme)
-    if (props.round) {
+    if (props.rounded) {
       const height = _theme.baseSizes[props.size] || _theme.baseSizes['default']
       return `calc(${height} / 2)`
     }
