@@ -2,6 +2,7 @@ import { NAME_SPACE } from '@regen-design/constant'
 import { SwitchProps } from '@regen-design/types'
 import styled from 'styled-components'
 import { convertTheme } from '../tools'
+import { rgba } from 'polished'
 const prefix = `${NAME_SPACE}-switch`
 export const StyledSwitchPrefixClass = prefix
 export const StyledSwitch = styled.div<SwitchProps & { innerWidth: number }>`
@@ -19,6 +20,19 @@ export const StyledSwitch = styled.div<SwitchProps & { innerWidth: number }>`
     const _themes = convertTheme(props.theme)
     return _themes.components.switch.height[props.size]
   }};
+  &:focus {
+    .${prefix}-inner {
+      border: ${props => {
+        const _theme = convertTheme(props.theme)
+        return `1px solid ${rgba(_theme.colors['primary'], 0.15)}`
+      }};
+      box-shadow: ${props => {
+        const _theme = convertTheme(props.theme)
+        const color = _theme.colors.primary
+        return `0 0 0 ${_theme.waveBlurRadius / 2}px ${rgba(color, 0.15)}`
+      }};
+    }
+  }
   vertical-align: middle;
   user-select: none;
   -webkit-user-select: none;
@@ -27,6 +41,7 @@ export const StyledSwitch = styled.div<SwitchProps & { innerWidth: number }>`
   justify-content: center;
   align-items: center;
   position: relative;
+  box-sizing: border-box;
   cursor: ${props => {
     if (props.disabled) {
       return 'not-allowed'
@@ -51,9 +66,16 @@ export const StyledSwitch = styled.div<SwitchProps & { innerWidth: number }>`
     border-radius: inherit;
     display: inline-flex;
     align-items: center;
+    border: 1px solid transparent;
     transition: ${props => {
       const _themes = convertTheme(props.theme)
-      return `background-color 300ms ${_themes.transition['ease-in-out']}`
+      const transitionNames = ['background-color', 'border', 'box-shadow']
+      return transitionNames
+        .map(item => {
+          const transition = _themes.transition['ease-in-out']
+          return `${item} 300ms ${transition}`
+        })
+        .join(',')
     }};
     background-color: ${props => {
       const _themes = convertTheme(props.theme)
@@ -102,11 +124,11 @@ export const StyledSwitch = styled.div<SwitchProps & { innerWidth: number }>`
         const _themes = convertTheme(props.theme)
         const size = _themes.components.switch.height[props.size]
         if (props.checked) {
-          return `calc(100% - ${size} - 2px + 4px)`
+          return `calc(100% - ${size} - 1px + 4px)`
         }
-        return '2px'
+        return '1px'
       }};
-      top: 2px;
+      top: 1px;
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
       height: ${props => {
         const _themes = convertTheme(props.theme)

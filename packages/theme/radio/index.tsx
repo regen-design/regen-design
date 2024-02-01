@@ -2,7 +2,7 @@ import { NAME_SPACE } from '@regen-design/constant'
 import { RadioGroupProps, RadioProps } from '@regen-design/types'
 import styled from 'styled-components'
 import { convertTheme } from '../tools'
-import { lighten } from 'polished'
+import { lighten, rgba } from 'polished'
 const prefix = `${NAME_SPACE}-radio`
 export const StyledRadioPrefixClass = prefix
 export const StyledRadio = styled.div<
@@ -28,6 +28,23 @@ export const StyledRadio = styled.div<
   }};
   margin: 0;
   padding: 0;
+  &:focus {
+    .${prefix}-wrapper {
+      .${prefix}-box__border {
+        border: ${props => {
+          const _theme = convertTheme(props.theme)
+          return `1px solid ${_theme.colors['primary']}`
+        }};
+      }
+      .${prefix}-box {
+        box-shadow: ${props => {
+          const _theme = convertTheme(props.theme)
+          const color = _theme.colors.primary
+          return `0 0 0 ${_theme.waveBlurRadius / 2}px ${rgba(color, 0.15)}`
+        }};
+      }
+    }
+  }
   .${prefix}-button {
     display: inline-flex;
     align-items: center;
@@ -123,7 +140,9 @@ export const StyledRadio = styled.div<
           return 'scale(0)'
         }};
       }
-      transition: background-color 0.3s ease;
+      transition:
+        background-color 0.3s ease,
+        box-shadow 0.3s ease;
       border-radius: inherit;
       width: ${props => {
         const _theme = convertTheme(props.theme)
@@ -156,7 +175,9 @@ export const StyledRadio = styled.div<
           }
           return _theme.borderColor
         }};
-      transition: background-color 0.3s ease;
+      transition:
+        background-color 0.3s ease,
+        border 0.3s ease;
     }
     box-sizing: border-box;
     position: relative;

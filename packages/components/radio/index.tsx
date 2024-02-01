@@ -31,6 +31,7 @@ export const Radio: FC<RadioProps> = ({
       className={radioClass}
       optionType={optionType}
       optionsLength={optionsLength}
+      tabIndex={0}
       style={style}
       onClick={() => {
         if (disabled) return

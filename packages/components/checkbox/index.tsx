@@ -27,6 +27,7 @@ export const Checkbox: FC<CheckboxProps> = ({
       size={size}
       checked={checked}
       disabled={disabled}
+      tabIndex={0}
       onClick={() => {
         if (disabled) return
         const _checked = !checked

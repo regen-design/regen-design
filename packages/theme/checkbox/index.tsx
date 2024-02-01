@@ -24,6 +24,23 @@ export const StyledCheckbox = styled.div<CheckboxProps>`
   }};
   margin: 0;
   padding: 0;
+  &:focus {
+    .${prefix}-wrapper {
+      .${prefix}-box__border {
+        border: ${props => {
+          const _theme = convertTheme(props.theme)
+          return `1px solid ${_theme.colors['primary']}`
+        }};
+      }
+      .${prefix}-box {
+        box-shadow: ${props => {
+          const _theme = convertTheme(props.theme)
+          const color = _theme.colors.primary
+          return `0 0 0 ${_theme.waveBlurRadius / 2}px ${rgba(color, 0.15)}`
+        }};
+      }
+    }
+  }
   .${prefix}-label {
     user-select: none;
     -webkit-user-select: none;
@@ -53,7 +70,9 @@ export const StyledCheckbox = styled.div<CheckboxProps>`
           return 'inherit'
         }
       }};
-      transition: background-color 0.3s ease;
+      transition:
+        background-color 0.3s ease,
+        box-shadow 0.3s ease;
       border-radius: inherit;
       width: ${props => {
         const _theme = convertTheme(props.theme)
@@ -119,7 +138,9 @@ export const StyledCheckbox = styled.div<CheckboxProps>`
           }
           return _theme.borderColor
         }};
-      transition: background-color 0.3s ease;
+      transition:
+        background-color 0.3s ease,
+        border 0.3s ease;
     }
     box-sizing: border-box;
     position: relative;

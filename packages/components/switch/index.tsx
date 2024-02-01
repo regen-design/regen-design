@@ -46,6 +46,7 @@ export const Switch: FC<SwitchProps> = ({
       disabled={disabled}
       innerWidth={maxInnerWidth}
       size={size}
+      tabIndex={0}
       onClick={() => {
         if (disabled) return
         waveRef.current?.play()
