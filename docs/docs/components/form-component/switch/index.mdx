@@ -6,6 +6,12 @@ import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import Basic from "./Basic"
 import BasicCode from '!!raw-loader!./Basic'
+import Disabled from "./Disabled"
+import DisabledCode from '!!raw-loader!./Disabled'
+import Size from "./Size"
+import SizeCode from '!!raw-loader!./Size'
+import Content from "./Content"
+import ContentCode from '!!raw-loader!./Content'
 
 # 开关 Switch
 
@@ -18,6 +24,20 @@ import BasicCode from '!!raw-loader!./Basic'
         <CodeBlock title="基础"
                    code={String(BasicCode)}>
           <Basic />
+        </CodeBlock>
+        <CodeBlock title="尺寸"
+                   code={String(SizeCode)}>
+          <Size />
+        </CodeBlock>
+      </Grid>
+      <Grid yGap={16} cols={1}>
+        <CodeBlock title="禁用"
+                   code={String(DisabledCode)}>
+          <Disabled />
+        </CodeBlock>
+        <CodeBlock title="内容"
+                   code={String(ContentCode)}>
+          <Content />
         </CodeBlock>
       </Grid>
     </Grid>

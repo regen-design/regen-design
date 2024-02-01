@@ -20,7 +20,6 @@ export const Radio: FC<RadioProps> = ({
   const waveRef = useRef<WaveRefProps>(null)
   useEffect(() => {
     setChecked(WChecked)
-    onChange?.(WChecked)
   }, [WChecked])
   return (
     <StyledRadio

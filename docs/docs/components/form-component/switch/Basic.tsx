@@ -5,7 +5,12 @@ export default function Demo() {
   const [checked, setChecked] = useState(false)
   return (
     <Space alignItems={'center'}>
-      <Switch></Switch>
+      <Switch
+        checked={checked}
+        onChange={e => {
+          setChecked(e)
+        }}
+      ></Switch>
     </Space>
   )
 }

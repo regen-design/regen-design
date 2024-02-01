@@ -1,4 +1,5 @@
 import { CommonType } from '../common'
+import { ReactNode } from 'react'
 export interface SwitchProps extends Omit<CommonType, 'children'> {
   /**
    * @description is checked
@@ -12,4 +13,28 @@ export interface SwitchProps extends Omit<CommonType, 'children'> {
    * @type (checked: boolean) => void
    */
   onChange?: (checked: boolean) => void
+  /**
+   * @description disabled
+   * @default false
+   * @type boolean
+   */
+  disabled?: boolean
+  /**
+   * @description size
+   * @default 'default'
+   * @type Size
+   */
+  size?: Size
+  /**
+   * @description checked children
+   * @default undefined
+   * @type ReactNode
+   */
+  checkedChildren?: ReactNode
+  /**
+   * @description un checked children
+   * @default undefined
+   * @type ReactNode
+   */
+  unCheckedChildren?: ReactNode
 }

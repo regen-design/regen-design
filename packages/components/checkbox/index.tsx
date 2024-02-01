@@ -18,7 +18,6 @@ export const Checkbox: FC<CheckboxProps> = ({
   const [checked, setChecked] = useState(false)
   useEffect(() => {
     setChecked(WChecked)
-    onChange?.(WChecked)
   }, [WChecked])
   return (
     <StyledCheckbox
