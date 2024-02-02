@@ -44,6 +44,11 @@ export const defaultTheme: ThemeConfig = {
     linear: 'linear',
   },
   components: {
+    select: {
+      menuPadding: '4px',
+      menuItemPadding: '8px',
+      activeBackgroundColor: '#f5f5f5',
+    },
     switch: {
       width: {
         tiny: '28px',

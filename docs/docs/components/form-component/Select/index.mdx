@@ -1,0 +1,29 @@
+---
+sidebar_position: 4
+---
+
+import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+import Basic from "./Basic"
+import BasicCode from '!!raw-loader!./Basic'
+
+
+# 选择框 Select
+
+<BrowserOnly>
+  {() => (<ThemeProvider>
+    <Grid xGap={16} cols={2} style={{
+      alignItems: 'flex-start'
+    }}>
+      <Grid yGap={16} cols={1}>
+        <CodeBlock title="基础"
+                   code={String(BasicCode)}>
+          <Basic />
+        </CodeBlock>
+      </Grid>
+      <Grid yGap={16} cols={1}>
+
+      </Grid>
+    </Grid>
+  </ThemeProvider>)}
+</BrowserOnly>
