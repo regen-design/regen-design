@@ -4,86 +4,74 @@ import { CommonType, Size, Type } from '../common'
 export interface ButtonProps extends CommonType {
   /**
    * @default 'default'
-   * @description - button type
-   * @params {Type}
-   * @name type
+   * @description button link
+   * @type {Type}
    */
   type?: Type
   /**
-   * @default undefined
-   * @description - button custom color
-   * @params {string}
-   * @name color
-   */
-  color?: string
-  /**
    * @default 'default'
-   * @description - button size
-   * @params {Size}
-   * @name size
+   * @description button size
+   * @type {Size}
    */
   size?: Size
   /**
    * @default false
-   * @description - button disabled
-   * @params {boolean}
-   * @name disabled
+   * @description button disabled
+   * @type {boolean}
    */
   disabled?: boolean
   /**
+   * @default undefined
+   * @description button custom color
+   * @type {string}
+   */
+  color?: string
+  /**
    * @default false
-   * @description - button dashed
-   * @params {boolean}
-   * @name dashed
+   * @description button dashed
+   * @type {boolean}
    */
   dashed?: boolean
   /**
    * @default false
-   * @description - button text
-   * @params {boolean}
-   * @name text
+   * @description button text
+   * @type {boolean}
    */
   text?: boolean
   /***
    * @default false
-   * @description - button block
-   * @params {boolean}
-   * @name block
+   * @description button block
+   * @type {boolean}
    */
   block?: boolean
   /**
    * @default false
-   * @description - button loading
-   * @params {boolean}
-   * @name loading
+   * @description button loading
+   * @type {boolean}
    */
   loading?: boolean
   /**
    * @default false
-   * @description - button is circle
-   * @params {boolean}
-   * @name circle
+   * @description button is circle
+   * @type {boolean}
    */
   circle?: boolean
   /**
    * @default false
-   * @description - button is rounded
-   * @params {boolean}
-   * @name rounded
+   * @description button is rounded
+   * @type {boolean}
    */
   rounded?: boolean
   /**
    * @default null
-   * @description - button icon
-   * @params {ReactNode}
-   * @name icon
+   * @description button icon
+   * @type {ReactNode}
    */
   icon?: ReactNode
   /**
    * @default undefined
-   * @description - click event
-   * @params {(e: React.MouseEvent) => void}
-   * @name onClick
+   * @description click event
+   * @type {(e: MouseEvent<HTMLButtonElement>) => void}
    */
-  onClick?: (e: MouseEvent) => void
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void
 }

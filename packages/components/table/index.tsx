@@ -2,11 +2,13 @@ import { FC } from 'react'
 import { TableProps } from '@regen-design/types'
 import { StyledTable, StyledTablePrefixClass as prefixClass } from '@regen-design/theme'
 import classNames from 'classnames'
+import Markdown from 'react-markdown'
 export const Table: FC<TableProps> = ({
   style = {},
   className = '',
   dataSource = [],
   columns = [],
+  markdown = false,
 }) => {
   const tableClass = classNames(prefixClass, className)
   return (
@@ -33,9 +35,14 @@ export const Table: FC<TableProps> = ({
                 {columns.map((column, index) => {
                   const { dataIndex, key, width, align, render } = column
                   const value = row[dataIndex]
+                  const content = render ? render(value, row, index) : value
                   return (
                     <td key={key || dataIndex || index} style={{ width, textAlign: align }}>
-                      {render ? render(value, row, index) : value}
+                      {markdown ? (
+                        <Markdown className={`${prefixClass}-markdown`}>{content}</Markdown>
+                      ) : (
+                        content
+                      )}
                     </td>
                   )
                 })}

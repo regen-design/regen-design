@@ -21,10 +21,8 @@ import Shape from "./Shape"
 import ShapeCode from '!!raw-loader!./Shape';
 import Colors from "./Colors"
 import ColorsCode from '!!raw-loader!./Colors';
-import { CodeBlock, Grid, Table, ThemeProvider } from '@regen-design/components'
+import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 import Api from "./Api"
-import { generateDocs } from '@regen-design/utils/docs'
-import ButtonProps from '!!raw-loader!@regen-design/types/button/index.d'
 
 # 按钮 Button
 
@@ -99,9 +97,7 @@ import ButtonProps from '!!raw-loader!@regen-design/types/button/index.d'
   )}
 </BrowserOnly>
 
-
-## API
-
-<>
-  <Api data={generateDocs(ButtonProps)}/>
-</>
+<ThemeProvider>
+  ## API
+  <Api />
+</ThemeProvider>

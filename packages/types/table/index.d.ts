@@ -1,17 +1,21 @@
 import { CommonType } from '../common'
-export interface TableProps extends CommonType {
+export interface TableProps extends Omit<CommonType, 'children'> {
   /**
    * @default []
-   * @description - The data source of table
-   * @params {Array}
-   * @name dataSource
+   * @description The data source of table
+   * @type {Array}
    */
   dataSource?: Array<any>
   /**
    * @default []
    * @description - The columns of table
-   * @params {Array}
-   * @name columns
+   * @type {Array}
    */
   columns?: Array<any>
+  /**
+   * @default false
+   * @description is convert markdown to html
+   * @type {boolean}
+   */
+  markdown?: boolean
 }
