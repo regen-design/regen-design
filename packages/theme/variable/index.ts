@@ -10,6 +10,8 @@ export const defaultTheme: ThemeConfig = {
     dark: '#323538',
     light: '#fafafa',
     placeholder: '#c2c2c2',
+    white: 'rgb(255,255,255)',
+    black: 'rgb(0,0,0)',
   },
   fontSizes: {
     tiny: '10px',

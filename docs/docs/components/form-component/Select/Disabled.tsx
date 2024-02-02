@@ -3,6 +3,7 @@ import { Select, Space } from '@regen-design/components'
 export default function Demo() {
   const options = [
     {
+      disabled: true,
       value: '选项1',
       label: '黄金糕',
     },
@@ -25,6 +26,7 @@ export default function Demo() {
   ]
   return (
     <Space alignItems={'center'}>
+      <Select disabled />
       <Select options={options} />
     </Space>
   )

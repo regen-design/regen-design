@@ -1,4 +1,6 @@
 import { CommonType } from '../common'
+import { ReactNode } from 'react'
+
 export interface SelectProps extends Omit<CommonType, 'children'> {
   /**
    * @description value of the select
@@ -14,14 +16,20 @@ export interface SelectProps extends Omit<CommonType, 'children'> {
   onChange?: (value: string) => void
   /**
    * @description options of the select
-   * @type { label: ReactNode; value: string }[]
+   * @type { label: ReactNode; value: string;disabled?: boolean }[]
    * @default []
    */
-  options?: { label: ReactNode; value: string }[]
+  options?: { label: ReactNode; value: string; disabled?: boolean }[]
   /**
    * @description Whether to hide the menu when clicking item
    * @type boolean
    * @default true
    */
   hideMenuOnClick?: boolean
+  /**
+   * @description disabled of the select
+   * @type boolean
+   * @default false
+   */
+  disabled?: boolean
 }

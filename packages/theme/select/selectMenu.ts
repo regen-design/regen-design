@@ -31,29 +31,43 @@ export const StyledSelectMenu = styled.div<{
     const _theme = convertTheme(props.theme)
     return `calc(${_theme.baseSizes.default} * 7)`
   }};
-  .${prefix}__item {
-    &:hover {
-      background: ${props => {
-        const _theme = convertTheme(props.theme)
-        return _theme.components.select.activeBackgroundColor
-      }};
-    }
-    &.active {
-      color: ${props => {
-        const _theme = convertTheme(props.theme)
-        return _theme.colors.primary
-      }};
-    }
-    display: flex;
-    transition: background-color 0.3s ease-in-out;
-    cursor: pointer;
-    padding: ${props => {
-      const _theme = convertTheme(props.theme)
-      return _theme.components.select.menuItemPadding
-    }};
+`
 
-    .${prefix}__item-checked {
-      margin-left: auto;
-    }
+export const StyledSelectMenuItem = styled.div<{
+  theme?: ThemeConfig
+  disabled?: boolean
+}>`
+  &:hover {
+    background: ${props => {
+      if (props.disabled) {
+        return 'none'
+      }
+      const _theme = convertTheme(props.theme)
+      return _theme.components.select.activeBackgroundColor
+    }};
+  }
+  &.active {
+    color: ${props => {
+      const _theme = convertTheme(props.theme)
+      return _theme.colors.primary
+    }};
+  }
+  &.disabled {
+    color: ${props => {
+      const _theme = convertTheme(props.theme)
+      return _theme.colors.placeholder
+    }};
+    cursor: not-allowed;
+  }
+  display: flex;
+  transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
+  padding: ${props => {
+    const _theme = convertTheme(props.theme)
+    return _theme.components.select.menuItemPadding
+  }};
+
+  .${prefix}__item-checked {
+    margin-left: auto;
   }
 `

@@ -2,12 +2,16 @@ import { NAME_SPACE } from '@regen-design/constant'
 import { SelectProps } from '@regen-design/types'
 import styled from 'styled-components'
 import { convertTheme } from '../tools'
-import { rgba } from 'polished'
+import { darken, rgba } from 'polished'
 
 export * from './selectMenu'
 const prefix = `${NAME_SPACE}-select`
 export const StyledSelectPrefixClass = prefix
-export const StyledSelect = styled.div<SelectProps>`
+export const StyledSelect = styled.div<
+  SelectProps & {
+    isFocused: boolean
+  }
+>`
   z-index: auto;
   outline: none;
   width: 100%;
@@ -17,6 +21,9 @@ export const StyledSelect = styled.div<SelectProps>`
     .${prefix}-inner {
       .${prefix}__border {
         border-color: ${props => {
+          if (props.disabled) {
+            return null
+          }
           const _theme = convertTheme(props.theme)
           return _theme.colors.primary
         }};
@@ -42,31 +49,14 @@ export const StyledSelect = styled.div<SelectProps>`
     }};
     line-height: 1.5;
 
-    &:focus {
-      .${prefix}__border {
-        border-color: ${props => {
-          const _theme = convertTheme(props.theme)
-          return _theme.colors.primary
-        }};
-      }
-
-      .${prefix}__state-border {
-        box-shadow: ${props => {
-          const _theme = convertTheme(props.theme)
-          const color = _theme.colors['primary'] || '#000000'
-          return `0 0 0 ${_theme.waveBlurRadius / 2}px ${rgba(color, 0.15)}`
-        }};
-      }
-    }
-
     .${prefix}__border, .${prefix}__state-border {
       width: 100%;
       height: 100%;
       position: absolute;
       left: 0;
       top: 0;
-      z-index: -1;
       border-radius: inherit;
+      pointer-events: none;
     }
 
     .${prefix}__state-border {
@@ -89,22 +79,90 @@ export const StyledSelect = styled.div<SelectProps>`
     }
 
     .${prefix}-label {
+      &.active,
+      &:focus {
+        ~ .${prefix}__border {
+          border-color: ${props => {
+            if (props.disabled) {
+              return null
+            }
+            const _theme = convertTheme(props.theme)
+            return _theme.colors.primary
+          }};
+        }
+
+        ~ .${prefix}__state-border {
+          box-shadow: ${props => {
+            if (props.disabled) {
+              return null
+            }
+            const _theme = convertTheme(props.theme)
+            const color = _theme.colors['primary'] || '#000000'
+            return `0 0 0 ${_theme.waveBlurRadius / 2}px ${rgba(color, 0.15)}`
+          }};
+        }
+      }
       height: ${props => {
         const _theme = convertTheme(props.theme)
         return _theme.baseSizes['default']
       }};
       border-radius: inherit;
       vertical-align: bottom;
-      cursor: pointer;
+      cursor: ${props => {
+        if (props.disabled) {
+          return 'not-allowed'
+        }
+        return 'pointer'
+      }};
       outline: none;
       z-index: auto;
       box-sizing: border-box;
       position: relative;
-
+      background-color: ${props => {
+        const _theme = convertTheme(props.theme)
+        if (props.disabled) {
+          return darken(0.05, _theme.colors.white)
+        }
+        return _theme.colors.white
+      }};
       .${prefix}__placeholder {
         color: ${props => {
           const _theme = convertTheme(props.theme)
           return _theme.colors.placeholder
+        }};
+      }
+      .${prefix}__icon {
+        top: 50%;
+        right: 10px;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: ${props => {
+          const _theme = convertTheme(props.theme)
+          return _theme.colors.placeholder
+        }};
+        transform: ${props => {
+          if (props.isFocused) {
+            return `translateY(-50%) rotate(180deg)`
+          }
+          return `translateY(-50%) rotate(0deg)`
+        }};
+        transition: ${props => {
+          const _theme = convertTheme(props.theme)
+          return `transform 0.3s ${_theme.transition['ease-in']}`
+        }};
+        width: ${props => {
+          const _theme = convertTheme(props.theme)
+          return _theme.fontSizes['default']
+        }};
+        height: ${props => {
+          const _theme = convertTheme(props.theme)
+          return _theme.fontSizes['default']
+        }};
+        font-size: ${props => {
+          const _theme = convertTheme(props.theme)
+          return _theme.fontSizes['default']
         }};
       }
       .${prefix}__placeholder,.${prefix}__text {

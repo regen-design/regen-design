@@ -9,6 +9,8 @@ export type Color =
   | 'dark'
   | 'light'
   | 'placeholder'
+  | 'white'
+  | 'black'
 
 export type Animation = 'duration'
 export type TransitionType = 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear'
