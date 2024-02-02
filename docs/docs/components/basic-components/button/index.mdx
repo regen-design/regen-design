@@ -97,7 +97,11 @@ import Api from "./Api"
   )}
 </BrowserOnly>
 
-<ThemeProvider>
-  ## API
-  <Api />
-</ThemeProvider>
+## API
+<BrowserOnly>
+  {() => (
+    <ThemeProvider>
+      <Api />
+    </ThemeProvider>
+  )}
+</BrowserOnly>
