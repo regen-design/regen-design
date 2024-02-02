@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, ReactNode, useEffect, useRef, useState } from 'react'
 import { SwitchProps, WaveRefProps } from '@regen-design/types'
 import { useMergedState } from '@regen-design/hooks'
 import { StyledSwitch, StyledSwitchPrefixClass as prefixClass } from '@regen-design/theme'
@@ -12,6 +12,9 @@ export const Switch: FC<SwitchProps> = ({
   onChange,
   rounded = true,
   size = 'default',
+  icon,
+  checkedIcon,
+  unCheckedIcon,
   checkedChildren,
   unCheckedChildren,
 }) => {
@@ -38,6 +41,15 @@ export const Switch: FC<SwitchProps> = ({
       }
     }
   }, [checkedChildren, checkedChildrenRef])
+  const Icon = (): ReactNode => {
+    if (icon) {
+      return icon
+    }
+    if (checkedIcon && unCheckedIcon) {
+      return innerValue ? checkedIcon : unCheckedIcon
+    }
+    return null
+  }
   return (
     <StyledSwitch
       role="switch"
@@ -59,6 +71,7 @@ export const Switch: FC<SwitchProps> = ({
       <Wave ref={waveRef} />
       <div className={`${prefixClass}-inner`}>
         <div className={`${prefixClass}-handle`}>
+          {Icon && <div className={`${prefixClass}-icon`}>{<Icon />}</div>}
           {checkedChildren && (
             <div ref={checkedChildrenRef} className={`${prefixClass}-checked`}>
               {checkedChildren}

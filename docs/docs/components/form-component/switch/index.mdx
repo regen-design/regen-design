@@ -14,6 +14,8 @@ import Content from "./Content"
 import ContentCode from '!!raw-loader!./Content'
 import Shape from "./Shape"
 import ShapeCode from '!!raw-loader!./Shape'
+import Icon from "./Icon"
+import IconCode from '!!raw-loader!./Icon'
 
 # 开关 Switch
 
@@ -44,6 +46,10 @@ import ShapeCode from '!!raw-loader!./Shape'
         <CodeBlock title="内容"
                    code={String(ContentCode)}>
           <Content />
+        </CodeBlock>
+        <CodeBlock title="图标"
+                   code={String(IconCode)}>
+          <Icon />
         </CodeBlock>
       </Grid>
     </Grid>

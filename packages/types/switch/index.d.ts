@@ -43,4 +43,22 @@ export interface SwitchProps extends Omit<CommonType, 'children'> {
    * @type ReactNode
    */
   unCheckedChildren?: ReactNode
+  /**
+   * @description icon
+   * @default undefined
+   * @type ReactNode
+   */
+  icon?: ReactNode
+  /**
+   * @description checked icon
+   * @default undefined
+   * @type ReactNode
+   */
+  checkedIcon?: ReactNode
+  /**
+   * @description un checked icon
+   * @default undefined
+   * @type ReactNode
+   */
+  unCheckedIcon?: ReactNode
 }

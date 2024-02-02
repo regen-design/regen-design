@@ -118,6 +118,21 @@ export const StyledSwitch = styled.div<SwitchProps & { innerWidth: number }>`
       }};
     }
     .${prefix}-handle {
+      .${prefix}-icon {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 1;
+        font-size: ${props => {
+          const _themes = convertTheme(props.theme)
+          return _themes.fontSizes[props.size]
+        }};
+      }
       position: absolute;
       transition: ${props => {
         const _themes = convertTheme(props.theme)
