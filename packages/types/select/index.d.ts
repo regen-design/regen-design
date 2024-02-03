@@ -1,4 +1,4 @@
-import { CommonType } from '../common'
+import { CommonType, Size } from '../common'
 import { ReactNode } from 'react'
 
 export interface SelectProps extends Omit<CommonType, 'children'> {
@@ -32,4 +32,16 @@ export interface SelectProps extends Omit<CommonType, 'children'> {
    * @default false
    */
   disabled?: boolean
+  /**
+   * @description placeholder of the select
+   * @type string
+   * @default '请选择'
+   */
+  placeholder?: string
+  /**
+   * @description size of the select
+   * @type Size
+   * @default default
+   */
+  size?: Size
 }

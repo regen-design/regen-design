@@ -14,15 +14,15 @@ export const defaultTheme: ThemeConfig = {
     black: 'rgb(0,0,0)',
   },
   fontSizes: {
-    tiny: '10px',
-    small: '12px',
+    tiny: '12px',
+    small: '14px',
     default: '14px',
     large: '16px',
   },
   baseSizes: {
     tiny: '24px',
-    small: '32px',
-    default: '36px',
+    small: '28px',
+    default: '34px',
     large: '40px',
   },
   paddingSizes: {

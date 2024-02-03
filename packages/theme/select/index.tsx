@@ -45,7 +45,7 @@ export const StyledSelect = styled.div<
     }};
     min-height: ${props => {
       const _theme = convertTheme(props.theme)
-      return _theme.baseSizes['default']
+      return _theme.baseSizes[props.size]
     }};
     line-height: 1.5;
 
@@ -104,7 +104,7 @@ export const StyledSelect = styled.div<
       }
       height: ${props => {
         const _theme = convertTheme(props.theme)
-        return _theme.baseSizes['default']
+        return _theme.baseSizes[props.size]
       }};
       border-radius: inherit;
       vertical-align: bottom;
@@ -154,15 +154,17 @@ export const StyledSelect = styled.div<
         }};
         width: ${props => {
           const _theme = convertTheme(props.theme)
-          return _theme.fontSizes['default']
+          return _theme.fontSizes[props.size]
         }};
         height: ${props => {
           const _theme = convertTheme(props.theme)
-          return _theme.fontSizes['default']
+          return _theme.fontSizes[props.size]
         }};
+      }
+      .${prefix}__placeholder,.${prefix}__text, .${prefix}__icon {
         font-size: ${props => {
           const _theme = convertTheme(props.theme)
-          return _theme.fontSizes['default']
+          return _theme.fontSizes[props.size]
         }};
       }
       .${prefix}__placeholder,.${prefix}__text {
@@ -170,9 +172,10 @@ export const StyledSelect = styled.div<
         align-items: center;
         height: 100%;
         width: 100%;
+
         padding: ${props => {
           const _theme = convertTheme(props.theme)
-          return `0 ${_theme.paddingSizes['default']}`
+          return `0 ${_theme.paddingSizes[props.size]}`
         }};
       }
     }

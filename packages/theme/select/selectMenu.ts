@@ -1,6 +1,6 @@
 import { convertTheme } from '../tools'
 import styled from 'styled-components'
-import { ThemeConfig } from '@regen-design/types'
+import { Size, ThemeConfig } from '@regen-design/types'
 import { NAME_SPACE } from '@regen-design/constant'
 
 const prefix = `${NAME_SPACE}-select-menu`
@@ -8,6 +8,7 @@ export const StyledSelectMenuPrefixClass = prefix
 export const StyledSelectMenu = styled.div<{
   theme?: ThemeConfig
   selected?: boolean
+  size: Size
 }>`
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   background: ${() => {
@@ -29,13 +30,14 @@ export const StyledSelectMenu = styled.div<{
   overflow: auto;
   max-height: ${props => {
     const _theme = convertTheme(props.theme)
-    return `calc(${_theme.baseSizes.default} * 7)`
+    return `calc(${_theme.baseSizes[props.size]} * 7)`
   }};
 `
 
 export const StyledSelectMenuItem = styled.div<{
   theme?: ThemeConfig
   disabled?: boolean
+  size: Size
 }>`
   &:hover {
     background: ${props => {
@@ -66,7 +68,10 @@ export const StyledSelectMenuItem = styled.div<{
     const _theme = convertTheme(props.theme)
     return _theme.components.select.menuItemPadding
   }};
-
+  font-size: ${props => {
+    const _theme = convertTheme(props.theme)
+    return _theme.fontSizes[props.size]
+  }};
   .${prefix}__item-checked {
     margin-left: auto;
   }

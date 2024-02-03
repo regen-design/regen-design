@@ -8,6 +8,8 @@ import Basic from "./Basic"
 import BasicCode from '!!raw-loader!./Basic'
 import Disabled from "./Disabled"
 import DisabledCode from '!!raw-loader!./Disabled'
+import Size from "./Size"
+import SizeCode from '!!raw-loader!./Size'
 
 # 选择框 Select
 
@@ -20,6 +22,10 @@ import DisabledCode from '!!raw-loader!./Disabled'
         <CodeBlock title="基础"
                    code={String(BasicCode)}>
           <Basic />
+        </CodeBlock>
+        <CodeBlock title="尺寸"
+                   code={String(SizeCode)}>
+          <Size />
         </CodeBlock>
       </Grid>
       <Grid yGap={16} cols={1}>

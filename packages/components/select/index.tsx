@@ -14,6 +14,7 @@ import {
   StyledSelectMenu,
   StyledSelectMenuItem,
   StyledSelectPrefixClass as prefixClass,
+  StyledSelectMenuPrefixClass as menuPrefixClass,
 } from '@regen-design/theme'
 import classNames from 'classnames'
 import { createPortal } from 'react-dom'
@@ -31,6 +32,7 @@ const SelectContext = createContext<{
   options: SelectProps['options']
   onChange: SelectProps['onChange']
   setIsFocused?: React.Dispatch<React.SetStateAction<boolean>>
+  size: SelectProps['size']
 }>({
   value: undefined,
   setValue: undefined,
@@ -39,16 +41,18 @@ const SelectContext = createContext<{
   options: [],
   onChange: undefined,
   setIsFocused: undefined,
+  size: 'default',
 })
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SelectMenu = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
-  const { isFocused, innerRect, options, value, setValue, onChange, setIsFocused } =
+  const { isFocused, innerRect, options, value, setValue, onChange, setIsFocused, size } =
     useContext(SelectContext)
   return (
     <CSSTransition mountOnEnter classNames={'fade-in-scale-up'} in={isFocused} timeout={300}>
       <StyledSelectMenu
         ref={ref}
-        className={`${prefixClass}-menu`}
+        className={`${menuPrefixClass}`}
+        size={size}
         style={{
           position: 'absolute',
           width: innerRect?.width,
@@ -56,10 +60,10 @@ const SelectMenu = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
           left: innerRect?.left,
         }}
       >
-        {options.length === 0 && <div className={`${prefixClass}-menu__empty`}>暂无数据</div>}
+        {options.length === 0 && <div className={`${menuPrefixClass}__empty`}>暂无数据</div>}
         {options?.map((item, index) => {
           const active = value === item.value
-          const itemClassName = classNames(`${prefixClass}-menu__item`, {
+          const itemClassName = classNames(`${menuPrefixClass}__item`, {
             active,
             disabled: item.disabled,
           })
@@ -67,6 +71,7 @@ const SelectMenu = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
             <StyledSelectMenuItem
               className={itemClassName}
               key={index}
+              size={size}
               disabled={item.disabled}
               onClick={e => {
                 e.stopPropagation()
@@ -78,7 +83,7 @@ const SelectMenu = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
             >
               {item.label}
               {active && (
-                <div className={`${prefixClass}-menu__item-checked`}>
+                <div className={`${menuPrefixClass}__item-checked`}>
                   <CheckIcon />
                 </div>
               )}
@@ -99,6 +104,8 @@ export const Select: FC<SelectProps> = ({
   hideMenuOnClick = true,
   onChange,
   disabled = false,
+  size = 'default',
+  placeholder = '请选择',
 }) => {
   const selectClass = classNames(prefixClass, className)
   const [isFocused, setIsFocused] = useState(false)
@@ -131,12 +138,19 @@ export const Select: FC<SelectProps> = ({
       setIsActivated(false)
     }
   })
+  useEffect(() => {
+    window.addEventListener('resize', getInnerRect)
+    return () => {
+      window.removeEventListener('resize', getInnerRect)
+    }
+  }, [])
   return (
     <StyledSelect
       role="select"
       className={selectClass}
       isFocused={isFocused}
       disabled={disabled}
+      size={size}
       style={style}
     >
       <SelectContext.Provider
@@ -148,6 +162,7 @@ export const Select: FC<SelectProps> = ({
           options,
           onChange,
           setIsFocused,
+          size,
         }}
       >
         <div className={`${prefixClass}-inner`}>
@@ -163,7 +178,7 @@ export const Select: FC<SelectProps> = ({
             }}
           >
             {!value ? (
-              <div className={`${prefixClass}__placeholder`}>请选择</div>
+              <div className={`${prefixClass}__placeholder`}>{placeholder}</div>
             ) : (
               <div className={`${prefixClass}__text`}>
                 {options.find(item => item.value === value)?.label}
