@@ -23,17 +23,19 @@ import '@regen-design/theme/transition.css'
 import { useMergedState } from '@regen-design/hooks'
 import { AngleDownIcon, CheckIcon, CloseCircleIcon } from '@regen-design/icons'
 import { useOutsideClick } from '@regen-design/hooks'
+import { Empty } from '../empty'
 
-const SelectContext = createContext<{
-  value?: string
-  setValue?: React.Dispatch<React.SetStateAction<string>>
-  isFocused: boolean
-  innerRect: DOMRect | null
-  options: SelectProps['options']
-  onChange: SelectProps['onChange']
-  setIsFocused?: React.Dispatch<React.SetStateAction<boolean>>
-  size: SelectProps['size']
-}>({
+const SelectContext = createContext<
+  SelectProps & {
+    value?: string
+    setValue?: React.Dispatch<React.SetStateAction<string>>
+    isFocused: boolean
+    innerRect: DOMRect | null
+    setIsFocused?: React.Dispatch<React.SetStateAction<boolean>>
+    searchValue?: string
+    setSearchValue?: React.Dispatch<React.SetStateAction<string>>
+  }
+>({
   value: undefined,
   setValue: undefined,
   isFocused: false,
@@ -42,11 +44,60 @@ const SelectContext = createContext<{
   onChange: undefined,
   setIsFocused: undefined,
   size: 'default',
+  searchValue: undefined,
+  setSearchValue: undefined,
 })
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SelectMenu = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
-  const { isFocused, innerRect, options, value, setValue, onChange, setIsFocused, size } =
-    useContext(SelectContext)
+  const {
+    isFocused,
+    innerRect,
+    setSearchValue,
+    options,
+    value,
+    setValue,
+    onChange,
+    setIsFocused,
+    size,
+    filterable,
+    searchValue,
+  } = useContext(SelectContext)
+  const children = options?.map((item, index) => {
+    const active = value === item.value
+    const itemClassName = classNames(`${menuPrefixClass}__item`, {
+      active,
+      disabled: item.disabled,
+    })
+    if (filterable && searchValue) {
+      const label = item.label as string
+      if (label?.indexOf(searchValue) === -1) {
+        return null
+      }
+    }
+    return (
+      <StyledSelectMenuItem
+        className={itemClassName}
+        key={index}
+        size={size}
+        disabled={item.disabled}
+        onClick={e => {
+          e.stopPropagation()
+          if (item.disabled) return
+          setValue?.(item.value)
+          onChange?.(item.value)
+          setIsFocused?.(false)
+          setSearchValue?.('')
+        }}
+      >
+        {item.label}
+        {active && (
+          <div className={`${menuPrefixClass}__item-checked`}>
+            <CheckIcon />
+          </div>
+        )}
+      </StyledSelectMenuItem>
+    )
+  })
   return (
     <CSSTransition mountOnEnter classNames={'fade-in-scale-up'} in={isFocused} timeout={300}>
       <StyledSelectMenu
@@ -60,60 +111,43 @@ const SelectMenu = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
           left: innerRect?.left,
         }}
       >
-        {options.length === 0 && <div className={`${menuPrefixClass}__empty`}>暂无数据</div>}
-        {options?.map((item, index) => {
-          const active = value === item.value
-          const itemClassName = classNames(`${menuPrefixClass}__item`, {
-            active,
-            disabled: item.disabled,
-          })
-          return (
-            <StyledSelectMenuItem
-              className={itemClassName}
-              key={index}
-              size={size}
-              disabled={item.disabled}
-              onClick={e => {
-                e.stopPropagation()
-                if (item.disabled) return
-                setValue?.(item.value)
-                onChange?.(item.value)
-                setIsFocused?.(false)
-              }}
-            >
-              {item.label}
-              {active && (
-                <div className={`${menuPrefixClass}__item-checked`}>
-                  <CheckIcon />
-                </div>
-              )}
-            </StyledSelectMenuItem>
-          )
-        }) || []}
+        {children?.length && children.filter(Boolean)?.length ? (
+          children
+        ) : (
+          <div className={`${menuPrefixClass}-empty`}>
+            <Empty />
+          </div>
+        )}
       </StyledSelectMenu>
     </CSSTransition>
   )
 })
 SelectMenu.displayName = 'SelectMenu'
 
-export const Select: FC<SelectProps> = ({
-  style = {},
-  className = '',
-  value: valueProps,
-  options = [],
-  hideMenuOnClick = true,
-  onChange,
-  disabled = false,
-  size = 'default',
-  placeholder = '请选择',
-  clearable = false,
-}) => {
+export const Select: FC<SelectProps> = props => {
+  const {
+    style = {},
+    className = '',
+    value: valueProps,
+    options = [],
+    hideMenuOnClick = true,
+    onChange,
+    disabled = false,
+    size = 'default',
+    placeholder = '请选择',
+    clearable = false,
+    clearIcon,
+    filterable = false,
+  } = props
   const selectClass = classNames(prefixClass, className)
   const [isFocused, setIsFocused] = useState(false)
+  const [inputFocused, setInputFocused] = useState(false)
   const [isActivated, setIsActivated] = useState(false)
   const labelRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
   const clearIconRef = useRef<HTMLDivElement>(null)
+  const [searchValue, setSearchValue] = useState('')
   const [innerRect, setInnerRect] = useState<DOMRect | null>(null)
   const [value, setValue] = useMergedState(undefined, {
     value: valueProps,
@@ -132,7 +166,7 @@ export const Select: FC<SelectProps> = ({
       getInnerRect()
     }
   }, [isFocused])
-  useOutsideClick([menuRef, labelRef, clearIconRef], () => {
+  useOutsideClick([menuRef, labelRef], () => {
     if (isFocused && hideMenuOnClick) {
       setIsFocused(false)
     }
@@ -146,11 +180,18 @@ export const Select: FC<SelectProps> = ({
       window.removeEventListener('resize', getInnerRect)
     }
   }, [])
+  const Placeholder = <div className={`${prefixClass}__placeholder`}>{placeholder}</div>
+  const SelectedText = (
+    <div className={`${prefixClass}__text`}>
+      {options.find(item => item.value === value)?.label}
+    </div>
+  )
   return (
     <StyledSelect
       role="select"
       className={selectClass}
       isFocused={isFocused}
+      inputFocused={inputFocused}
       disabled={disabled}
       size={size}
       style={style}
@@ -159,14 +200,14 @@ export const Select: FC<SelectProps> = ({
     >
       <SelectContext.Provider
         value={{
+          ...props,
           value,
           setValue,
           innerRect,
           isFocused,
-          options,
-          onChange,
           setIsFocused,
-          size,
+          setSearchValue,
+          searchValue,
         }}
       >
         <div className={`${prefixClass}-inner`}>
@@ -176,17 +217,40 @@ export const Select: FC<SelectProps> = ({
             tabIndex={0}
             onClick={() => {
               if (!disabled) {
+                if (inputRef.current) {
+                  inputRef.current.focus()
+                }
                 setIsFocused(true)
                 setIsActivated(true)
               }
             }}
           >
-            {!value ? (
-              <div className={`${prefixClass}__placeholder`}>{placeholder}</div>
+            {filterable && (
+              <input
+                ref={inputRef}
+                value={searchValue}
+                onChange={e => {
+                  setSearchValue(e.target.value)
+                }}
+                onFocus={() => {
+                  setInputFocused(true)
+                }}
+                onBlur={() => {
+                  setInputFocused(false)
+                  setSearchValue('')
+                }}
+                type="text"
+                className={`${prefixClass}__input`}
+                tabIndex={-1}
+              />
+            )}
+            {!filterable ? (
+              <>
+                {!value && Placeholder}
+                {value && SelectedText}
+              </>
             ) : (
-              <div className={`${prefixClass}__text`}>
-                {options.find(item => item.value === value)?.label}
-              </div>
+              <>{!searchValue && (value ? SelectedText : Placeholder)}</>
             )}
             {clearable && value && (
               <div
@@ -198,7 +262,7 @@ export const Select: FC<SelectProps> = ({
                   onChange?.(undefined)
                 }}
               >
-                <CloseCircleIcon />
+                {clearIcon || <CloseCircleIcon />}
               </div>
             )}
             <div className={`${prefixClass}__icon`}>

@@ -12,6 +12,8 @@ import Size from "./Size"
 import SizeCode from '!!raw-loader!./Size'
 import Clearable from "./Clearable"
 import ClearableCode from '!!raw-loader!./Clearable'
+import Filter from "./Filter"
+import FilterCode from '!!raw-loader!./Filter'
 
 # 选择框 Select
 
@@ -28,6 +30,10 @@ import ClearableCode from '!!raw-loader!./Clearable'
         <CodeBlock title="尺寸"
                    code={String(SizeCode)}>
           <Size />
+        </CodeBlock>
+        <CodeBlock title="可过滤"
+                   code={String(FilterCode)}>
+          <Filter />
         </CodeBlock>
       </Grid>
       <Grid yGap={16} cols={1}>

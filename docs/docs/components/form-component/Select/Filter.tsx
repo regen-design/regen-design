@@ -1,5 +1,4 @@
 import { Select, Space } from '@regen-design/components'
-import { TrashIcon } from '@regen-design/icons'
 
 export default function Demo() {
   const options = [
@@ -26,8 +25,7 @@ export default function Demo() {
   ]
   return (
     <Space alignItems={'center'}>
-      <Select options={options} clearable />
-      <Select options={options} clearable clearIcon={<TrashIcon />} />
+      <Select filterable clearable options={options} />
     </Space>
   )
 }

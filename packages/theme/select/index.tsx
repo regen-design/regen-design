@@ -10,6 +10,7 @@ export const StyledSelectPrefixClass = prefix
 export const StyledSelect = styled.div<
   SelectProps & {
     isFocused: boolean
+    inputFocused: boolean
   }
 >`
   z-index: auto;
@@ -137,6 +138,14 @@ export const StyledSelect = styled.div<
         }
         return _theme.colors.white
       }};
+      .${prefix}__text {
+        color: ${props => {
+          const _theme = convertTheme(props.theme)
+          if (props.inputFocused) {
+            return _theme.colors.placeholder
+          }
+        }};
+      }
       .${prefix}__placeholder {
         color: ${props => {
           const _theme = convertTheme(props.theme)
@@ -195,12 +204,15 @@ export const StyledSelect = styled.div<
           return _theme.fontSizes[props.size]
         }};
       }
-      .${prefix}__placeholder,.${prefix}__text {
+      .${prefix}__placeholder,.${prefix}__text, .${prefix}__input {
         display: flex;
         align-items: center;
         height: 100%;
         width: 100%;
-
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
         padding: ${props => {
           const _theme = convertTheme(props.theme)
           return `0 ${_theme.paddingSizes[props.size]}`

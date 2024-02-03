@@ -32,6 +32,12 @@ export const StyledSelectMenu = styled.div<{
     const _theme = convertTheme(props.theme)
     return `calc(${_theme.baseSizes[props.size]} * 7)`
   }};
+  .${prefix}-empty {
+    padding: ${props => {
+      const _theme = convertTheme(props.theme)
+      return _theme.components.select.menuItemPadding
+    }};
+  }
 `
 
 export const StyledSelectMenuItem = styled.div<{

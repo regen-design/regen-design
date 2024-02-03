@@ -50,4 +50,16 @@ export interface SelectProps extends Omit<CommonType, 'children'> {
    * @default false
    */
   clearable?: boolean
+  /**
+   * @description clear icon of the select
+   * @type ReactNode
+   * @default undefined
+   */
+  clearIcon?: ReactNode
+  /**
+   * @description filterable of the select
+   * @type boolean
+   * @default false
+   */
+  filterable?: boolean
 }
