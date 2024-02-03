@@ -204,6 +204,10 @@ export const StyledSelect = styled.div<
           return _theme.fontSizes[props.size]
         }};
       }
+      .${prefix}__input {
+        outline: none;
+        border: none;
+      }
       .${prefix}__placeholder,.${prefix}__text, .${prefix}__input {
         display: flex;
         align-items: center;
