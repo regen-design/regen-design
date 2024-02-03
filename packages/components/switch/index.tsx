@@ -21,7 +21,6 @@ export const Switch: FC<SwitchProps> = ({
   const switchClass = classNames(prefixClass, className)
   const [innerValue, setInnerValue] = useMergedState(false, {
     value: checked,
-    defaultValue: false,
   })
   const waveRef = useRef<WaveRefProps>(null)
   const checkedChildrenRef = useRef<HTMLDivElement>(null)

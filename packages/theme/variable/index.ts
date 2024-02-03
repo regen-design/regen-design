@@ -69,6 +69,16 @@ export const defaultTheme: ThemeConfig = {
         dark: 'rgba(255, 255, 255, .20)',
       },
     },
+    slider: {
+      height: '4px',
+      thumbSize: '18px',
+      thumbColor: 'rgb(255, 255, 255)',
+      thumbBorderColor: '',
+      backgroundColor: 'rgb(219, 219, 223)',
+      darkBackgroundColor: 'rgba(255, 255, 255, 0.2)',
+    },
   },
   theme: 'light',
 }
+
+defaultTheme.components.slider.thumbBorderColor = defaultTheme.borderColor

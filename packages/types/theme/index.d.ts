@@ -83,12 +83,20 @@ export interface ThemeConfig {
     switch: {
       width: Record<Size, string>
       height: Record<Size, string>
-      backgroundColor?: Record<'light' | 'dark', string>
+      backgroundColor: Record<'light' | 'dark', string>
     }
     select: {
       menuPadding: string
       menuItemPadding: string
       activeBackgroundColor: string
+    }
+    slider: {
+      height: string
+      thumbSize: string
+      thumbColor: string
+      thumbBorderColor: string
+      backgroundColor: string
+      darkBackgroundColor: string
     }
   }
 }

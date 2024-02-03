@@ -151,7 +151,6 @@ export const Select: FC<SelectProps> = props => {
   const [innerRect, setInnerRect] = useState<DOMRect | null>(null)
   const [value, setValue] = useMergedState(undefined, {
     value: valueProps,
-    defaultValue: undefined,
   })
   const getInnerRect = () => {
     if (labelRef.current) {
