@@ -21,7 +21,7 @@ import { createPortal } from 'react-dom'
 import { CSSTransition } from 'react-transition-group'
 import '@regen-design/theme/transition.css'
 import { useMergedState } from '@regen-design/hooks'
-import { AngleDownIcon, CheckIcon } from '@regen-design/icons'
+import { AngleDownIcon, CheckIcon, CloseCircleIcon } from '@regen-design/icons'
 import { useOutsideClick } from '@regen-design/hooks'
 
 const SelectContext = createContext<{
@@ -106,12 +106,14 @@ export const Select: FC<SelectProps> = ({
   disabled = false,
   size = 'default',
   placeholder = '请选择',
+  clearable = false,
 }) => {
   const selectClass = classNames(prefixClass, className)
   const [isFocused, setIsFocused] = useState(false)
   const [isActivated, setIsActivated] = useState(false)
   const labelRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
+  const clearIconRef = useRef<HTMLDivElement>(null)
   const [innerRect, setInnerRect] = useState<DOMRect | null>(null)
   const [value, setValue] = useMergedState(undefined, {
     value: valueProps,
@@ -130,7 +132,7 @@ export const Select: FC<SelectProps> = ({
       getInnerRect()
     }
   }, [isFocused])
-  useOutsideClick([menuRef, labelRef], () => {
+  useOutsideClick([menuRef, labelRef, clearIconRef], () => {
     if (isFocused && hideMenuOnClick) {
       setIsFocused(false)
     }
@@ -152,6 +154,8 @@ export const Select: FC<SelectProps> = ({
       disabled={disabled}
       size={size}
       style={style}
+      value={value}
+      clearable={clearable}
     >
       <SelectContext.Provider
         value={{
@@ -170,7 +174,7 @@ export const Select: FC<SelectProps> = ({
             ref={labelRef}
             className={`${prefixClass}-label ${isActivated ? `active` : ''}`}
             tabIndex={0}
-            onFocus={() => {
+            onClick={() => {
               if (!disabled) {
                 setIsFocused(true)
                 setIsActivated(true)
@@ -182,6 +186,19 @@ export const Select: FC<SelectProps> = ({
             ) : (
               <div className={`${prefixClass}__text`}>
                 {options.find(item => item.value === value)?.label}
+              </div>
+            )}
+            {clearable && value && (
+              <div
+                ref={clearIconRef}
+                className={`${prefixClass}__clear`}
+                onClick={e => {
+                  e.stopPropagation()
+                  setValue(undefined)
+                  onChange?.(undefined)
+                }}
+              >
+                <CloseCircleIcon />
               </div>
             )}
             <div className={`${prefixClass}__icon`}>

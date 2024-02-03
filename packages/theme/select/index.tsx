@@ -79,6 +79,18 @@ export const StyledSelect = styled.div<
     }
 
     .${prefix}-label {
+      &:hover {
+        .${prefix}__clear {
+          transform: translateY(-50%) scale(1);
+        }
+        .${prefix}__icon {
+          transform: ${props => {
+            if (props.clearable && props.value) {
+              return `translateY(-50%) rotate(0deg) scale(0)`
+            }
+          }};
+        }
+      }
       &.active,
       &:focus {
         ~ .${prefix}__border {
@@ -131,7 +143,33 @@ export const StyledSelect = styled.div<
           return _theme.colors.placeholder
         }};
       }
+      .${prefix}__clear {
+        &:hover {
+          color: ${props => {
+            const _theme = convertTheme(props.theme)
+            return _theme.colors.primary
+          }};
+        }
+        transform: translateY(-50%) scale(0);
+        cursor: pointer;
+        transition: ${props => {
+          const _theme = convertTheme(props.theme)
+          return `transform 0.3s ${_theme.transition['ease-in']}, color 0.3s ${_theme.transition['ease-in']}`
+        }};
+      }
       .${prefix}__icon {
+        transform: ${props => {
+          if (props.isFocused) {
+            return `translateY(-50%) rotate(180deg) scale(1)`
+          }
+          return `translateY(-50%) rotate(0deg) scale(1)`
+        }};
+        transition: ${props => {
+          const _theme = convertTheme(props.theme)
+          return `transform 0.3s ${_theme.transition['ease-in']}`
+        }};
+      }
+      .${prefix}__icon, .${prefix}__clear {
         top: 50%;
         right: 10px;
         position: absolute;
@@ -141,16 +179,6 @@ export const StyledSelect = styled.div<
         color: ${props => {
           const _theme = convertTheme(props.theme)
           return _theme.colors.placeholder
-        }};
-        transform: ${props => {
-          if (props.isFocused) {
-            return `translateY(-50%) rotate(180deg)`
-          }
-          return `translateY(-50%) rotate(0deg)`
-        }};
-        transition: ${props => {
-          const _theme = convertTheme(props.theme)
-          return `transform 0.3s ${_theme.transition['ease-in']}`
         }};
         width: ${props => {
           const _theme = convertTheme(props.theme)

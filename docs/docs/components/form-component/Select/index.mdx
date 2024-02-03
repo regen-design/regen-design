@@ -10,6 +10,8 @@ import Disabled from "./Disabled"
 import DisabledCode from '!!raw-loader!./Disabled'
 import Size from "./Size"
 import SizeCode from '!!raw-loader!./Size'
+import Clearable from "./Clearable"
+import ClearableCode from '!!raw-loader!./Clearable'
 
 # 选择框 Select
 
@@ -32,6 +34,10 @@ import SizeCode from '!!raw-loader!./Size'
         <CodeBlock title="禁用"
                    code={String(DisabledCode)}>
           <Disabled />
+        </CodeBlock>
+        <CodeBlock title="可清除"
+                   code={String(ClearableCode)}>
+          <Clearable />
         </CodeBlock>
       </Grid>
     </Grid>

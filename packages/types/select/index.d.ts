@@ -44,4 +44,10 @@ export interface SelectProps extends Omit<CommonType, 'children'> {
    * @default default
    */
   size?: Size
+  /**
+   * @description clearable of the select
+   * @type boolean
+   * @default false
+   */
+  clearable?: boolean
 }
