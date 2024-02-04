@@ -19,7 +19,7 @@ export const StyledRate = styled.div<RateProps>`
     }};
     font-size: ${props => {
       const _theme = convertTheme(props.theme)
-      return _theme.components.rate.iconSize['default']
+      return _theme.components.rate.iconSizes['default']
     }};
     margin-right: ${props => {
       const _theme = convertTheme(props.theme)

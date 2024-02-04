@@ -17,8 +17,7 @@ import {
   StyledSelectMenuPrefixClass as menuPrefixClass,
 } from '@regen-design/theme'
 import classNames from 'classnames'
-import { createPortal } from 'react-dom'
-import { CSSTransition } from 'react-transition-group'
+import { FadeInScaleUp } from '..'
 import '@regen-design/theme/transition.css'
 import { useMergedState } from '@regen-design/hooks'
 import { AngleDownIcon, CheckIcon, CloseCircleIcon } from '@regen-design/icons'
@@ -99,7 +98,7 @@ const SelectMenu = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
     )
   })
   return (
-    <CSSTransition mountOnEnter classNames={'fade-in-scale-up'} in={isFocused} timeout={300}>
+    <FadeInScaleUp in={isFocused}>
       <StyledSelectMenu
         ref={ref}
         className={`${menuPrefixClass}`}
@@ -119,7 +118,7 @@ const SelectMenu = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
           </div>
         )}
       </StyledSelectMenu>
-    </CSSTransition>
+    </FadeInScaleUp>
   )
 })
 SelectMenu.displayName = 'SelectMenu'
@@ -271,7 +270,7 @@ export const Select: FC<SelectProps> = props => {
           <div className={`${prefixClass}__border`}></div>
           <div className={`${prefixClass}__state-border`}></div>
         </div>
-        {createPortal(<SelectMenu ref={menuRef} />, document.body)}
+        <SelectMenu ref={menuRef} />
       </SelectContext.Provider>
     </StyledSelect>
   )

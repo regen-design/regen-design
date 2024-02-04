@@ -79,12 +79,25 @@ export const defaultTheme: ThemeConfig = {
     },
     rate: {
       space: '6px',
-      iconSize: {
+      iconSizes: {
         tiny: '12px',
         small: '16px',
         default: '20px',
         large: '24px',
       },
+    },
+    datePicker: {
+      paddingSizes: {
+        tiny: '8px',
+        small: '10px',
+        default: '12px',
+        large: '14px',
+      },
+      panelPadding: '6px 12px 4px 12px',
+      monthTitleIconSize: '14px',
+      monthTitleIconColor: '#c2c2c2',
+      monthTitleGridTemplateColumns: '28px 28px 1fr 28px 28px',
+      monthTitleHeight: '28px',
     },
   },
   theme: 'light',

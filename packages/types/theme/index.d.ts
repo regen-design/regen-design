@@ -100,7 +100,15 @@ export interface ThemeConfig {
     }
     rate: {
       space: string
-      iconSize: Record<Size, string>
+      iconSizes: Record<Size, string>
+    }
+    datePicker: {
+      paddingSizes: Record<Size, string>
+      panelPadding: string
+      monthTitleIconSize: string
+      monthTitleIconColor: string
+      monthTitleGridTemplateColumns: string
+      monthTitleHeight: string
     }
   }
 }
