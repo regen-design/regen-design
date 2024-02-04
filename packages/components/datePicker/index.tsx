@@ -5,10 +5,11 @@ import {
   forwardRef,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react'
-import { DatePickerProps } from '@regen-design/types'
+import { DatePickerDateItemType, DatePickerProps } from '@regen-design/types'
 import {
   StyledDatePicker,
   StyledDatePickerPrefixClass as prefixClass,
@@ -25,16 +26,60 @@ import {
   AngleDoubleRightIcon,
 } from '@regen-design/icons'
 import { FadeInScaleUp } from '..'
-import { useOutsideClick } from '@regen-design/hooks'
-const DatePickerContext = createContext<{
-  isFocused: boolean
-  wrapperRect: DOMRect | null
-}>({
+import { useMergedState, useOutsideClick } from '@regen-design/hooks'
+const DatePickerContext = createContext<
+  DatePickerProps & {
+    isFocused: boolean
+    wrapperRect: DOMRect | null
+  }
+>({
   isFocused: false,
   wrapperRect: null,
 })
 const DatePickerPanel = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
   const { isFocused, wrapperRect } = useContext(DatePickerContext)
+  const [dates, setDates] = useState<DatePickerDateItemType[]>([])
+  const [currentMonth, setCurrentMonth] = useState<Date>(new Date())
+  const getCurrentMothDates = () => {
+    const newDate = currentMonth
+    const year = newDate.getFullYear()
+    const month = newDate.getMonth()
+    const lastDay = new Date(year, month + 1, 0)
+    const dates: DatePickerDateItemType[] = []
+    for (let i = 1; i <= lastDay.getDate(); i++) {
+      const date = new Date(year, month, i)
+      dates.push({
+        day: date.getDate(),
+        date,
+        secondary: false,
+      })
+    }
+    const firstDay = new Date(year, month, 1)
+    const firstDayWeek = firstDay.getDay()
+    for (let i = 1; i < firstDayWeek; i++) {
+      const date = new Date(year, month, 1 - i)
+      dates.unshift({
+        day: date.getDate(),
+        date,
+        secondary: true,
+      })
+    }
+    for (let i = dates.length; i < 42; i++) {
+      const date = new Date(year, month + 1, i)
+      dates.push({
+        day: date.getDate(),
+        date,
+        secondary: true,
+      })
+    }
+    setDates(dates)
+  }
+  useEffect(() => {
+    getCurrentMothDates()
+  }, [currentMonth])
+  const currentMonthTitle = useMemo(() => {
+    return `${currentMonth.getFullYear()}年${currentMonth.getMonth() + 1}月`
+  }, [currentMonth])
   return (
     <FadeInScaleUp in={isFocused}>
       <StyledDatePickerPanel
@@ -49,32 +94,65 @@ const DatePickerPanel = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
       >
         <div className={`${prefixPanelClass}-calendar`}>
           <div className={`${prefixPanelClass}-month`}>
-            <div className={`${prefixPanelClass}-month__fast-prev`}>
+            <div
+              className={`${prefixPanelClass}-month__fast-prev`}
+              onClick={() => {
+                setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 12))
+              }}
+            >
               <AngleDoubleLeftIcon />
             </div>
-            <div className={`${prefixPanelClass}-month__prev`}>
+            <div
+              className={`${prefixPanelClass}-month__prev`}
+              onClick={() => {
+                setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))
+              }}
+            >
               <AngleLeftIcon />
             </div>
             <div className={`${prefixPanelClass}-month__month-year`}>
-              <div className={`${prefixPanelClass}-month__text`}>2021年9月</div>
+              <div className={`${prefixPanelClass}-month__text`}>{currentMonthTitle}</div>
             </div>
-            <div className={`${prefixPanelClass}-month__next`}>
+            <div
+              className={`${prefixPanelClass}-month__next`}
+              onClick={() => {
+                setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))
+              }}
+            >
               <AngleRightIcon />
             </div>
-            <div className={`${prefixPanelClass}-month__fast-next`}>
+            <div
+              className={`${prefixPanelClass}-month__fast-next`}
+              onClick={() => {
+                setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 12))
+              }}
+            >
               <AngleDoubleRightIcon />
             </div>
           </div>
           <div className={`${prefixPanelClass}-weekdays`}>
-            <div>日</div>
-            <div>一</div>
-            <div>二</div>
-            <div>三</div>
-            <div>四</div>
-            <div>五</div>
-            <div>六</div>
+            {['日', '一', '二', '三', '四', '五', '六'].map((day, index) => {
+              return (
+                <div key={index} className={`${prefixPanelClass}-weekdays__day`}>
+                  {day}
+                </div>
+              )
+            })}
           </div>
-          <div className={`${prefixPanelClass}-dates`}>日期</div>
+          <div className={`${prefixPanelClass}-dates`}>
+            {dates.map((date, index) => {
+              const dateClassName = classNames(`${prefixPanelClass}-dates__date`, {
+                [`${prefixPanelClass}-dates__date-secondary`]: date.secondary,
+                [`${prefixPanelClass}-dates__date-today`]:
+                  date.date.toDateString() === new Date().toDateString(),
+              })
+              return (
+                <div key={index} className={dateClassName}>
+                  {date.day}
+                </div>
+              )
+            })}
+          </div>
         </div>
       </StyledDatePickerPanel>
     </FadeInScaleUp>
@@ -85,6 +163,11 @@ export const DatePicker: FC<DatePickerProps> = ({
   style = {},
   className = '',
   placeholder = '选择日期',
+  value: valueProps,
+  onChange,
+  // minDate,
+  // maxDate,
+  // format = 'YYYY-MM-DD',
 }) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -92,6 +175,10 @@ export const DatePicker: FC<DatePickerProps> = ({
   const datePickerClass = classNames(prefixClass, className)
   const [isFocused, setIsFocused] = useState(false)
   const [wrapperRect, setWrapperRect] = useState<DOMRect | null>(null)
+  const [value, setValue] = useMergedState(undefined, {
+    value: valueProps,
+  })
+  setValue
   useEffect(() => {
     if (isFocused) {
       if (wrapperRef.current) {
@@ -112,6 +199,8 @@ export const DatePicker: FC<DatePickerProps> = ({
       value={{
         isFocused,
         wrapperRect,
+        value,
+        onChange,
       }}
     >
       <StyledDatePicker

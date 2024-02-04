@@ -109,6 +109,10 @@ export interface ThemeConfig {
       monthTitleIconColor: string
       monthTitleGridTemplateColumns: string
       monthTitleHeight: string
+      dateItemSize: string
+      dateItemFontSize: string
+      weekdayItemSize: string
+      weekdayItemFontSize: string
     }
   }
 }
