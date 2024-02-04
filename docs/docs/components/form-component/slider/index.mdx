@@ -6,6 +6,8 @@ import BrowserOnly from '@docusaurus/BrowserOnly'
 import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 import Basic from "./Basic"
 import BasicCode from "!!raw-loader!./Basic"
+import Disabled from "./Disabled"
+import DisabledCode from "!!raw-loader!./Disabled"
 
 # 滑动选择 Slider
 
@@ -22,6 +24,12 @@ import BasicCode from "!!raw-loader!./Basic"
         <CodeBlock title="基础"
                    code={String(BasicCode)}>
           <Basic />
+        </CodeBlock>
+      </Grid>
+      <Grid yGap={16} cols={1}>
+        <CodeBlock title="禁用"
+                   code={String(DisabledCode)}>
+          <Disabled />
         </CodeBlock>
       </Grid>
     </Grid>

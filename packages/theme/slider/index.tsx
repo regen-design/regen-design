@@ -10,9 +10,20 @@ export const StyledSlider = styled.div<SliderProps>`
   position: relative;
   z-index: 0;
   width: 100%;
-  cursor: pointer;
+  cursor: ${props => {
+    if (props.disabled) {
+      return 'not-allowed'
+    }
+    return 'pointer'
+  }};
   user-select: none;
   -webkit-user-select: none;
+  opacity: ${props => {
+    if (props.disabled) {
+      return 0.5
+    }
+    return 1
+  }};
   .${prefix}-inner {
     width: 100%;
     position: relative;
@@ -37,7 +48,12 @@ export const StyledSlider = styled.div<SliderProps>`
       position: absolute;
       top: 50%;
       transform: translate(-50%, -50%);
-      cursor: pointer;
+      cursor: ${props => {
+        if (props.disabled) {
+          return 'not-allowed'
+        }
+        return 'pointer'
+      }};
       pointer-events: auto;
       display: flex;
       transition: ${props => {

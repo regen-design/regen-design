@@ -30,4 +30,10 @@ export interface SliderProps extends CommonType {
    * @default 100
    */
   max?: number
+  /**
+   * @description disabled of the slider
+   * @type boolean
+   * @default false
+   */
+  disabled?: boolean
 }

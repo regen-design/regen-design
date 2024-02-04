@@ -11,6 +11,7 @@ export const Slider: FC<SliderProps> = ({
   max = 100,
   min = 0,
   defaultValue,
+  disabled = false,
 }) => {
   const thumbRef = useRef<HTMLDivElement>(null)
   const innerRef = useRef<HTMLDivElement>(null)
@@ -22,6 +23,7 @@ export const Slider: FC<SliderProps> = ({
   useEffect(() => {
     if (thumbRef.current && innerRef.current && trackRef.current) {
       thumbRef.current.onmousedown = e => {
+        if (disabled) return
         const startX = e.clientX
         const originThumbTransition = thumbRef.current.style.transition
         const originTrackTransition = trackRef.current.style.transition
@@ -46,14 +48,15 @@ export const Slider: FC<SliderProps> = ({
         document.addEventListener('mouseup', up)
       }
     }
-  }, [value])
+  }, [value, disabled])
 
   return (
-    <StyledSlider role="slider" className={sliderClass} style={style}>
+    <StyledSlider role="slider" disabled={disabled} className={sliderClass} style={style}>
       <div
         className={`${prefixClass}-inner`}
         ref={innerRef}
         onClick={e => {
+          if (disabled) return
           const rect = e.currentTarget.getBoundingClientRect()
           const x = e.clientX - rect.left
           const percent = x / rect.width
