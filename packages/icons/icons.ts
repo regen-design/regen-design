@@ -105,6 +105,8 @@ export const SvgIcons = {
   SitemapIcon: Icons.SitemapIcon,
   SpinnerIcon: Icons.SpinnerIcon,
   SquarePhoneHangupIcon: Icons.SquarePhoneHangupIcon,
+  StarFillIcon: Icons.StarFillIcon,
+  StarIcon: Icons.StarIcon,
   StepBackwardIcon: Icons.StepBackwardIcon,
   SummerIcon: Icons.SummerIcon,
   TentArrowDownToLineIcon: Icons.TentArrowDownToLineIcon,

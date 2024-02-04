@@ -1,0 +1,37 @@
+---
+sidebar_position: 7
+---
+
+import BrowserOnly from '@docusaurus/BrowserOnly'
+import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
+import Basic from "./Basic"
+import BasicCode from "!!raw-loader!./Basic"
+import Disabled from "./Disabled"
+import DisabledCode from "!!raw-loader!./Disabled"
+
+# 评分 Rate
+
+没有把握的话不要给星星换颜色，那会是个灾难。
+
+## 演示
+
+<BrowserOnly>
+  {() => (<ThemeProvider>
+    <Grid xGap={16} cols={2} style={{
+      alignItems: 'flex-start'
+    }}>
+      <Grid yGap={16} cols={1}>
+        <CodeBlock title="基础"
+                   code={String(BasicCode)}>
+          <Basic />
+        </CodeBlock>
+      </Grid>
+      <Grid yGap={16} cols={1}>
+        <CodeBlock title="禁用"
+                   code={String(DisabledCode)}>
+          <Disabled />
+        </CodeBlock>
+      </Grid>
+    </Grid>
+  </ThemeProvider>)}
+</BrowserOnly>

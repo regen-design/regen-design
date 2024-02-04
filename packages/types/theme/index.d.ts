@@ -98,5 +98,9 @@ export interface ThemeConfig {
       backgroundColor: string
       darkBackgroundColor: string
     }
+    rate: {
+      space: string
+      iconSize: Record<Size, string>
+    }
   }
 }

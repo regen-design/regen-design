@@ -77,6 +77,15 @@ export const defaultTheme: ThemeConfig = {
       backgroundColor: 'rgb(219, 219, 223)',
       darkBackgroundColor: 'rgba(255, 255, 255, 0.2)',
     },
+    rate: {
+      space: '6px',
+      iconSize: {
+        tiny: '12px',
+        small: '16px',
+        default: '20px',
+        large: '24px',
+      },
+    },
   },
   theme: 'light',
 }
