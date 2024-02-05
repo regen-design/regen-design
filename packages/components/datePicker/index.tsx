@@ -1,14 +1,4 @@
-import {
-  createContext,
-  FC,
-  ForwardedRef,
-  forwardRef,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import { createContext, forwardRef, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { DatePickerDateItemType, DatePickerProps } from '@regen-design/types'
 import {
   StyledDatePicker,
@@ -29,19 +19,20 @@ import { FadeInScaleUp } from '..'
 import { useMergedState, useOutsideClick } from '@regen-design/hooks'
 import { formatDate } from '@regen-design/utils'
 const DatePickerContext = createContext<
-  DatePickerProps & {
+  DatePickerProps<string | number> & {
     isFocused: boolean
     wrapperRect: DOMRect | null
     setValue?: (value: any) => void
     setIsFocused?: (value: boolean) => void
+    setFormattedValue?: (value: string) => void
   }
 >({
   isFocused: false,
   wrapperRect: null,
   value: undefined,
 })
-const DatePickerPanel = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
-  const { isFocused, wrapperRect, value, setValue, setIsFocused, onChange } =
+const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
+  const { isFocused, wrapperRect, value, setValue, setIsFocused, format, onChange, valueFormat } =
     useContext(DatePickerContext)
   const [dates, setDates] = useState<DatePickerDateItemType[]>([])
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date())
@@ -146,12 +137,18 @@ const DatePickerPanel = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
           </div>
           <div className={`${prefixPanelClass}-dates`}>
             {dates.map((date, index) => {
+              let isSelected = false
+              if (typeof value === 'number') {
+                isSelected = date.date.getTime() === value
+              }
+              if (typeof value === 'string') {
+                isSelected = formatDate(date.date, valueFormat || format) === value
+              }
               const dateClassName = classNames(`${prefixPanelClass}-dates__date`, {
                 [`${prefixPanelClass}-dates__date-secondary`]: date.secondary,
                 [`${prefixPanelClass}-dates__date-today`]:
                   date.date.toDateString() === new Date().toDateString(),
-                [`${prefixPanelClass}-dates__date-selected`]:
-                  value && date.date.getTime() === value,
+                [`${prefixPanelClass}-dates__date-selected`]: isSelected,
               })
               return (
                 <div
@@ -159,8 +156,16 @@ const DatePickerPanel = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
                   className={dateClassName}
                   onClick={e => {
                     e.stopPropagation()
-                    setValue && setValue(date.date.getTime())
-                    onChange && onChange(date.date.getTime())
+                    if (typeof value === 'number') {
+                      setValue && setValue(date.date.getTime())
+                      onChange && (onChange as (value: number) => void)(date.date.getTime())
+                    }
+                    if (typeof value === 'string') {
+                      const _value = formatDate(date.date, valueFormat || format)
+                      setValue && setValue(_value)
+                      onChange && (onChange as (value: string) => void)(_value)
+                    }
+
                     setIsFocused?.(false)
                   }}
                 >
@@ -175,7 +180,7 @@ const DatePickerPanel = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
   )
 })
 DatePickerPanel.displayName = 'DatePickerPanel'
-export const DatePicker: FC<DatePickerProps> = ({
+export const DatePicker = <T extends number | string>({
   style = {},
   className = '',
   placeholder = '选择日期',
@@ -185,7 +190,9 @@ export const DatePicker: FC<DatePickerProps> = ({
   // minDate,
   // maxDate,
   format = 'YYYY-MM-DD',
-}) => {
+  size,
+  valueFormat,
+}: DatePickerProps<T>) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
@@ -195,6 +202,7 @@ export const DatePicker: FC<DatePickerProps> = ({
   const [value, setValue] = useMergedState(undefined, {
     value: valueProps,
   })
+
   useEffect(() => {
     if (isFocused) {
       if (wrapperRef.current) {
@@ -210,8 +218,8 @@ export const DatePicker: FC<DatePickerProps> = ({
       setIsFocused(false)
     }
   })
-  const formattedValue = useMemo(() => {
-    return value ? formatDate(new Date(value), format) : ''
+  const formattedInputValue = useMemo(() => {
+    return value ? formatDate(new Date(value), valueFormat || format) : ''
   }, [value])
   return (
     <DatePickerContext.Provider
@@ -220,6 +228,7 @@ export const DatePicker: FC<DatePickerProps> = ({
         wrapperRect,
         value,
         onChange,
+        valueFormat,
         setValue,
         setIsFocused,
       }}
@@ -237,8 +246,9 @@ export const DatePicker: FC<DatePickerProps> = ({
         <Input
           ref={inputRef}
           readOnly
+          size={size}
           disabled={disabled}
-          value={formattedValue}
+          value={formattedInputValue}
           placeholder={placeholder}
           suffix={<CalendarIcon />}
         />

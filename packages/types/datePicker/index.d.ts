@@ -1,5 +1,24 @@
-import { CommonType } from '../common'
-export interface DatePickerProps extends Omit<CommonType, 'children'> {
+import { CommonType, Size } from '../common'
+
+export interface DatePickerProps<T extends number | string> extends Omit<CommonType, 'children'> {
+  /**
+   * @description The value of the date picker
+   * @type string | number
+   * @default undefined
+   */
+  value?: T
+  /**
+   * @description The default value of the date picker
+   * @type string | number
+   * @default undefined
+   */
+  defaultValue?: T
+  /**
+   * @description The onChange event of the date picker
+   * @type {(value: string | number) => void}
+   * @default undefined
+   */
+  onChange?: T extends number ? (value: number) => void : (value: string) => void
   /**
    * @description The disabled of the date picker
    * @type boolean
@@ -13,15 +32,11 @@ export interface DatePickerProps extends Omit<CommonType, 'children'> {
    */
   placeholder?: string
   /**
-   * @description The value of the date picker
-   * @type number
+   * @description The value format of the date picker
+   * @type string
+   * @default undefined
    */
-  value?: number
-  /**
-   * @description The onChange event of the date picker
-   * @type (value: number) => void
-   */
-  onChange?: (value: number) => void
+  valueFormat?: string
   /**
    * @description The min date of the date picker
    * @type number
@@ -38,6 +53,12 @@ export interface DatePickerProps extends Omit<CommonType, 'children'> {
    * @default 'YYYY-MM-DD'
    */
   format?: string
+  /**
+   * @description The size of the date picker
+   * @type Size
+   * @default 'default'
+   */
+  size?: Size
 }
 
 export interface DatePickerDateItemType {
