@@ -1,6 +1,12 @@
 import { CommonType } from '../common'
 export interface DatePickerProps extends Omit<CommonType, 'children'> {
   /**
+   * @description The disabled of the date picker
+   * @type boolean
+   * @default false
+   */
+  disabled?: boolean
+  /**
    * @description The placeholder of the date picker
    * @type string
    * @default '选择日期'

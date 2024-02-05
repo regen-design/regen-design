@@ -27,17 +27,22 @@ import {
 } from '@regen-design/icons'
 import { FadeInScaleUp } from '..'
 import { useMergedState, useOutsideClick } from '@regen-design/hooks'
+import { formatDate } from '@regen-design/utils'
 const DatePickerContext = createContext<
   DatePickerProps & {
     isFocused: boolean
     wrapperRect: DOMRect | null
+    setValue?: (value: any) => void
+    setIsFocused?: (value: boolean) => void
   }
 >({
   isFocused: false,
   wrapperRect: null,
+  value: undefined,
 })
 const DatePickerPanel = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
-  const { isFocused, wrapperRect } = useContext(DatePickerContext)
+  const { isFocused, wrapperRect, value, setValue, setIsFocused, onChange } =
+    useContext(DatePickerContext)
   const [dates, setDates] = useState<DatePickerDateItemType[]>([])
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date())
   const getCurrentMothDates = () => {
@@ -145,9 +150,20 @@ const DatePickerPanel = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
                 [`${prefixPanelClass}-dates__date-secondary`]: date.secondary,
                 [`${prefixPanelClass}-dates__date-today`]:
                   date.date.toDateString() === new Date().toDateString(),
+                [`${prefixPanelClass}-dates__date-selected`]:
+                  value && date.date.getTime() === value,
               })
               return (
-                <div key={index} className={dateClassName}>
+                <div
+                  key={index}
+                  className={dateClassName}
+                  onClick={e => {
+                    e.stopPropagation()
+                    setValue && setValue(date.date.getTime())
+                    onChange && onChange(date.date.getTime())
+                    setIsFocused?.(false)
+                  }}
+                >
                   {date.day}
                 </div>
               )
@@ -165,9 +181,10 @@ export const DatePicker: FC<DatePickerProps> = ({
   placeholder = '选择日期',
   value: valueProps,
   onChange,
+  disabled = false,
   // minDate,
   // maxDate,
-  // format = 'YYYY-MM-DD',
+  format = 'YYYY-MM-DD',
 }) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -178,7 +195,6 @@ export const DatePicker: FC<DatePickerProps> = ({
   const [value, setValue] = useMergedState(undefined, {
     value: valueProps,
   })
-  setValue
   useEffect(() => {
     if (isFocused) {
       if (wrapperRef.current) {
@@ -194,6 +210,9 @@ export const DatePicker: FC<DatePickerProps> = ({
       setIsFocused(false)
     }
   })
+  const formattedValue = useMemo(() => {
+    return value ? formatDate(new Date(value), format) : ''
+  }, [value])
   return (
     <DatePickerContext.Provider
       value={{
@@ -201,6 +220,8 @@ export const DatePicker: FC<DatePickerProps> = ({
         wrapperRect,
         value,
         onChange,
+        setValue,
+        setIsFocused,
       }}
     >
       <StyledDatePicker
@@ -209,10 +230,18 @@ export const DatePicker: FC<DatePickerProps> = ({
         className={datePickerClass}
         style={style}
         onClick={() => {
+          if (disabled) return
           setIsFocused(true)
         }}
       >
-        <Input ref={inputRef} placeholder={placeholder} suffix={<CalendarIcon />} />
+        <Input
+          ref={inputRef}
+          readOnly
+          disabled={disabled}
+          value={formattedValue}
+          placeholder={placeholder}
+          suffix={<CalendarIcon />}
+        />
         <DatePickerPanel ref={panelRef} />
       </StyledDatePicker>
     </DatePickerContext.Provider>

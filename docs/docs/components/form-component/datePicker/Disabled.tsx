@@ -1,4 +1,4 @@
-import { Space } from '@regen-design/components'
+import { DatePicker } from '@regen-design/components'
 export default function Demo() {
-  return <Space></Space>
+  return <DatePicker disabled />
 }

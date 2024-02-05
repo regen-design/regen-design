@@ -38,6 +38,7 @@ export const StyledDatePickerPanel = styled.div<{
     .${prefix}-dates {
       display: grid;
       position: relative;
+      gap: 4px;
       grid-template-columns: repeat(
         7,
         ${props => {
@@ -69,11 +70,26 @@ export const StyledDatePickerPanel = styled.div<{
         cursor: pointer;
         transition: ${props => {
           const _theme = convertTheme(props.theme)
-          return `background-color 300ms ${_theme.transition['ease-in']}`
+          return `
+          background-color 300ms ${_theme.transition['ease']},
+          color 300ms ${_theme.transition['ease']}`
         }};
-
+        border-radius: ${props => {
+          const _theme = convertTheme(props.theme)
+          return _theme.borderRadius + 'px'
+        }};
         &:hover {
           background-color: #f3f3f5;
+        }
+        &.${prefix}-dates__date-selected {
+          background-color: ${props => {
+            const _theme = convertTheme(props.theme)
+            return _theme.colors.primary
+          }};
+          color: ${props => {
+            const _theme = convertTheme(props.theme)
+            return _theme.colors.white
+          }};
         }
       }
 
