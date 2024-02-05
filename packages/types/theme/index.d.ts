@@ -42,9 +42,9 @@ export interface ThemeConfig {
   paddingSizes: Record<Size, string>
   /**
    * @description The border radius of the components
-   * @type number
+   * @type string
    */
-  borderRadius: number
+  borderRadius: string
   /**
    * @description The border color of light theme
    * @type string
@@ -114,6 +114,10 @@ export interface ThemeConfig {
       weekdayItemSize: string
       weekdayItemFontSize: string
       panelActionsPadding: string
+    }
+    avatar: {
+      size: Record<Size, string>
+      fontSize: string
     }
   }
 }

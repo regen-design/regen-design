@@ -59,7 +59,7 @@ export const StyledSwitch = styled.div<SwitchProps & { innerWidth: number }>`
     if (props.rounded) {
       return `calc(${height} / 2)`
     }
-    return _themes.borderRadius + 'px'
+    return _themes.borderRadius
   }};
   .${prefix}-inner {
     overflow: hidden;

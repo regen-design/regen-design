@@ -42,7 +42,7 @@ export const StyledSelect = styled.div<
     vertical-align: bottom;
     border-radius: ${props => {
       const _theme = convertTheme(props.theme)
-      return _theme.borderRadius + 'px'
+      return _theme.borderRadius
     }};
     min-height: ${props => {
       const _theme = convertTheme(props.theme)

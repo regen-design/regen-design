@@ -20,7 +20,7 @@ export const StyledSelectMenu = styled.div<{
   }};
   border-radius: ${props => {
     const _theme = convertTheme(props.theme)
-    return _theme.borderRadius + 'px'
+    return _theme.borderRadius
   }};
   padding: ${props => {
     const _theme = convertTheme(props.theme)

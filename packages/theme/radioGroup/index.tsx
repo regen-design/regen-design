@@ -7,7 +7,7 @@ export const StyledRadioGroupPrefixClass = prefix
 export const StyledRadioGroup = styled.div<RadioGroupProps>`
   border-radius: ${props => {
     const _theme = convertTheme(props.theme)
-    return _theme.borderRadius + 'px'
+    return _theme.borderRadius
   }};
   .${prefix}__divider {
     display: inline-block;

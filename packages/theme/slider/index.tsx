@@ -41,7 +41,7 @@ export const StyledSlider = styled.div<SliderProps>`
     }};
     border-radius: ${props => {
       const _theme = convertTheme(props.theme)
-      return _theme.borderRadius + 'px'
+      return _theme.borderRadius
     }};
     .${prefix}-thumb-wrap {
       outline: none;

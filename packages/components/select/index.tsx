@@ -5,6 +5,7 @@ import React, {
   forwardRef,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react'
@@ -97,6 +98,14 @@ const SelectMenu = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
       </StyledSelectMenuItem>
     )
   })
+  const topValue = useMemo(() => {
+    if (innerRect) {
+      const scrollTop = window.scrollY
+      const { top, height } = innerRect
+      return top + scrollTop + height + 3
+    }
+    return 0
+  }, [innerRect])
   return (
     <FadeInScaleUp in={isFocused}>
       <StyledSelectMenu
@@ -106,7 +115,7 @@ const SelectMenu = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
         style={{
           position: 'absolute',
           width: innerRect?.width,
-          top: (innerRect?.bottom || 0) + 3,
+          top: topValue,
           left: innerRect?.left,
         }}
       >

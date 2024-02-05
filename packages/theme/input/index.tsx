@@ -56,7 +56,7 @@ export const StyledInput = styled.div<
       const height = _theme.baseSizes[props.size] || _theme.baseSizes['default']
       return `calc(${height} / 2)`
     }
-    return _theme.borderRadius + 'px'
+    return _theme.borderRadius
   }};
   font-size: ${props => {
     const _theme = convertTheme(props.theme)

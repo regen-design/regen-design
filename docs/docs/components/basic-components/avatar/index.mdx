@@ -1,0 +1,60 @@
+---
+sidebar_position: 1
+---
+
+import BrowserOnly from '@docusaurus/BrowserOnly'
+import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
+import Size from "./Size"
+import SizeCode from "!!raw-loader!./Size"
+import Shape from "./Shape"
+import ShapeCode from "!!raw-loader!./Shape"
+import Color from "./Color"
+import ColorCode from "!!raw-loader!./Color"
+import FontSize from "./FontSize"
+import FontSizeCode from "!!raw-loader!./FontSize"
+import Name from "./Name"
+import NameCode from "!!raw-loader!./Name"
+
+# 头像 Avatar
+
+在互联网上，没有人知道你是 *** 。 但是，你可以用头像来展示自己。
+
+## 演示
+
+<BrowserOnly>
+  {() => (<ThemeProvider>
+    <Grid xGap={16} cols={2} style={{
+      alignItems: 'flex-start'
+    }}>
+    <Grid cols={1} yGap={16}>
+      <CodeBlock title="尺寸"
+                 description={"头像有 `tiny`、`small`、`default` 和 `large` 大小，也可以自己设定尺寸。"}
+                 code={String(SizeCode)}>
+        <Size />
+      </CodeBlock>
+      <CodeBlock title="颜色"
+                 description={"你可以把它设成某种和你爱吃的东西有关的颜色。"}
+                 code={String(ColorCode)}>
+        <Color />
+      </CodeBlock>
+    </Grid>
+      <Grid cols={1} yGap={16}>
+        <CodeBlock title="尺寸"
+                   description={"头像也可以是圆的。"}
+                   code={String(ShapeCode)}>
+          <Shape />
+        </CodeBlock>
+        <CodeBlock title="名称"
+                   description={"会根据提供的名字自动显示名称。"}
+                   code={String(NameCode)}>
+          <Name />
+        </CodeBlock>
+        <CodeBlock title="字号"
+                   description={"字号会根据内容文字自动调整。"}
+                   code={String(FontSizeCode)}>
+          <FontSize />
+        </CodeBlock>
+      </Grid>
+    </Grid>
+  </ThemeProvider>)}
+</BrowserOnly>
