@@ -70,9 +70,8 @@ export const StyledDatePickerPanel = styled.div<{
         cursor: pointer;
         transition: ${props => {
           const _theme = convertTheme(props.theme)
-          return `
-          background-color 300ms ${_theme.transition['ease']},
-          color 300ms ${_theme.transition['ease']}`
+          return `background-color 300ms ${_theme.transition['ease-in']},
+          color 300ms ${_theme.transition['ease-in']}`
         }};
         border-radius: ${props => {
           const _theme = convertTheme(props.theme)
@@ -91,25 +90,23 @@ export const StyledDatePickerPanel = styled.div<{
             return _theme.colors.white
           }};
         }
-      }
-
-      .${prefix}-dates__date-today {
-        &:after {
-          width: 6px;
-          height: 6px;
-          content: '';
-          position: absolute;
-          right: 4px;
-          top: 4px;
-          border-radius: 50%;
-          background-color: ${props => {
-            const _theme = convertTheme(props.theme)
-            return _theme.colors.primary
-          }};
-        }
-
-        .${prefix}-dates__date-secondary {
+        &.${prefix}-dates__date-secondary {
           color: #d1d1d6;
+        }
+        &.${prefix}-dates__date-today {
+          &:after {
+            width: 6px;
+            height: 6px;
+            content: '';
+            position: absolute;
+            right: 4px;
+            top: 4px;
+            border-radius: 50%;
+            background-color: ${props => {
+              const _theme = convertTheme(props.theme)
+              return _theme.colors.primary
+            }};
+          }
         }
       }
     }

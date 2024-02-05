@@ -86,7 +86,7 @@ const DatePickerPanel = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
     return `${currentMonth.getFullYear()}年${currentMonth.getMonth() + 1}月`
   }, [currentMonth])
   return (
-    <FadeInScaleUp in={isFocused}>
+    <FadeInScaleUp in={isFocused} timeout={250}>
       <StyledDatePickerPanel
         ref={ref}
         size={'default'}
