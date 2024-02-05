@@ -25,7 +25,22 @@ export const StyledDatePickerPanel = styled.div<{
   }};
   pointer-events: auto;
   overflow: auto;
-
+  .${prefix}-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: ${props => {
+      const _theme = convertTheme(props.theme)
+      return `1px solid ${_theme.borderColor}`
+    }};
+    padding: ${props => {
+      const _theme = convertTheme(props.theme)
+      return _theme.components.datePicker.panelActionsPadding
+    }};
+    .${prefix}-actions__suffix {
+      align-self: flex-end;
+    }
+  }
   .${prefix}-calendar {
     padding: ${props => {
       const _theme = convertTheme(props.theme)
@@ -34,7 +49,6 @@ export const StyledDatePickerPanel = styled.div<{
     display: grid;
     grid-template-columns: 1fr;
     grid-area: left-calendar;
-
     .${prefix}-dates {
       display: grid;
       position: relative;
@@ -57,6 +71,7 @@ export const StyledDatePickerPanel = styled.div<{
       .${prefix}-dates__date {
         user-select: none;
         -webkit-user-select: none;
+        position: relative;
         line-height: ${props => {
           const _theme = convertTheme(props.theme)
           return _theme.components.datePicker.dateItemSize
@@ -92,6 +107,14 @@ export const StyledDatePickerPanel = styled.div<{
         }
         &.${prefix}-dates__date-secondary {
           color: #d1d1d6;
+        }
+        &.${prefix}-dates__date-today.${prefix}-dates__date-selected {
+          &:after {
+            background-color: ${props => {
+              const _theme = convertTheme(props.theme)
+              return _theme.colors.light
+            }};
+          }
         }
         &.${prefix}-dates__date-today {
           &:after {

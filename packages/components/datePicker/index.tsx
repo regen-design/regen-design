@@ -15,9 +15,9 @@ import {
   AngleDoubleLeftIcon,
   AngleDoubleRightIcon,
 } from '@regen-design/icons'
-import { FadeInScaleUp } from '..'
+import { Button, FadeInScaleUp } from '..'
 import { useMergedState, useOutsideClick } from '@regen-design/hooks'
-import { formatDate } from '@regen-design/utils'
+import { formatDate, isSameDate } from '@regen-design/utils'
 const DatePickerContext = createContext<
   DatePickerProps<string | number> & {
     isFocused: boolean
@@ -60,7 +60,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
         secondary: true,
       })
     }
-    for (let i = dates.length; i < 42; i++) {
+    for (let i = 1; 42 - dates.length; i++) {
       const date = new Date(year, month + 1, i)
       dates.push({
         day: date.getDate(),
@@ -73,6 +73,18 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
   useEffect(() => {
     getCurrentMothDates()
   }, [currentMonth])
+  const handleCalendarClick = (date: Date) => {
+    if (typeof value === 'number') {
+      setValue && setValue(date.getTime())
+      onChange && (onChange as (value: number) => void)(date.getTime())
+    }
+    if (typeof value === 'string') {
+      const _value = formatDate(date, valueFormat || format)
+      setValue && setValue(_value)
+      onChange && (onChange as (value: string) => void)(_value)
+    }
+    setIsFocused?.(false)
+  }
   const currentMonthTitle = useMemo(() => {
     return `${currentMonth.getFullYear()}年${currentMonth.getMonth() + 1}月`
   }, [currentMonth])
@@ -127,7 +139,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
             </div>
           </div>
           <div className={`${prefixPanelClass}-weekdays`}>
-            {['日', '一', '二', '三', '四', '五', '六'].map((day, index) => {
+            {['一', '二', '三', '四', '五', '六', '日'].map((day, index) => {
               return (
                 <div key={index} className={`${prefixPanelClass}-weekdays__day`}>
                   {day}
@@ -139,15 +151,14 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
             {dates.map((date, index) => {
               let isSelected = false
               if (typeof value === 'number') {
-                isSelected = date.date.getTime() === value
+                isSelected = isSameDate(date.date, new Date(value))
               }
               if (typeof value === 'string') {
                 isSelected = formatDate(date.date, valueFormat || format) === value
               }
               const dateClassName = classNames(`${prefixPanelClass}-dates__date`, {
                 [`${prefixPanelClass}-dates__date-secondary`]: date.secondary,
-                [`${prefixPanelClass}-dates__date-today`]:
-                  date.date.toDateString() === new Date().toDateString(),
+                [`${prefixPanelClass}-dates__date-today`]: isSameDate(date.date, new Date()),
                 [`${prefixPanelClass}-dates__date-selected`]: isSelected,
               })
               return (
@@ -156,23 +167,28 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
                   className={dateClassName}
                   onClick={e => {
                     e.stopPropagation()
-                    if (typeof value === 'number') {
-                      setValue && setValue(date.date.getTime())
-                      onChange && (onChange as (value: number) => void)(date.date.getTime())
-                    }
-                    if (typeof value === 'string') {
-                      const _value = formatDate(date.date, valueFormat || format)
-                      setValue && setValue(_value)
-                      onChange && (onChange as (value: string) => void)(_value)
-                    }
-
-                    setIsFocused?.(false)
+                    handleCalendarClick(date.date)
                   }}
                 >
                   {date.day}
                 </div>
               )
             })}
+          </div>
+        </div>
+        <div className={`${prefixPanelClass}-actions`}>
+          <div className={`${prefixPanelClass}-actions__prefix`}></div>
+          <div className={`${prefixPanelClass}-actions__suffix`}>
+            <Button
+              size={'tiny'}
+              onClick={e => {
+                e.stopPropagation()
+                const date = new Date()
+                handleCalendarClick(new Date(date.getFullYear(), date.getMonth(), date.getDate()))
+              }}
+            >
+              此刻
+            </Button>
           </div>
         </div>
       </StyledDatePickerPanel>

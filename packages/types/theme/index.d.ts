@@ -113,6 +113,7 @@ export interface ThemeConfig {
       dateItemFontSize: string
       weekdayItemSize: string
       weekdayItemFontSize: string
+      panelActionsPadding: string
     }
   }
 }

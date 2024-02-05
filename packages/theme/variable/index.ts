@@ -102,6 +102,7 @@ export const defaultTheme: ThemeConfig = {
       dateItemFontSize: '14px',
       weekdayItemSize: '28px',
       weekdayItemFontSize: '14px',
+      panelActionsPadding: '6px 12px',
     },
   },
   theme: 'light',

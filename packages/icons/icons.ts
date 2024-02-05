@@ -121,6 +121,7 @@ export const SvgIcons = {
   ShoppingCartIcon: Icons.ShoppingCartIcon,
   ShuffleIcon: Icons.ShuffleIcon,
   SitemapIcon: Icons.SitemapIcon,
+  SocialNetworkIcon: Icons.SocialNetworkIcon,
   SpinnerIcon: Icons.SpinnerIcon,
   SquarePhoneHangupIcon: Icons.SquarePhoneHangupIcon,
   StarFillIcon: Icons.StarFillIcon,

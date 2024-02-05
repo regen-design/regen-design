@@ -4,7 +4,7 @@ export default function Demo() {
   const [value, setValue] = useState('')
   return (
     <>
-      <DatePicker value={value} valueFormat={'YYYY-MM-DD hh:mm:ss'} onChange={setValue} />
+      <DatePicker value={value} valueFormat={'YYYY-MM-DD'} onChange={setValue} />
       <span>{value}</span>
     </>
   )
