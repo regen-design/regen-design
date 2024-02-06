@@ -1,0 +1,46 @@
+---
+sidebar_position: 5
+---
+
+import BrowserOnly from '@docusaurus/BrowserOnly'
+import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
+import Basic from "./Basic"
+import BasicCode from "!!raw-loader!./Basic"
+import Size from "./Size"
+import SizeCode from "!!raw-loader!./Size"
+import Gradient from "./Gradient"
+import GradientCode from "!!raw-loader!./Gradient"
+
+# 渐变文字 Gradient Text
+
+这个东西看起来没啥用，实际上确实没啥用。
+
+## 演示
+
+<BrowserOnly>
+  {() => (<ThemeProvider>
+    <Grid xGap={16} cols={2} style={{
+      alignItems: 'flex-start'
+    }}>
+      <Grid yGap={16} cols={1}>
+        <CodeBlock title="基础"
+                   description={'它有不同的类型。'}
+                   code={String(BasicCode)}>
+          <Basic />
+        </CodeBlock>
+        <CodeBlock title="定制"
+                   description={'靠你了。'}
+                   code={String(GradientCode)}>
+          <Gradient />
+        </CodeBlock>
+      </Grid>
+      <Grid yGap={16} cols={1}>
+        <CodeBlock title="尺寸"
+                   description={'可以设置不同的尺寸。'}
+                   code={String(SizeCode)}>
+          <Size />
+        </CodeBlock>
+      </Grid>
+    </Grid>
+  </ThemeProvider>)}
+</BrowserOnly>

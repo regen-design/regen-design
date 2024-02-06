@@ -7,5 +7,5 @@ import { deepMerge } from '@regen-design/utils/object'
  * @param theme
  */
 export const convertTheme = (theme: ThemeConfig) => {
-  return deepMerge(defaultTheme, theme || {})
+  return deepMerge(defaultTheme, theme || {}) as ThemeConfig
 }
