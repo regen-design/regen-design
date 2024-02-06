@@ -21,7 +21,7 @@ export const StyledDatePickerPanel = styled.div<{
   }};
   border-radius: ${props => {
     const _theme = convertTheme(props.theme)
-    return _theme.borderRadius + 'px'
+    return _theme.borderRadius
   }};
   pointer-events: auto;
   overflow: auto;
@@ -90,7 +90,7 @@ export const StyledDatePickerPanel = styled.div<{
         }};
         border-radius: ${props => {
           const _theme = convertTheme(props.theme)
-          return _theme.borderRadius + 'px'
+          return _theme.borderRadius
         }};
         &:hover {
           background-color: #f3f3f5;

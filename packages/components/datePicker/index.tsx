@@ -88,6 +88,14 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
   const currentMonthTitle = useMemo(() => {
     return `${currentMonth.getFullYear()}年${currentMonth.getMonth() + 1}月`
   }, [currentMonth])
+  const topValue = useMemo(() => {
+    if (wrapperRect) {
+      const scrollTop = window.scrollY
+      const { top, height } = wrapperRect
+      return top + scrollTop + height + 3
+    }
+    return 0
+  }, [wrapperRect])
   return (
     <FadeInScaleUp in={isFocused} timeout={250}>
       <StyledDatePickerPanel
@@ -96,7 +104,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
         className={`${prefixPanelClass}`}
         style={{
           position: 'absolute',
-          top: (wrapperRect?.bottom || 0) + 3,
+          top: topValue,
           left: wrapperRect?.left,
         }}
       >

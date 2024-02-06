@@ -38,7 +38,7 @@ export const StyledButton = styled.button<
     if (props.rounded) {
       return height
     }
-    return convertTheme(props.theme).borderRadius + 'px'
+    return convertTheme(props.theme).borderRadius
   }};
   text-align: center;
   color: ${props => {

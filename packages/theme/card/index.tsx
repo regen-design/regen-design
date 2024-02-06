@@ -9,7 +9,7 @@ export const StyledCard = styled.div<CardProps>`
     const _theme = convertTheme(props.theme)
     return `1px solid ${_theme.theme === 'light' ? _theme.borderColor : _theme.borderDarkColor}`
   }};
-  border-radius: ${props => convertTheme(props.theme).borderRadius + 'px'};
+  border-radius: ${props => convertTheme(props.theme).borderRadius};
   border-bottom: 0;
   width: 100%;
   box-sizing: border-box;
