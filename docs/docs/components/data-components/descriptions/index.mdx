@@ -1,0 +1,33 @@
+---
+sidebar_position: 1
+---
+
+import BrowserOnly from '@docusaurus/BrowserOnly'
+import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
+import Basic from "./Basic"
+import BasicCode from "!!raw-loader!./Basic"
+import Bordered from "./Bordered"
+import BorderedCode from "!!raw-loader!./Bordered"
+
+# 描述 Descriptions
+
+简单的列出信息。
+
+## 演示
+
+<BrowserOnly>
+  {() => (<ThemeProvider>
+    <Grid yGap={16} cols={1}>
+      <CodeBlock title="基础"
+                 description={'简单的展示。'}
+                 code={String(BasicCode)}>
+        <Basic />
+      </CodeBlock>
+      <CodeBlock title="带有边框的"
+                 description={'带边框和背景颜色列表。'}
+                 code={String(BorderedCode)}>
+        <Bordered />
+      </CodeBlock>
+    </Grid>
+  </ThemeProvider>)}
+</BrowserOnly>

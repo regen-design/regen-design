@@ -113,6 +113,12 @@ export const defaultTheme: ThemeConfig = {
       },
       fontSize: '14px',
     },
+    descriptions: {
+      labelBackgroundColor: '#fafafa',
+      labelPadding: '12px 10px',
+      contentPadding: '16px 24px',
+      borderColor: '#ebeef5',
+    },
   },
   theme: 'light',
 }

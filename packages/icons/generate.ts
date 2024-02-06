@@ -118,7 +118,9 @@ const generateIconsList = (svgFiles: SvgFile[]) => {
         encoding: 'utf-8',
       },
       () => {
-        console.log('\n\n' + colors.green('write icons list file success'))
+        console.log('\n\n' + colors.green('write icons list file success') + '\n\n')
+        b1.stop()
+        process.exit(0)
       }
     )
   })

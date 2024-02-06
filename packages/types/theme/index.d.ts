@@ -119,5 +119,11 @@ export interface ThemeConfig {
       size: Record<Size, string>
       fontSize: string
     }
+    descriptions: {
+      labelBackgroundColor: string
+      labelPadding: string
+      contentPadding: string
+      borderColor: string
+    }
   }
 }
