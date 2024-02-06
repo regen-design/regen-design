@@ -3,6 +3,16 @@ import * as path from 'path'
 import { convertToUpperCase } from '@regen-design/utils'
 import * as fs from 'fs'
 import * as prettier from 'prettier'
+import * as cliProgress from 'cli-progress'
+import * as colors from 'ansi-colors'
+
+// create new progress bar
+const b1 = new cliProgress.SingleBar({
+  format: 'Generate Icons |' + colors.blue('{bar}') + '| {percentage}% || {value}/{total} Chunks',
+  barCompleteChar: '\u2588',
+  barIncompleteChar: '\u2591',
+  hideCursor: true,
+})
 
 type SvgFile = {
   filename: string
@@ -18,7 +28,14 @@ const formatSvg = (svg: string) => {
 const readSvgFiles = (): SvgFile[] => {
   const svgFolder = path.join(__dirname, './src/svg')
   const svgFiles = fs.readdirSync(svgFolder)
+  b1.start(svgFiles.length, 0)
   return svgFiles.map(file => {
+    if (!file.endsWith('.svg')) {
+      throw new Error(`must be svg file: ${file}`)
+    }
+    if (!/^[a-zA-Z0-9-]+$/g.test(file.replace('.svg', ''))) {
+      throw new Error(`Invalid svg file name: ${file}`)
+    }
     const svgPath = path.join(svgFolder, file)
     const svgContent = fs.readFileSync(svgPath, 'utf-8')
     const componentName = path.basename(file, '.svg')
@@ -57,6 +74,7 @@ const generateIconComponent = (svgFiles: SvgFile[]) => {
   }
   svgFiles.forEach(svg => {
     const iconComponent = iconComponentTemplate(svg)
+    b1.increment()
     iconComponent.then(component => {
       const iconComponentPath = path.join(__dirname, `./src/icons/${svg.componentName}.tsx`)
       fs.writeFileSync(iconComponentPath, component)
@@ -100,7 +118,7 @@ const generateIconsList = (svgFiles: SvgFile[]) => {
         encoding: 'utf-8',
       },
       () => {
-        console.log('write icons list file success')
+        console.log('\n\n' + colors.green('write icons list file success'))
       }
     )
   })
