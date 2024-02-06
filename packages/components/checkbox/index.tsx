@@ -13,7 +13,9 @@ export const Checkbox: FC<CheckboxProps> = ({
   checked: WChecked = false,
   onChange,
 }) => {
-  const checkboxClass = classNames(prefixClass, className)
+  const checkboxClass = classNames(prefixClass, className, {
+    [`${prefixClass}--disabled`]: disabled,
+  })
   const waveRef = useRef<WaveRefProps>(null)
   const [checked, setChecked] = useState(false)
   useEffect(() => {

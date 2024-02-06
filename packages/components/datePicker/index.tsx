@@ -220,7 +220,9 @@ export const DatePicker = <T extends number | string>({
   const inputRef = useRef<HTMLInputElement>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
-  const datePickerClass = classNames(prefixClass, className)
+  const datePickerClass = classNames(prefixClass, className, {
+    [`${prefixClass}--disabled`]: disabled,
+  })
   const [isFocused, setIsFocused] = useState(false)
   const [wrapperRect, setWrapperRect] = useState<DOMRect | null>(null)
   const [value, setValue] = useMergedState(undefined, {

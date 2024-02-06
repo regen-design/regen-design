@@ -52,7 +52,11 @@ export const Input = forwardRef(
       onKeyUp,
       onInput,
     } = Props
-    const inputClass = classNames(prefixClass, className)
+    const inputClass = classNames(prefixClass, className, {
+      [`${prefixClass}--disabled`]: disabled,
+      [`${prefixClass}--rounded`]: rounded,
+      [`${prefixClass}--${size}`]: size,
+    })
     const inputElementRef = useRef<HTMLInputElement>(null)
     const textareaElementRef = useRef<HTMLTextAreaElement>(null)
     const [isFocus, setIsFocus] = useState(false)

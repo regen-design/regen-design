@@ -15,7 +15,9 @@ export const Radio: FC<RadioProps> = ({
   index,
 }) => {
   const { optionType, optionsLength } = useContext(RadioGroupContext)
-  const radioClass = classNames(prefixClass, className)
+  const radioClass = classNames(prefixClass, className, {
+    [`${prefixClass}--disabled`]: disabled,
+  })
   const [checked, setChecked] = useState(false)
   const waveRef = useRef<WaveRefProps>(null)
   useEffect(() => {

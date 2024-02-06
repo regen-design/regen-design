@@ -18,7 +18,9 @@ export const Switch: FC<SwitchProps> = ({
   checkedChildren,
   unCheckedChildren,
 }) => {
-  const switchClass = classNames(prefixClass, className)
+  const switchClass = classNames(prefixClass, className, {
+    [`${prefixClass}--disabled`]: disabled,
+  })
   const [innerValue, setInnerValue] = useMergedState(false, {
     value: checked,
   })

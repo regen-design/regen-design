@@ -10,7 +10,11 @@ export const Tag: FC<TagProps> = ({
   children,
   size = 'default',
 }) => {
-  const tagClass = classNames(prefixClass, className)
+  const tagClass = classNames(prefixClass, className, {
+    [`${prefixClass}--${type}`]: type,
+    [`${prefixClass}--bordered`]: bordered,
+    [`${prefixClass}--${size}`]: size,
+  })
   return (
     <StyledTag
       role="tag"

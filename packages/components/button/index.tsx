@@ -36,6 +36,15 @@ export const Button: FC<ButtonProps> = ({
   }
   const buttonClass = classNames(className, prefixClass, {
     [`${prefixClass}--${type}`]: type,
+    [`${prefixClass}--${size}`]: size,
+    [`${prefixClass}--disabled`]: disabled,
+    [`${prefixClass}--dashed`]: dashed,
+    [`${prefixClass}--text`]: text,
+    [`${prefixClass}--circle`]: circle,
+    [`${prefixClass}--rounded`]: rounded,
+    [`${prefixClass}--block`]: block,
+    [`${prefixClass}--loading`]: loading,
+    [`${prefixClass}--${color}`]: color,
   })
   useEffect(() => {
     if (loadingRef.current) {

@@ -147,7 +147,9 @@ export const Select: FC<SelectProps> = props => {
     clearIcon,
     filterable = false,
   } = props
-  const selectClass = classNames(prefixClass, className)
+  const selectClass = classNames(prefixClass, className, {
+    [`${prefixClass}--disabled`]: disabled,
+  })
   const [isFocused, setIsFocused] = useState(false)
   const [inputFocused, setInputFocused] = useState(false)
   const [isActivated, setIsActivated] = useState(false)

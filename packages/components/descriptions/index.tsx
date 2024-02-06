@@ -14,7 +14,9 @@ export const Descriptions: FC<DescriptionsProps> = ({
   items = [],
   bordered,
 }) => {
-  const descriptionsClass = classNames(prefixClass, className)
+  const descriptionsClass = classNames(prefixClass, className, {
+    [`${prefixClass}--bordered`]: bordered,
+  })
   const splitItems = useMemo(() => {
     return items.reduce((result: DescriptionsItemProps[][], value, index) => {
       if (index % column === 0) {

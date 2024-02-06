@@ -16,7 +16,9 @@ export const Slider: FC<SliderProps> = ({
   const thumbRef = useRef<HTMLDivElement>(null)
   const innerRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
-  const sliderClass = classNames(prefixClass, className)
+  const sliderClass = classNames(prefixClass, className, {
+    [`${prefixClass}--disabled`]: disabled,
+  })
   const [value, setValue] = useMergedState(defaultValue, {
     value: valueProps,
   })

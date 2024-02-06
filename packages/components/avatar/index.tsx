@@ -17,7 +17,9 @@ export const Avatar: FC<AvatarProps> = ({
   borderColor,
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null)
-  const avatarClass = classNames(prefixClass, className)
+  const avatarClass = classNames(prefixClass, className, {
+    [`${prefixClass}--rounded`]: rounded,
+  })
   const [scale, setScale] = useState(1)
   useEffect(() => {
     if (children && wrapperRef.current) {
