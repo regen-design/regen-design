@@ -119,6 +119,20 @@ export const defaultTheme: ThemeConfig = {
       contentPadding: '16px 24px',
       borderColor: '#ebeef5',
     },
+    tag: {
+      padding: {
+        tiny: '0 4px',
+        small: '0 6px',
+        default: '0 8px',
+        large: '0 10px',
+      },
+      height: {
+        tiny: '20px',
+        small: '24px',
+        default: '28px',
+        large: '32px',
+      },
+    },
   },
   theme: 'light',
 }

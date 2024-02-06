@@ -125,5 +125,9 @@ export interface ThemeConfig {
       contentPadding: string
       borderColor: string
     }
+    tag: {
+      padding: Record<Size, string>
+      height: Record<Size, string>
+    }
   }
 }

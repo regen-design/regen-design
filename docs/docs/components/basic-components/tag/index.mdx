@@ -1,0 +1,45 @@
+---
+sidebar_position: 1
+---
+
+import BrowserOnly from '@docusaurus/BrowserOnly'
+import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
+import Basic from "./Basic"
+import BasicCode from "!!raw-loader!./Basic"
+import NoBordered from "./NoBordered"
+import NoBorderedCode from "!!raw-loader!./NoBordered"
+import Size from "./Size"
+import SizeCode from "!!raw-loader!./Size"
+
+# 标签 Tag
+
+通常用来展示一些属性，偶尔也用来当一些备选的属性。
+
+## 演示
+
+<BrowserOnly>
+  {() => (<ThemeProvider>
+    <Grid xGap={16} cols={2} style={{
+      alignItems: 'flex-start'
+    }}>
+      <Grid yGap={16} cols={1}>
+        <CodeBlock title="基础"
+                   description={'它有不同的类型。'}
+                   code={String(BasicCode)}>
+          <Basic />
+        </CodeBlock>
+        <CodeBlock title="尺寸"
+                   description={'它有不同的尺寸。'}
+                   code={String(SizeCode)}>
+          <Size />
+        </CodeBlock>
+      </Grid>
+      <Grid yGap={16} cols={1}>
+        <CodeBlock title="无边框"
+                   code={String(NoBorderedCode)}>
+          <NoBordered />
+        </CodeBlock>
+      </Grid>
+    </Grid>
+  </ThemeProvider>)}
+</BrowserOnly>

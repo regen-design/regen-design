@@ -91,16 +91,12 @@ export const CodeBlock: FC<CodeBlockProps> = ({
           footerStyle={{ padding: 0, borderBottom: 0 }}
           footer={
             <div ref={footerRef} className={`${prefixClass}-footer`}>
-              <Button
-                icon={isCopied ? <CheckIcon color="success" /> : <CopyIcon />}
-                size="tiny"
-                className={`${prefixClass}--copy`}
-                onClick={() => {
-                  handleClickCopy()
-                }}
-              />
               <pre>
-                <code className={hljsClassName} style={{ display: 'block' }} ref={footerCodeRef}>
+                <code
+                  className={hljsClassName}
+                  style={{ display: 'block', minWidth: 400 }}
+                  ref={footerCodeRef}
+                >
                   {code}
                 </code>
               </pre>
