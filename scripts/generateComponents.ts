@@ -134,7 +134,7 @@ rl.on('close', () => {
   console.log('close event emitted')
   b1.stop()
   // exec auto export
-  exec('npm run auto:export', (error, stdout, stderr) => {
+  exec('npm run auto:export', (error, stdout) => {
     if (error) {
       console.error(`exec script error: ${error}`)
       return

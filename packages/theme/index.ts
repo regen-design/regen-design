@@ -1,6 +1,8 @@
 import { ThemeConfig } from '@regen-design/types'
 import { useTheme as useThemeFn } from 'styled-components'
 export const useTheme = useThemeFn as () => ThemeConfig
+export * from './colors'
+export * from './QRCode'
 export * from './animations'
 export * from './avatar'
 export * from './button'

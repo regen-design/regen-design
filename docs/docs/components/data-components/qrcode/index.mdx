@@ -1,0 +1,46 @@
+---
+sidebar_position: 3
+---
+
+import BrowserOnly from '@docusaurus/BrowserOnly'
+import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
+import Basic from "./Basic"
+import BasicCode from "!!raw-loader!./Basic"
+import Icon from "./Icon"
+import IconCode from "!!raw-loader!./Icon"
+import Color from "./Color"
+import ColorCode from "!!raw-loader!./Color"
+
+# 二维码 QR Code
+
+二维码是一种矩阵式二维条码，是用某种特定的几何图形按一定规律在平面（二维方向上）分布的黑白相间的图形记录数据符号信息的。主要用于快速识别数据、信息的自动识别、记录、存储等。
+
+## 演示
+
+<BrowserOnly>
+  {() => (<ThemeProvider>
+    <Grid xGap={16} cols={2} style={{
+      alignItems: 'flex-start'
+    }}>
+      <Grid yGap={16} cols={1}>
+        <CodeBlock title="基础"
+                    description={'基础的二维码。'}
+                   code={String(BasicCode)}>
+          <Basic />
+        </CodeBlock>
+      </Grid>
+      <Grid yGap={16} cols={1}>
+        <CodeBlock title="图标"
+                   description={'可以放一些代表性的图标。'}
+                   code={String(IconCode)}>
+          <Icon />
+        </CodeBlock>
+        <CodeBlock title="颜色"
+                   description={'让二维码不再单调乏味。'}
+                   code={String(ColorCode)}>
+          <Color />
+        </CodeBlock>
+      </Grid>
+    </Grid>
+  </ThemeProvider>)}
+</BrowserOnly>
