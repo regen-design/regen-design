@@ -4,6 +4,17 @@ import * as path from 'path'
 import * as prettier from 'prettier'
 import { convertToUpperCase } from '@regen-design/utils'
 import { exec } from 'child_process'
+import * as cliProgress from 'cli-progress'
+import * as colors from 'ansi-colors'
+
+// create new progress bar
+const b1 = new cliProgress.SingleBar({
+  format:
+    'Generate components |' + colors.blue('{bar}') + '| {percentage}% || {value}/{total} Chunks',
+  barCompleteChar: '\u2588',
+  barIncompleteChar: '\u2591',
+  hideCursor: true,
+})
 
 const prettierConfigString = fs.readFileSync(path.join(__dirname, '../.prettierrc'), 'utf-8')
 const prettierConfig = JSON.parse(prettierConfigString || '{}')
@@ -19,10 +30,12 @@ function createComponentTemplate(componentName: string) {
       return <Styled${ComponentName} role="${componentName}" className={${componentName}Class} style={style}></Styled${ComponentName}>
     }
   `
+  b1.increment()
   return prettier.format(render, prettierConfig)
 }
 function createThemeTemplate(componentName: string) {
   const ComponentName = convertToUpperCase(componentName)
+  b1.increment()
   return prettier.format(
     `
   import { NAME_SPACE } from '@regen-design/constant'
@@ -36,6 +49,7 @@ function createThemeTemplate(componentName: string) {
   )
 }
 function createTypesTemplate(componentName: string) {
+  b1.increment()
   return prettier.format(
     `
     import { CommonType } from '../common'
@@ -84,6 +98,7 @@ rl.question('Please enter a folder name: ', folderName => {
     console.log('Folder name must be in camel case')
     process.exit(0)
   }
+  b1.start(3, 0)
   const createFilesTasks = []
   const createTemplateTasks = [
     createComponentTemplate(folderName),
@@ -100,21 +115,24 @@ rl.question('Please enter a folder name: ', folderName => {
         .then(() => {
           rl.close()
           console.log('All files created')
+          b1.stop()
         })
         .catch(err => {
           rl.close()
           console.log(err)
+          b1.stop()
         })
     })
     .catch(err => {
       rl.close()
       console.log(err)
+      b1.stop()
     })
 })
 
 rl.on('close', () => {
   console.log('close event emitted')
-
+  b1.stop()
   // exec auto export
   exec('npm run auto:export', (error, stdout, stderr) => {
     if (error) {
