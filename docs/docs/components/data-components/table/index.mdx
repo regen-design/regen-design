@@ -1,0 +1,31 @@
+---
+sidebar_position: 1
+---
+
+import BrowserOnly from '@docusaurus/BrowserOnly'
+import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
+import Basic from "./Basic"
+import BasicCode from "!!raw-loader!./Basic"
+import Empty from "./Empty"
+import EmptyCode from "!!raw-loader!./Empty"
+
+# 表格 Table
+
+表格用来显示一些格式化信息。
+
+## 演示
+
+<BrowserOnly>
+  {() => (<ThemeProvider>
+    <Grid yGap={16} cols={1}>
+      <CodeBlock title="基础"
+                 code={String(BasicCode)}>
+        <Basic />
+      </CodeBlock>
+      <CodeBlock title="空表格"
+                 code={String(EmptyCode)}>
+        <Empty />
+      </CodeBlock>
+    </Grid>
+  </ThemeProvider>)}
+</BrowserOnly>

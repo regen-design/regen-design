@@ -129,5 +129,18 @@ export interface ThemeConfig {
       padding: Record<Size, string>
       height: Record<Size, string>
     }
+    table: {
+      theadBackgroundColor: string
+      theadBorderColor: string
+      theadTextColor: string
+      theadPadding: string
+      tdPadding: string
+      tdBorderColor: string
+      tdTextColor: string
+      tdBackgroundColor: string
+      tdHoverBackgroundColor: string
+      emptyPadding: string
+      borderColor: string
+    }
   }
 }
