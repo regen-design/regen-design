@@ -6,6 +6,10 @@ import BrowserOnly from '@docusaurus/BrowserOnly'
 import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 import Basic from "./Basic"
 import BasicCode from "!!raw-loader!./Basic"
+import Trigger from "./Trigger"
+import TriggerCode from "!!raw-loader!./Trigger"
+import Position from "./Position"
+import PositionCode from "!!raw-loader!./Position"
 
 # 弹出信息 Popover
 
@@ -22,6 +26,16 @@ Popover 在内容周围弹出一些隐藏的信息。Popover 里面没什么内�
         <CodeBlock title="基础"
                    code={String(BasicCode)}>
           <Basic />
+        </CodeBlock>
+        <CodeBlock title="位置"
+                   code={String(PositionCode)}>
+          <Position />
+        </CodeBlock>
+      </Grid>
+      <Grid yGap={16} cols={1}>
+        <CodeBlock title="触发条件"
+                   code={String(TriggerCode)}>
+          <Trigger />
         </CodeBlock>
       </Grid>
     </Grid>

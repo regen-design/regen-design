@@ -9,6 +9,145 @@ export const StyledPopover = styled.div<PopoverProps>`
   user-select: text;
   font-weight: normal;
   white-space: normal;
+  &.${prefix}-bottom-end {
+    .${prefix}-wrapper {
+      right: 0;
+      left: 0;
+      top: auto;
+      bottom: 100%;
+      .${prefix}-arrow {
+        left: calc(100% - 15px);
+        top: 10px;
+      }
+    }
+  }
+  &.${prefix}-bottom-start {
+    .${prefix}-wrapper {
+      right: 0;
+      left: 0;
+      top: auto;
+      bottom: 100%;
+      .${prefix}-arrow {
+        left: 15px;
+        top: 10px;
+      }
+    }
+  }
+  &.${prefix}-bottom {
+    .${prefix}-wrapper {
+      right: 0;
+      left: 0;
+      top: auto;
+      bottom: 100%;
+      .${prefix}-arrow {
+        left: 50%;
+        top: 10px;
+      }
+    }
+  }
+  &.${prefix}-right-end {
+    .${prefix}-wrapper {
+      left: auto;
+      right: 100%;
+      top: 0;
+      bottom: auto;
+      width: 10px;
+      height: 100%;
+      .${prefix}-arrow {
+        top: calc(100% - 15px);
+        left: 10px;
+      }
+    }
+  }
+  &.${prefix}-right-start {
+    .${prefix}-wrapper {
+      left: auto;
+      right: 100%;
+      top: 0;
+      bottom: auto;
+      width: 10px;
+      height: 100%;
+      .${prefix}-arrow {
+        top: 15px;
+        left: 10px;
+      }
+    }
+  }
+  &.${prefix}-right {
+    .${prefix}-wrapper {
+      left: auto;
+      right: 100%;
+      top: 0;
+      bottom: auto;
+      width: 10px;
+      height: 100%;
+      .${prefix}-arrow {
+        top: 50%;
+        left: 10px;
+      }
+    }
+  }
+  &.${prefix}-left-end {
+    .${prefix}-wrapper {
+      right: 0;
+      left: 100%;
+      top: 0;
+      bottom: auto;
+      width: 10px;
+      height: 100%;
+      .${prefix}-arrow {
+        top: calc(100% - 15px);
+      }
+    }
+  }
+  &.${prefix}-left-start {
+    .${prefix}-wrapper {
+      right: 0;
+      left: 100%;
+      top: 0;
+      bottom: auto;
+      width: 10px;
+      height: 100%;
+      .${prefix}-arrow {
+        top: 15px;
+      }
+    }
+  }
+  &.${prefix}-left {
+    .${prefix}-wrapper {
+      right: 0;
+      left: 100%;
+      top: 0;
+      bottom: auto;
+      width: 10px;
+      height: 100%;
+      .${prefix}-arrow {
+        top: 50%;
+      }
+    }
+  }
+  &.${prefix}-top-end {
+    .${prefix}-wrapper {
+      right: 0;
+      left: 0;
+      top: 100%;
+      bottom: auto;
+      .${prefix}-arrow {
+        left: calc(100% - 15px);
+      }
+    }
+  }
+  &.${prefix}-top-start {
+    .${prefix}-wrapper {
+      right: 0;
+      left: 0;
+      top: 100%;
+      bottom: auto;
+      .${prefix}-arrow {
+        left: 15px;
+      }
+    }
+  }
   &.${prefix}-top {
     .${prefix}-wrapper {
       right: 0;
@@ -40,7 +179,10 @@ export const StyledPopover = styled.div<PopoverProps>`
     height: 10px;
   }
   .${prefix}-arrow {
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.12);
+    box-shadow:
+      0 3px 6px -4px rgba(0, 0, 0, 0.12),
+      0 6px 16px 0 rgba(0, 0, 0, 0.08),
+      0 9px 28px 8px rgba(0, 0, 0, 0.05);
     position: absolute;
     z-index: 1;
     display: block;

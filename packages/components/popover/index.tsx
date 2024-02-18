@@ -17,7 +17,7 @@ import { FadeInScaleUp } from '../fadeInScaleUp'
 import { StyledPopover, StyledPopoverPrefixClass as prefixClass } from '@regen-design/theme'
 import { useOutsideClick } from '@regen-design/hooks'
 
-const PopoverLayer = forwardRef(({ rect, placement, open }: PopoverLayerProps) => {
+const PopoverLayer = forwardRef(({ rect, placement, open, content }: PopoverLayerProps) => {
   const contentRef = useRef<HTMLDivElement>(null)
   const [updater, setUpdater] = useState(+new Date())
   const layerStyle = useMemo(() => {
@@ -38,6 +38,72 @@ const PopoverLayer = forwardRef(({ rect, placement, open }: PopoverLayerProps) =
         style.transformOrigin = 'center bottom'
         break
       }
+      case 'top-start': {
+        style.top = top - height / 2 - (offsetHeight || 0) + 5
+        style.left = left
+        style.transformOrigin = 'left bottom'
+        break
+      }
+      case 'top-end': {
+        style.top = top - height / 2 - (offsetHeight || 0) + 5
+        style.left = left + width - (offsetWidth || 0)
+        style.transformOrigin = 'right bottom'
+        break
+      }
+      case 'left': {
+        style.top = top + height / 2 - (offsetHeight || 0) / 2
+        style.left = left - (offsetWidth || 0) - 10
+        style.transformOrigin = 'right center'
+        break
+      }
+      case 'left-start': {
+        style.top = top
+        style.left = left - (offsetWidth || 0) - 10
+        style.transformOrigin = 'right top'
+        break
+      }
+      case 'left-end': {
+        style.top = top + height - (offsetHeight || 0)
+        style.left = left - (offsetWidth || 0) - 10
+        style.transformOrigin = 'right bottom'
+        break
+      }
+      case 'right': {
+        style.top = top + height / 2 - (offsetHeight || 0) / 2
+        style.left = left + width + 10
+        style.transformOrigin = 'left center'
+        break
+      }
+      case 'right-start': {
+        style.top = top
+        style.left = left + width + 10
+        style.transformOrigin = 'left top'
+        break
+      }
+      case 'right-end': {
+        style.top = top + height - (offsetHeight || 0)
+        style.left = left + width + 10
+        style.transformOrigin = 'left bottom'
+        break
+      }
+      case 'bottom': {
+        style.top = top + height + 10
+        style.left = left + width / 2 - (offsetWidth || 0) / 2
+        style.transformOrigin = 'center top'
+        break
+      }
+      case 'bottom-start': {
+        style.top = top + height + 10
+        style.left = left
+        style.transformOrigin = 'left top'
+        break
+      }
+      case 'bottom-end': {
+        style.top = top + height + 10
+        style.left = left + width - (offsetWidth || 0)
+        style.transformOrigin = 'right top'
+        break
+      }
     }
     return style
   }, [rect, placement, updater])
@@ -56,10 +122,7 @@ const PopoverLayer = forwardRef(({ rect, placement, open }: PopoverLayerProps) =
           <div className={`${prefixClass}-arrow`}></div>
         </div>
         <div className={`${prefixClass}-content`}>
-          <div className={`${prefixClass}-inner`}>
-            <div>Content</div>
-            <div>Content</div>
-          </div>
+          <div className={`${prefixClass}-inner`}>{content}</div>
         </div>
       </StyledPopover>
     </FadeInScaleUp>
@@ -71,6 +134,7 @@ export const Popover: FC<PopoverProps> = ({
   trigger = 'hover',
   placement = 'top',
   children,
+  content = '',
 }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [rect, setRect] = useState<DOMRect | null>(null)
@@ -121,7 +185,7 @@ export const Popover: FC<PopoverProps> = ({
   return (
     <Fragment>
       {ChildrenElement}
-      <PopoverLayer open={isOpen} rect={rect} placement={placement} />
+      <PopoverLayer open={isOpen} rect={rect} placement={placement} content={content} />
     </Fragment>
   )
 }
