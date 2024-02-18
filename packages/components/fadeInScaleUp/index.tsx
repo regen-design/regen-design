@@ -7,10 +7,14 @@ import { FadeInScaleUpProps } from '@regen-design/types'
 const TempFadeInScaleUp: FC<FadeInScaleUpProps> = props => {
   return (
     <CSSTransition
-      mountOnEnter
+      mountOnEnter={props.mountOnEnter || true}
       classNames={'fade-in-scale-up'}
       in={props.in}
       timeout={props.timeout || 300}
+      onEnter={props.onEnter}
+      onExit={props.onExit}
+      onEntered={props.onEntered}
+      onExited={props.onExited}
     >
       {props.children}
     </CSSTransition>

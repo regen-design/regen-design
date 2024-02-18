@@ -30,6 +30,7 @@ export interface CommonType {
 export type Size = 'tiny' | 'small' | 'default' | 'large'
 export type Type = 'default' | 'primary' | 'info' | 'success' | 'warning' | 'danger'
 export type Align = 'left' | 'center' | 'right'
+export type Placement = 'top' | 'bottom' | 'left' | 'right'
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]
 }
