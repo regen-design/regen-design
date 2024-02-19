@@ -11,7 +11,13 @@ export type Color =
   | 'placeholder'
   | 'white'
   | 'black'
-
+export interface ThemeProps {
+  /**
+   * @description component theme
+   * @type ThemeConfig
+   */
+  theme?: ThemeConfig
+}
 export type Animation = 'duration'
 export type TransitionType = 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear'
 export interface ThemeConfig {

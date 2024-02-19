@@ -19,7 +19,6 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ theme, children }) => {
       mutationObserver.current.disconnect()
       mutationObserver.current = null
     }
-    // 监听html元素的属性变化
     mutationObserver.current = new MutationObserver(mutationsList => {
       for (const mutation of mutationsList) {
         if (mutation.type === 'attributes') {

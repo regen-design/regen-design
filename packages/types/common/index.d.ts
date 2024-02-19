@@ -26,7 +26,7 @@ export interface CommonType {
    */
   children?: ReactNode
 }
-
+export type Theme = 'light' | 'dark'
 export type Size = 'tiny' | 'small' | 'default' | 'large'
 export type Type = 'default' | 'primary' | 'info' | 'success' | 'warning' | 'danger'
 export type Align = 'left' | 'center' | 'right'

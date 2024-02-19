@@ -2,8 +2,7 @@ import {
   cloneElement,
   CSSProperties,
   FC,
-  forwardRef,
-  Fragment,
+  memo,
   ReactElement,
   useEffect,
   useLayoutEffect,
@@ -17,129 +16,136 @@ import { FadeInScaleUp } from '../fadeInScaleUp'
 import { StyledPopover, StyledPopoverPrefixClass as prefixClass } from '@regen-design/theme'
 import { useOutsideClick } from '@regen-design/hooks'
 
-const PopoverLayer = forwardRef(({ rect, placement, open, content }: PopoverLayerProps) => {
-  const contentRef = useRef<HTMLDivElement>(null)
-  const [updater, setUpdater] = useState(+new Date())
-  const layerStyle = useMemo(() => {
-    const { top = 0, left = 0, bottom = 0, width = 0, height = 0 } = rect || {}
-    const offsetWidth = contentRef.current?.offsetWidth || 0
-    const offsetHeight = contentRef.current?.offsetHeight || 0
-    const style: CSSProperties = {
-      position: 'absolute',
-      transformOrigin: '',
-      zIndex: 9999,
-      left: left,
-      top: bottom,
-    }
-    switch (placement) {
-      case 'top': {
-        style.top = top - height / 2 - (offsetHeight || 0) + 5
-        style.left = left + width / 2 - (offsetWidth || 0) / 2
-        style.transformOrigin = 'center bottom'
-        break
+const PopoverLayer = memo(
+  ({ rect, placement = 'top', open, content, custom, arrow = true }: PopoverLayerProps) => {
+    const contentRef = useRef<HTMLDivElement>(null)
+    const [updater, setUpdater] = useState(+new Date())
+    const layerStyle = useMemo(() => {
+      const { top = 0, left = 0, bottom = 0, width = 0, height = 0 } = rect || {}
+      const offsetWidth = contentRef.current?.offsetWidth || 0
+      const offsetHeight = contentRef.current?.offsetHeight || 0
+      const style: CSSProperties = {
+        position: 'absolute',
+        transformOrigin: '',
+        zIndex: 9999,
+        left: left,
+        top: bottom,
       }
-      case 'top-start': {
-        style.top = top - height / 2 - (offsetHeight || 0) + 5
-        style.left = left
-        style.transformOrigin = 'left bottom'
-        break
+      let spacing = 10
+      if (!arrow) {
+        spacing = 2
       }
-      case 'top-end': {
-        style.top = top - height / 2 - (offsetHeight || 0) + 5
-        style.left = left + width - (offsetWidth || 0)
-        style.transformOrigin = 'right bottom'
-        break
+      switch (placement) {
+        case 'top': {
+          style.top = top - (offsetHeight || 0) - spacing
+          style.left = left + width / 2 - (offsetWidth || 0) / 2
+          style.transformOrigin = 'center bottom'
+          break
+        }
+        case 'top-start': {
+          style.top = top - (offsetHeight || 0) - spacing
+          style.left = left
+          style.transformOrigin = 'left bottom'
+          break
+        }
+        case 'top-end': {
+          style.top = top - (offsetHeight || 0) - spacing
+          style.left = left + width - (offsetWidth || 0)
+          style.transformOrigin = 'right bottom'
+          break
+        }
+        case 'left': {
+          style.top = top + height / 2 - (offsetHeight || 0) / 2
+          style.left = left - (offsetWidth || 0) - spacing
+          style.transformOrigin = 'right center'
+          break
+        }
+        case 'left-start': {
+          style.top = top
+          style.left = left - (offsetWidth || 0) - spacing
+          style.transformOrigin = 'right top'
+          break
+        }
+        case 'left-end': {
+          style.top = top + height - (offsetHeight || 0)
+          style.left = left - (offsetWidth || 0) - spacing
+          style.transformOrigin = 'right bottom'
+          break
+        }
+        case 'right': {
+          style.top = top + height / 2 - (offsetHeight || 0) / 2
+          style.left = left + width + spacing
+          style.transformOrigin = 'left center'
+          break
+        }
+        case 'right-start': {
+          style.top = top
+          style.left = left + width + spacing
+          style.transformOrigin = 'left top'
+          break
+        }
+        case 'right-end': {
+          style.top = top + height - (offsetHeight || 0)
+          style.left = left + width + spacing
+          style.transformOrigin = 'left bottom'
+          break
+        }
+        case 'bottom': {
+          style.top = top + height + spacing
+          style.left = left + width / 2 - (offsetWidth || 0) / 2
+          style.transformOrigin = 'center top'
+          break
+        }
+        case 'bottom-start': {
+          style.top = top + height + spacing
+          style.left = left
+          style.transformOrigin = 'left top'
+          break
+        }
+        case 'bottom-end': {
+          style.top = top + height + spacing
+          style.left = left + width - (offsetWidth || 0)
+          style.transformOrigin = 'right top'
+          break
+        }
       }
-      case 'left': {
-        style.top = top + height / 2 - (offsetHeight || 0) / 2
-        style.left = left - (offsetWidth || 0) - 10
-        style.transformOrigin = 'right center'
-        break
-      }
-      case 'left-start': {
-        style.top = top
-        style.left = left - (offsetWidth || 0) - 10
-        style.transformOrigin = 'right top'
-        break
-      }
-      case 'left-end': {
-        style.top = top + height - (offsetHeight || 0)
-        style.left = left - (offsetWidth || 0) - 10
-        style.transformOrigin = 'right bottom'
-        break
-      }
-      case 'right': {
-        style.top = top + height / 2 - (offsetHeight || 0) / 2
-        style.left = left + width + 10
-        style.transformOrigin = 'left center'
-        break
-      }
-      case 'right-start': {
-        style.top = top
-        style.left = left + width + 10
-        style.transformOrigin = 'left top'
-        break
-      }
-      case 'right-end': {
-        style.top = top + height - (offsetHeight || 0)
-        style.left = left + width + 10
-        style.transformOrigin = 'left bottom'
-        break
-      }
-      case 'bottom': {
-        style.top = top + height + 10
-        style.left = left + width / 2 - (offsetWidth || 0) / 2
-        style.transformOrigin = 'center top'
-        break
-      }
-      case 'bottom-start': {
-        style.top = top + height + 10
-        style.left = left
-        style.transformOrigin = 'left top'
-        break
-      }
-      case 'bottom-end': {
-        style.top = top + height + 10
-        style.left = left + width - (offsetWidth || 0)
-        style.transformOrigin = 'right top'
-        break
-      }
-    }
-    return style
-  }, [rect, placement, updater])
-  const PopoverClassNames = classNames(prefixClass, {
-    [`${prefixClass}-${placement}`]: true,
-  })
-  return (
-    <FadeInScaleUp
-      in={open}
-      onEnter={() => {
-        setUpdater(+new Date())
-      }}
-    >
-      <StyledPopover style={layerStyle} ref={contentRef} className={PopoverClassNames}>
-        <div className={`${prefixClass}-wrapper`}>
-          <div className={`${prefixClass}-arrow`}></div>
-        </div>
-        <div className={`${prefixClass}-content`}>
-          <div className={`${prefixClass}-inner`}>{content}</div>
-        </div>
-      </StyledPopover>
-    </FadeInScaleUp>
-  )
-})
+      return style
+    }, [rect, placement, updater, arrow])
+    const PopoverClassNames = classNames(prefixClass, {
+      [`${prefixClass}-${placement}`]: true,
+    })
+    return (
+      <FadeInScaleUp
+        in={open}
+        onEnter={() => {
+          setUpdater(+new Date())
+        }}
+      >
+        <StyledPopover style={layerStyle} ref={contentRef} className={PopoverClassNames}>
+          {arrow && (
+            <div className={`${prefixClass}-wrapper`}>
+              <div className={`${prefixClass}-arrow`}></div>
+            </div>
+          )}
+          {custom ? (
+            content
+          ) : (
+            <div className={`${prefixClass}-content`}>
+              <div className={`${prefixClass}-inner`}>{content}</div>
+            </div>
+          )}
+        </StyledPopover>
+      </FadeInScaleUp>
+    )
+  }
+)
 PopoverLayer.displayName = 'PopoverLayer'
-export const Popover: FC<PopoverProps> = ({
-  className = '',
-  trigger = 'hover',
-  placement = 'top',
-  children,
-  content = '',
-}) => {
+export const Popover: FC<PopoverProps> = props => {
+  const { trigger = 'hover', children } = props
   const [isOpen, setIsOpen] = useState(false)
   const [rect, setRect] = useState<DOMRect | null>(null)
   const [triggerUniId, setTriggerUniId] = useState('')
-  const triggerClassNames = classNames(triggerUniId, className)
+  const triggerClassNames = classNames(triggerUniId)
   const triggerElementRef = useRef<HTMLElement | null>(null)
   const handleMouseOver = () => {
     if (!isOpen) {
@@ -174,6 +180,7 @@ export const Popover: FC<PopoverProps> = ({
       }
       return () => {
         triggerElement?.removeEventListener('mouseover', handleMouseOver)
+        triggerElement?.removeEventListener('click', handleMouseOver)
         triggerElement?.removeEventListener('mouseleave', handleMouseLeave)
       }
     }
@@ -183,9 +190,9 @@ export const Popover: FC<PopoverProps> = ({
     className: triggerClassNames,
   })
   return (
-    <Fragment>
+    <>
       {ChildrenElement}
-      <PopoverLayer open={isOpen} rect={rect} placement={placement} content={content} />
-    </Fragment>
+      <PopoverLayer {...props} open={isOpen} rect={rect} />
+    </>
   )
 }

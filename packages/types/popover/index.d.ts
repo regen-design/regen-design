@@ -1,5 +1,6 @@
 import { CommonType, Placement } from '../common'
-export interface PopoverProps extends Omit<CommonType, 'style'> {
+import { ReactNode } from 'react'
+export interface PopoverProps extends Omit<CommonType, 'style' | 'className'> {
   /**
    * @description trigger event
    * @default 'hover'
@@ -16,25 +17,18 @@ export interface PopoverProps extends Omit<CommonType, 'style'> {
    */
   arrow?: boolean
   /**
-   * @description whether to show the popover
+   * @description whether to use custom popover
    * @default false
    */
-  open?: boolean
-  /**
-   * @description whether to close the popover when clicking outside
-   * @default true
-   */
-  closeOnClickOutside?: boolean
+  custom?: boolean
   /**
    * @description content of the popover
    * @default ''
    */
-  content?: React.ReactNode
+  content?: ReactNode
 }
 
-export interface PopoverLayerProps {
+export interface PopoverLayerProps extends PopoverProps {
   open: boolean
   rect: DOMRect | null
-  placement?: PopoverProps['placement']
-  content?: PopoverProps['content']
 }

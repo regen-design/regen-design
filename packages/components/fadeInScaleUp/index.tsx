@@ -3,10 +3,13 @@ import { createPortal } from 'react-dom'
 import '@regen-design/theme/transition.css'
 import { CSSTransition } from 'react-transition-group'
 import { FadeInScaleUpProps } from '@regen-design/types'
+import { useTheme } from '@regen-design/theme'
 
 const TempFadeInScaleUp: FC<FadeInScaleUpProps> = props => {
+  const theme = useTheme()
   return (
     <CSSTransition
+      key={theme.theme}
       mountOnEnter={props.mountOnEnter || true}
       classNames={'fade-in-scale-up'}
       in={props.in}

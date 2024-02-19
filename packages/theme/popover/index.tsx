@@ -1,9 +1,10 @@
 import { NAME_SPACE } from '@regen-design/constant'
-import { PopoverProps } from '@regen-design/types'
+import { PopoverProps, ThemeProps } from '@regen-design/types'
 import styled from 'styled-components'
+import { convertTheme } from '../tools'
 const prefix = `${NAME_SPACE}-popover`
 export const StyledPopoverPrefixClass = prefix
-export const StyledPopover = styled.div<PopoverProps>`
+export const StyledPopover = styled.div<PopoverProps & ThemeProps>`
   cursor: auto;
   position: absolute;
   user-select: text;
@@ -159,11 +160,26 @@ export const StyledPopover = styled.div<PopoverProps>`
       }
     }
   }
+  --theme-background-color: ${props => {
+    const _theme = convertTheme(props.theme)
+    if (_theme.theme === 'dark') {
+      return 'rgba(38, 38, 38, 1)'
+    }
+    return '#ffffff'
+  }};
+  --theme-text-color: ${props => {
+    const _theme = convertTheme(props.theme)
+    if (_theme.theme === 'dark') {
+      return '#ffffff'
+    }
+    return 'rgba(38, 38, 38, 1)'
+  }};
   .${prefix}-content {
     position: relative;
     .${prefix}-inner {
       background-clip: padding-box;
-      background-color: #ffffff;
+      background-color: ${() => `var(--theme-background-color)`};
+      color: ${() => `var(--theme-text-color)`};
       padding: 8px;
       border-radius: 3px;
       box-shadow:
@@ -189,7 +205,7 @@ export const StyledPopover = styled.div<PopoverProps>`
     pointer-events: none;
     width: 10px;
     height: 10px;
-    background-color: #ffffff;
+    background-color: ${() => `var(--theme-background-color)`};
     transform: translateY(-50%) translateX(-50%) rotate(45deg);
   }
 `

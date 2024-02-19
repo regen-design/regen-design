@@ -10,6 +10,10 @@ import Trigger from "./Trigger"
 import TriggerCode from "!!raw-loader!./Trigger"
 import Position from "./Position"
 import PositionCode from "!!raw-loader!./Position"
+import Custom from "./Custom"
+import CustomCode from "!!raw-loader!./Custom"
+import NoArrow from "./NoArrow"
+import NoArrowCode from "!!raw-loader!./NoArrow"
 
 # 弹出信息 Popover
 
@@ -27,15 +31,23 @@ Popover 在内容周围弹出一些隐藏的信息。Popover 里面没什么内�
                    code={String(BasicCode)}>
           <Basic />
         </CodeBlock>
-        <CodeBlock title="位置"
+       <CodeBlock title="位置"
                    code={String(PositionCode)}>
           <Position />
         </CodeBlock>
+        <CodeBlock title="不要基础样式"
+                   code={String(CustomCode)}>
+          <Custom />
+        </CodeBlock>
       </Grid>
       <Grid yGap={16} cols={1}>
-        <CodeBlock title="触发条件"
+       <CodeBlock title="触发条件"
                    code={String(TriggerCode)}>
           <Trigger />
+        </CodeBlock>
+        <CodeBlock title="不用箭头"
+                   code={String(NoArrowCode)}>
+          <NoArrow />
         </CodeBlock>
       </Grid>
     </Grid>
