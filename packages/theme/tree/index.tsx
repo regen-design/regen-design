@@ -20,7 +20,6 @@ export const StyledTree = styled.div<TreeProps & ThemeProps>`
   .${prefix}-node-wrapper {
     box-sizing: border-box;
     padding: ${() => 'var(--r-node-wrapper-padding)'};
-
     .${prefix}-node {
       &--selected {
         background-color: ${() => 'var(--r-node-color-active)'};
@@ -38,7 +37,17 @@ export const StyledTree = styled.div<TreeProps & ThemeProps>`
         &--expanded {
           transform: rotate(90deg);
         }
+        color: ${() => {
+          return 'rgb(118, 124, 130)'
+        }};
         transition: transform 0.3s ${() => 'var(--r-bezier)'};
+        width: 24px;
+        height: 24px;
+        display: inline-flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        vertical-align: bottom;
       }
       .${prefix}-node-indent {
         flex-grow: 0;

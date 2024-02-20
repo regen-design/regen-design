@@ -1,19 +1,37 @@
-import { createContext, Dispatch, FC, Fragment, SetStateAction, useContext, useState } from 'react'
+import {
+  createContext,
+  Dispatch,
+  FC,
+  Fragment,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { TreeProps } from '@regen-design/types'
 import { StyledTree, StyledTreePrefixClass as prefixClass } from '@regen-design/theme'
 import classNames from 'classnames'
 import { CaretRightIcon } from '@regen-design/icons'
+import { Transition } from '../transition'
+import { TransitionStatus } from 'react-transition-group'
 
 const RenderItem: FC<{
   item: TreeProps['data'][0]
   level: number
 }> = ({ item, level }) => {
+  const nodeRef = useRef<HTMLDivElement>(null)
   const { selectedKeys, setSelectedKeys, expandedKeys, setExpandedKeys, indent } =
     useContext(TreeContext)
   const nodeClassnames = classNames(`${prefixClass}-node`, {
     [`${prefixClass}-node--selected`]: selectedKeys.includes(item.key),
   })
   const isExpanded = expandedKeys.includes(item.key)
+  const [transitionStatus, setTransitionStatus] = useState<TransitionStatus | ('enter' | 'exit')>(
+    'enter'
+  )
+  const [expandedHeight, setExpandedHeight] = useState(0)
   const handleExpand = () => {
     if (item.children && item.children.length > 0) {
       setExpandedKeys(
@@ -23,15 +41,41 @@ const RenderItem: FC<{
       )
     }
   }
+  const expandedChildrenHeight = useMemo(() => {
+    const computedExpandedChildrenHeight = (children: TreeProps['data']) => {
+      let height = 0
+      children.forEach(child => {
+        const childNode = document.querySelector(`[role="treeitem"][data-key="${child.key}"]`)
+        if (childNode) {
+          height += childNode.getBoundingClientRect()?.height || 0
+        }
+        if (expandedKeys.includes(child.key)) {
+          height += computedExpandedChildrenHeight(child.children || [])
+        }
+      })
+      return height
+    }
+    return computedExpandedChildrenHeight(item.children || [])
+  }, [item, expandedKeys, transitionStatus])
+  useEffect(() => {
+    if (['entering', 'entered', 'exit'].includes(transitionStatus)) {
+      setExpandedHeight(expandedChildrenHeight)
+    } else {
+      setExpandedHeight(0)
+    }
+  }, [expandedChildrenHeight, transitionStatus])
+
   return (
     <Fragment key={item.key}>
       <div
         role="treeitem"
+        data-key={item.key}
         className={`${prefixClass}-node-wrapper`}
         onClick={() => {
           setSelectedKeys([item.key])
           handleExpand()
         }}
+        ref={nodeRef}
       >
         <div className={nodeClassnames}>
           {Array.from({ length: level }).map((_, index) => (
@@ -49,10 +93,46 @@ const RenderItem: FC<{
           <div className={`${prefixClass}-node-content`}>{item.label}</div>
         </div>
       </div>
-      {isExpanded &&
-        item.children &&
-        item.children.length > 0 &&
-        renderTree(item.children, level + 1)}
+      <Transition
+        in={isExpanded}
+        animationClassName={'fade-in-height-expanded'}
+        isPortal={false}
+        onEnter={() => {
+          setTransitionStatus('enter')
+        }}
+        onEntering={() => {
+          setTransitionStatus('entering')
+        }}
+        onEntered={() => {
+          setTransitionStatus('entered')
+        }}
+        onExit={() => {
+          setTransitionStatus('exit')
+        }}
+        onExiting={() => {
+          setTransitionStatus('exiting')
+        }}
+        onExited={() => {
+          setTransitionStatus('exited')
+        }}
+      >
+        {status => {
+          if (isExpanded && status === 'entered') {
+            return item.children && item.children.length > 0 && renderTree(item.children, level + 1)
+          }
+          return (
+            <div
+              style={{
+                height: expandedHeight,
+                overflow: 'hidden',
+                transition: 'height 300ms linear,opacity 300ms linear',
+              }}
+            >
+              {item.children && item.children.length > 0 && renderTree(item.children, level + 1)}
+            </div>
+          )
+        }}
+      </Transition>
     </Fragment>
   )
 }

@@ -18,6 +18,8 @@ const TempTransition: FC<TransitionProps> = props => {
       onExit={props.onExit}
       onEntered={props.onEntered}
       onExited={props.onExited}
+      onEntering={props.onEntering}
+      onExiting={props.onExiting}
       unmountOnExit={props.unmountOnExit || true}
     >
       {props.children}

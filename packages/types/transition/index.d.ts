@@ -57,6 +57,16 @@ export interface TransitionProps {
    */
   onExited?: () => void
   /**
+   * @description callback when the animation entering
+   * @type () => void
+   */
+  onEntering?: () => void
+  /**
+   * @description callback when the animation exiting
+   * @type () => void
+   */
+  onExiting?: () => void
+  /**
    * @description whether to use the portal
    * @default false
    */
