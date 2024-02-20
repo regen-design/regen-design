@@ -1,0 +1,32 @@
+---
+sidebar_position: 6
+---
+
+import BrowserOnly from '@docusaurus/BrowserOnly'
+import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
+import Basic from "./Basic"
+import BasicCode from "!!raw-loader!./Basic"
+
+# 树 Tree
+
+老实说我生物不好，认不出几种树来。
+
+以及，不光是生物不好，平衡树也是看了就忘。
+
+## 演示
+
+<BrowserOnly>
+  {() => (<ThemeProvider>
+    <Grid xGap={16} cols={2} style={{
+      alignItems: 'flex-start'
+    }}>
+      <Grid yGap={16} cols={1}>
+        <CodeBlock title="基础"
+                   description={'好在这颗树不是活的，也不平衡。'}
+                   code={String(BasicCode)}>
+          <Basic />
+        </CodeBlock>
+      </Grid>
+    </Grid>
+  </ThemeProvider>)}
+</BrowserOnly>

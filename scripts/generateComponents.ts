@@ -39,11 +39,11 @@ function createThemeTemplate(componentName: string) {
   return prettier.format(
     `
   import { NAME_SPACE } from '@regen-design/constant'
-  import { ${ComponentName}Props } from '@regen-design/types'
+  import { ${ComponentName}Props, ThemeProps } from '@regen-design/types'
   import styled from 'styled-components'
   const prefix = \`\${NAME_SPACE}-${componentName}\`
   export const Styled${ComponentName}PrefixClass = prefix
-  export const Styled${ComponentName} = styled.div<${ComponentName}Props>\`\`
+  export const Styled${ComponentName} = styled.div<${ComponentName}Props & ThemeProps>\`\`
   `,
     prettierConfig
   )

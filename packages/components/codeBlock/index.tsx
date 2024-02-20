@@ -65,7 +65,7 @@ export const CodeBlock: FC<CodeBlockProps> = ({
     <StyleSheetManager shouldForwardProp={isPropValid}>
       <StyledCodeBlock style={style} className={`${codeBlockClass}`} isExpand={isExpand}>
         <Card
-          title={title}
+          title={<b>{title}</b>}
           extra={
             <Space>
               {!onlyView && (
