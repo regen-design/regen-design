@@ -18,7 +18,7 @@ import {
   StyledSelectMenuPrefixClass as menuPrefixClass,
 } from '@regen-design/theme'
 import classNames from 'classnames'
-import { FadeInScaleUp } from '..'
+import { Transition } from '..'
 import '@regen-design/theme/transition.css'
 import { useMergedState } from '@regen-design/hooks'
 import { AngleDownIcon, CheckIcon, CloseCircleIcon } from '@regen-design/icons'
@@ -107,7 +107,7 @@ const SelectMenu = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
     return 0
   }, [innerRect])
   return (
-    <FadeInScaleUp in={isFocused}>
+    <Transition in={isFocused} animationClassName={'fade-in-scale-up'}>
       <StyledSelectMenu
         ref={ref}
         className={`${menuPrefixClass}`}
@@ -127,7 +127,7 @@ const SelectMenu = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
           </div>
         )}
       </StyledSelectMenu>
-    </FadeInScaleUp>
+    </Transition>
   )
 })
 SelectMenu.displayName = 'SelectMenu'

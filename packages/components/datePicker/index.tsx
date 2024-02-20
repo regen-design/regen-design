@@ -15,7 +15,7 @@ import {
   AngleDoubleLeftIcon,
   AngleDoubleRightIcon,
 } from '@regen-design/icons'
-import { Button, FadeInScaleUp } from '..'
+import { Button, Transition } from '..'
 import { useMergedState, useOutsideClick } from '@regen-design/hooks'
 import { formatDate, isSameDate } from '@regen-design/utils'
 const DatePickerContext = createContext<
@@ -97,7 +97,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
     return 0
   }, [wrapperRect])
   return (
-    <FadeInScaleUp in={isFocused} timeout={250}>
+    <Transition in={isFocused} timeout={250} animationClassName={'fade-in-scale-up'}>
       <StyledDatePickerPanel
         ref={ref}
         size={'default'}
@@ -200,7 +200,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
           </div>
         </div>
       </StyledDatePickerPanel>
-    </FadeInScaleUp>
+    </Transition>
   )
 })
 DatePickerPanel.displayName = 'DatePickerPanel'

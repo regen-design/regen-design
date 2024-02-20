@@ -12,7 +12,7 @@ import {
 } from 'react'
 import { PopoverLayerProps, PopoverProps } from '@regen-design/types'
 import classNames from 'classnames'
-import { FadeInScaleUp } from '../fadeInScaleUp'
+import { Transition } from '../transition'
 import { StyledPopover, StyledPopoverPrefixClass as prefixClass } from '@regen-design/theme'
 import { useOutsideClick } from '@regen-design/hooks'
 
@@ -115,11 +115,12 @@ const PopoverLayer = memo(
       [`${prefixClass}-${placement}`]: true,
     })
     return (
-      <FadeInScaleUp
+      <Transition
         in={open}
         onEnter={() => {
           setUpdater(+new Date())
         }}
+        animationClassName={'fade-in-scale-up'}
       >
         <StyledPopover style={layerStyle} ref={contentRef} className={PopoverClassNames}>
           {arrow && (
@@ -135,7 +136,7 @@ const PopoverLayer = memo(
             </div>
           )}
         </StyledPopover>
-      </FadeInScaleUp>
+      </Transition>
     )
   }
 )

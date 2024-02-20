@@ -22,6 +22,7 @@
     "lint": " eslint \"packages/**/*.+(cjs|js|ts|jsx|tsx)\"",
     "format": "npx prettier --write \"packages/**/*.+(cjs|js|ts|jsx|tsx)\"",
     "build": "npx pnpm run rollup && npx  pnpm run afterBuild",
+    "dev": "npm run docs:dev",
     "docs:dev": "npx pnpm -C docs start",
     "docs:build": "npx pnpm -C docs build",
     "test": "vitest",

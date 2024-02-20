@@ -1,0 +1,21 @@
+.fade-in-height-expanded-enter {
+    opacity: 0;
+}
+
+.fade-in-height-expanded-enter-active {
+    opacity: 1;
+}
+
+.fade-in-height-expanded-enter-done {
+}
+
+.fade-in-height-expanded-exit {
+    opacity: 1;
+}
+
+.fade-in-height-expanded-exit-active {
+    opacity: 0;
+}
+
+.fade-in-height-expanded-exit-done {
+}
