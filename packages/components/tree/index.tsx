@@ -6,7 +6,6 @@ import {
   SetStateAction,
   useContext,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from 'react'
@@ -28,9 +27,7 @@ const RenderItem: FC<{
     [`${prefixClass}-node--selected`]: selectedKeys.includes(item.key),
   })
   const isExpanded = expandedKeys.includes(item.key)
-  const [transitionStatus, setTransitionStatus] = useState<TransitionStatus | ('enter' | 'exit')>(
-    'enter'
-  )
+  const [transitionStatus, setTransitionStatus] = useState<TransitionStatus>('entered')
   const [expandedHeight, setExpandedHeight] = useState(0)
   const handleExpand = () => {
     if (item.children && item.children.length > 0) {
@@ -41,30 +38,26 @@ const RenderItem: FC<{
       )
     }
   }
-  const expandedChildrenHeight = useMemo(() => {
-    const computedExpandedChildrenHeight = (children: TreeProps['data']) => {
-      let height = 0
-      children.forEach(child => {
-        const childNode = document.querySelector(`[role="treeitem"][data-key="${child.key}"]`)
-        if (childNode) {
-          height += childNode.getBoundingClientRect()?.height || 0
-        }
-        if (expandedKeys.includes(child.key)) {
-          height += computedExpandedChildrenHeight(child.children || [])
-        }
-      })
-      return height
-    }
-    return computedExpandedChildrenHeight(item.children || [])
-  }, [item, expandedKeys, transitionStatus])
+  const computedExpandedChildrenHeight = (children: TreeProps['data']) => {
+    let height = 0
+    children.forEach(child => {
+      const element = document.querySelector(`[data-key="${child.key}"]`)
+      if (element) {
+        height += element.getBoundingClientRect().height
+      }
+      if (expandedKeys.includes(child.key)) {
+        height += computedExpandedChildrenHeight(child.children || [])
+      }
+    })
+    return height
+  }
   useEffect(() => {
-    if (['entering', 'entered', 'exit'].includes(transitionStatus)) {
-      setExpandedHeight(expandedChildrenHeight)
+    if (['entering', 'entered'].includes(transitionStatus)) {
+      setExpandedHeight(computedExpandedChildrenHeight(item.children || []))
     } else {
       setExpandedHeight(0)
     }
-  }, [expandedChildrenHeight, transitionStatus])
-
+  }, [item, expandedKeys, isExpanded, transitionStatus])
   return (
     <Fragment key={item.key}>
       <div
@@ -98,7 +91,7 @@ const RenderItem: FC<{
         animationClassName={'fade-in-height-expanded'}
         isPortal={false}
         onEnter={() => {
-          setTransitionStatus('enter')
+          setTransitionStatus('exited')
         }}
         onEntering={() => {
           setTransitionStatus('entering')
@@ -107,7 +100,7 @@ const RenderItem: FC<{
           setTransitionStatus('entered')
         }}
         onExit={() => {
-          setTransitionStatus('exit')
+          setTransitionStatus('entered')
         }}
         onExiting={() => {
           setTransitionStatus('exiting')
@@ -154,7 +147,6 @@ export const Tree: FC<TreeProps> = ({ style = {}, className = '', data = [], ind
   const treeClass = classNames(prefixClass, className)
   const [selectedKeys, setSelectedKeys] = useState<string[]>([])
   const [expandedKeys, setExpandedKeys] = useState<string[]>([])
-
   return (
     <TreeContext.Provider
       value={{ selectedKeys, setSelectedKeys, expandedKeys, setExpandedKeys, indent }}
