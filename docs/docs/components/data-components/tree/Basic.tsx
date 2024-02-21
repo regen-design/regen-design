@@ -22,5 +22,5 @@ export default function Demo() {
       }
     })
   }
-  return <Tree data={data} />
+  return <Tree checkable data={data} />
 }

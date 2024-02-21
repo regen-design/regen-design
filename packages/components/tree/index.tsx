@@ -15,14 +15,23 @@ import classNames from 'classnames'
 import { CaretRightIcon } from '@regen-design/icons'
 import { Transition } from '../transition'
 import { TransitionStatus } from 'react-transition-group'
+import { Checkbox } from '../checkbox'
 
 const RenderItem: FC<{
   item: TreeProps['data'][0]
   level: number
 }> = ({ item, level }) => {
   const nodeRef = useRef<HTMLDivElement>(null)
-  const { selectedKeys, setSelectedKeys, expandedKeys, setExpandedKeys, indent } =
-    useContext(TreeContext)
+  const {
+    selectedKeys,
+    setSelectedKeys,
+    expandedKeys,
+    setExpandedKeys,
+    checkedKeys,
+    setCheckedKeys,
+    indent = 20,
+    checkable = false,
+  } = useContext(TreeContext)
   const nodeClassnames = classNames(`${prefixClass}-node`, {
     [`${prefixClass}-node--selected`]: selectedKeys.includes(item.key),
   })
@@ -83,6 +92,20 @@ const RenderItem: FC<{
               <CaretRightIcon />
             </div>
           )}
+          {checkable && (
+            <div className={`${prefixClass}-node-checkbox`}>
+              <Checkbox
+                checked={checkedKeys.includes(item.key)}
+                onChange={checked => {
+                  setCheckedKeys(
+                    checked
+                      ? [...checkedKeys, item.key]
+                      : checkedKeys.filter(key => key !== item.key)
+                  )
+                }}
+              />
+            </div>
+          )}
           <div className={`${prefixClass}-node-content`}>{item.label}</div>
         </div>
       </div>
@@ -132,24 +155,36 @@ const RenderItem: FC<{
 const renderTree = (data: TreeProps['data'], level = 0) => {
   return data.map((item, index) => <RenderItem key={index} item={item} level={level} />)
 }
-const TreeContext = createContext<{
-  selectedKeys: string[]
-  setSelectedKeys?: Dispatch<SetStateAction<string[]>>
-  expandedKeys: string[]
-  setExpandedKeys?: Dispatch<SetStateAction<string[]>>
-  indent: number
-}>({
+const TreeContext = createContext<
+  {
+    selectedKeys: string[]
+    setSelectedKeys?: Dispatch<SetStateAction<string[]>>
+    expandedKeys: string[]
+    setExpandedKeys?: Dispatch<SetStateAction<string[]>>
+    checkedKeys?: string[]
+    setCheckedKeys?: Dispatch<SetStateAction<string[]>>
+  } & TreeProps
+>({
   selectedKeys: [],
   expandedKeys: [],
-  indent: 24,
 })
-export const Tree: FC<TreeProps> = ({ style = {}, className = '', data = [], indent = 24 }) => {
+export const Tree: FC<TreeProps> = props => {
+  const { style = {}, className = '', data = [] } = props
   const treeClass = classNames(prefixClass, className)
   const [selectedKeys, setSelectedKeys] = useState<string[]>([])
   const [expandedKeys, setExpandedKeys] = useState<string[]>([])
+  const [checkedKeys, setCheckedKeys] = useState<string[]>([])
   return (
     <TreeContext.Provider
-      value={{ selectedKeys, setSelectedKeys, expandedKeys, setExpandedKeys, indent }}
+      value={{
+        selectedKeys,
+        setSelectedKeys,
+        expandedKeys,
+        setExpandedKeys,
+        checkedKeys,
+        setCheckedKeys,
+        ...props,
+      }}
     >
       <StyledTree role="tree" className={treeClass} style={style}>
         {renderTree(data)}

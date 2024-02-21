@@ -32,4 +32,9 @@ export interface TreeProps extends Omit<CommonType, 'children'> {
    * @default 24
    */
   indent?: number
+  /**
+   * @description The checkable is whether to show the checkbox
+   * @default false
+   */
+  checkable?: boolean
 }

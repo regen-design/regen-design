@@ -33,6 +33,13 @@ export const StyledTree = styled.div<TreeProps & ThemeProps>`
       display: flex;
       border-radius: ${() => 'var(--r-node-border-radius)'};
       transition: background-color 0.3s ${() => 'var(--r-bezier)'};
+      .${prefix}-node-checkbox {
+        width: 20px;
+        display: inline-flex;
+        vertical-align: bottom;
+        align-items: center;
+        justify-content: center;
+      }
       .${prefix}-node-switcher {
         &--expanded {
           transform: rotate(90deg);

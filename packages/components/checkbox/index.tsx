@@ -30,7 +30,8 @@ export const Checkbox: FC<CheckboxProps> = ({
       checked={checked}
       disabled={disabled}
       tabIndex={0}
-      onClick={() => {
+      onClick={e => {
+        e.stopPropagation()
         if (disabled) return
         const _checked = !checked
         waveRef.current?.play()
@@ -48,7 +49,7 @@ export const Checkbox: FC<CheckboxProps> = ({
           <div className={`${prefixClass}-box__border`}></div>
         </div>
       </div>
-      <span className={`${prefixClass}-label`}>{children}</span>
+      {children && <span className={`${prefixClass}-label`}>{children}</span>}
     </StyledCheckbox>
   )
 }
