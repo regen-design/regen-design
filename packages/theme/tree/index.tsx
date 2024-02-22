@@ -41,6 +41,9 @@ export const StyledTree = styled.div<TreeProps & ThemeProps>`
         justify-content: center;
       }
       .${prefix}-node-switcher {
+        &--hide {
+          visibility: hidden;
+        }
         &--expanded {
           transform: rotate(90deg);
         }

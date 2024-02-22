@@ -85,13 +85,19 @@ const RenderItem: FC<{
               <div style={{ width: indent }}></div>
             </div>
           ))}
-          {item.children && item.children.length > 0 && (
-            <div
-              className={`${prefixClass}-node-switcher ${isExpanded ? `${prefixClass}-node-switcher--expanded` : ''}`}
-            >
-              <CaretRightIcon />
-            </div>
-          )}
+
+          <div
+            className={`${prefixClass}-node-switcher 
+              ${isExpanded ? `${prefixClass}-node-switcher--expanded` : ''} 
+              ${
+                !(item.children && item.children.length > 0)
+                  ? `${prefixClass}-node-switcher--hide`
+                  : ''
+              }`}
+          >
+            <CaretRightIcon />
+          </div>
+
           {checkable && (
             <div className={`${prefixClass}-node-checkbox`}>
               <Checkbox
