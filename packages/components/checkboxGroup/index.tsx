@@ -34,9 +34,9 @@ export const CheckboxGroup: FC<CheckboxGroupProps> = ({
               disabled={option.disabled}
               onChange={checked => {
                 if (checked) {
-                  valueList.push(option.value)
+                  valueList?.push(option.value)
                 } else {
-                  valueList.splice(valueList.indexOf(option.value), 1)
+                  valueList?.splice(valueList.indexOf(option.value), 1)
                 }
                 onChange && onChange(valueList)
               }}

@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 import { CheckboxProps, WaveRefProps } from '@regen-design/types'
 import { StyledCheckbox, StyledCheckboxPrefixClass as prefixClass } from '@regen-design/theme'
 import classNames from 'classnames'
-import { CheckIcon } from '@regen-design/icons'
+import { CheckIcon, MinusIcon } from '@regen-design/icons'
 import { Wave } from '../wave'
 export const Checkbox: FC<CheckboxProps> = ({
   style = {},
@@ -11,6 +11,7 @@ export const Checkbox: FC<CheckboxProps> = ({
   size = 'default',
   disabled = false,
   checked: WChecked = false,
+  indeterminate = false,
   onChange,
 }) => {
   const checkboxClass = classNames(prefixClass, className, {
@@ -44,7 +45,7 @@ export const Checkbox: FC<CheckboxProps> = ({
         <div className={`${prefixClass}-box`}>
           <Wave ref={waveRef} />
           <div className={`${prefixClass}-icon`}>
-            <CheckIcon />
+            {indeterminate ? <MinusIcon /> : <CheckIcon />}
           </div>
           <div className={`${prefixClass}-box__border`}></div>
         </div>

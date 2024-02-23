@@ -19,6 +19,11 @@ export interface CheckboxProps extends CommonType {
    */
   disabled?: boolean
   /**
+   * @description indeterminate only controls the style
+   * @default false
+   */
+  indeterminate?: boolean
+  /**
    * @description size
    * @default default
    * @type Size

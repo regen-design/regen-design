@@ -12,6 +12,8 @@ import Size from "./Size"
 import SizeCode from '!!raw-loader!./Size'
 import Group from "./Group"
 import GroupCode from '!!raw-loader!./Group'
+import PartiallySelected from "./PartiallySelected"
+import PartiallySelectedCode from '!!raw-loader!./PartiallySelected'
 
 # 复选框 Checkbox
 
@@ -30,6 +32,10 @@ import GroupCode from '!!raw-loader!./Group'
         <CodeBlock title="复选组"
                    code={String(GroupCode)}>
           <Group />
+        </CodeBlock>
+        <CodeBlock title="部分选中"
+                   code={String(PartiallySelectedCode)}>
+          <PartiallySelected />
         </CodeBlock>
       </Grid>
       <Grid yGap={16} cols={1}>
