@@ -24,7 +24,7 @@ export const StyledCheckbox = styled.div<CheckboxProps>`
   }};
   margin: 0;
   padding: 0;
-  &:focus {
+  &:not(.${prefix}--disabled):focus {
     .${prefix}-wrapper {
       .${prefix}-box__border {
         border: ${props => {
@@ -64,6 +64,9 @@ export const StyledCheckbox = styled.div<CheckboxProps>`
           }
           return _theme.colors.light
         }
+        if (props.indeterminate) {
+          return _theme.colors.primary
+        }
         if (props.checked) {
           return _theme.colors.primary
         } else {
@@ -88,13 +91,6 @@ export const StyledCheckbox = styled.div<CheckboxProps>`
       transform: translateY(-50%);
     }
     .${prefix}-icon {
-      transform: ${props => {
-        if (props.checked) {
-          return 'scale(0.7)'
-        } else {
-          return 'scale(0)'
-        }
-      }};
       color: ${props => {
         const _theme = convertTheme(props.theme)
         if (props.disabled) {
@@ -106,7 +102,6 @@ export const StyledCheckbox = styled.div<CheckboxProps>`
         return _theme.colors.light
       }};
       transform-origin: center center;
-      transition: transform 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -133,7 +128,7 @@ export const StyledCheckbox = styled.div<CheckboxProps>`
           if (props.disabled) {
             return _theme.colors.placeholder
           }
-          if (props.checked) {
+          if (props.indeterminate || props.checked) {
             return _theme.colors.primary
           }
           return _theme.borderColor

@@ -10,26 +10,19 @@ export default function Demo() {
   const [checkedList, setCheckedList] = useState<string[]>([])
   const indeterminate = checkedList.length > 0 && checkedList.length < options.length
   const checkedAll = options.length === checkedList.length
-  console.log(checkedList)
   return (
     <Space alignItems={'center'}>
       <Checkbox
         indeterminate={indeterminate}
         checked={checkedAll}
-        onChange={e => {
-          setCheckedList(e ? options.map(item => item.value) : [])
+        onChange={checked => {
+          setCheckedList(checked ? options.map(item => item.value) : [])
         }}
       >
         复选框
       </Checkbox>
       <Divider />
-      <CheckboxGroup
-        value={checkedList}
-        onChange={e => {
-          setCheckedList(e)
-        }}
-        options={options}
-      />
+      <CheckboxGroup value={checkedList} onChange={setCheckedList} options={options} />
     </Space>
   )
 }

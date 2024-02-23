@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import { CheckboxGroupProps } from '@regen-design/types'
 import {
   StyledCheckboxGroup,
@@ -7,23 +7,19 @@ import {
 import classNames from 'classnames'
 import { Checkbox } from '../checkbox'
 import { Space } from '../space'
+import { useMergedState } from '@regen-design/hooks'
 export const CheckboxGroup: FC<CheckboxGroupProps> = ({
   style = {},
   className = '',
   options,
   defaultValue,
-  value,
+  value: valueProps,
   onChange,
 }) => {
   const checkboxGroupClass = classNames(prefixClass, className)
-  const [valueList, setValueList] = useState<string[]>([])
-  useEffect(() => {
-    if (value === undefined) {
-      setValueList(defaultValue)
-    } else {
-      setValueList(value)
-    }
-  }, [value, defaultValue])
+  const [value] = useMergedState(defaultValue, {
+    value: valueProps,
+  })
   return (
     <StyledCheckboxGroup role="checkboxGroup" className={checkboxGroupClass} style={style}>
       <Space>
@@ -32,13 +28,14 @@ export const CheckboxGroup: FC<CheckboxGroupProps> = ({
             <Checkbox
               key={index}
               disabled={option.disabled}
+              checked={value?.includes(option.value)}
               onChange={checked => {
                 if (checked) {
-                  valueList?.push(option.value)
+                  value?.push(option.value)
                 } else {
-                  valueList?.splice(valueList.indexOf(option.value), 1)
+                  value?.splice(value.indexOf(option.value), 1)
                 }
-                onChange && onChange(valueList)
+                onChange && onChange([...value])
               }}
             >
               {option.label}
