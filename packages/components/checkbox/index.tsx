@@ -1,10 +1,11 @@
-import { FC, useEffect, useMemo, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { CheckboxProps, WaveRefProps } from '@regen-design/types'
 import { StyledCheckbox, StyledCheckboxPrefixClass as prefixClass } from '@regen-design/theme'
 import classNames from 'classnames'
 import { CheckIcon, MinusIcon } from '@regen-design/icons'
 import { Wave } from '../wave'
 import { motion } from 'framer-motion'
+import { useMergedState } from '@regen-design/hooks'
 export const Checkbox: FC<CheckboxProps> = ({
   style = {},
   className = '',
@@ -19,18 +20,26 @@ export const Checkbox: FC<CheckboxProps> = ({
     [`${prefixClass}--disabled`]: disabled,
     [`${prefixClass}--indeterminate`]: indeterminate,
   })
+  const [transitionKey, setTransitionKey] = useState('CheckIcon')
+  const [initRender, setInitRender] = useState(false)
   const waveRef = useRef<WaveRefProps>(null)
-  const [checked, setChecked] = useState(false)
+  const [checked] = useMergedState(false, {
+    value: WChecked,
+  })
   useEffect(() => {
-    setChecked(WChecked)
-  }, [WChecked])
-
-  const transitionKey = useMemo(() => {
-    if (checked) return 'CheckIcon'
-    if (indeterminate) return 'MinusIcon'
-    return 'None'
+    if (checked) {
+      setTransitionKey('CheckIcon')
+      return
+    }
+    if (indeterminate) {
+      setTransitionKey('MinusIcon')
+      return
+    }
+    setTransitionKey('None')
   }, [checked, indeterminate])
-
+  useEffect(() => {
+    setInitRender(true)
+  }, [])
   return (
     <StyledCheckbox
       role="checkbox"
@@ -46,27 +55,30 @@ export const Checkbox: FC<CheckboxProps> = ({
         if (disabled) return
         const _checked = !checked
         waveRef.current?.play()
-        setChecked(_checked)
         onChange?.(_checked)
       }}
     >
-      <div className={`${prefixClass}-wrapper`}>
-        &nbsp;
-        <div className={`${prefixClass}-box`}>
-          <Wave ref={waveRef} />
-          <motion.div
-            key={transitionKey}
-            className={`${prefixClass}-icon`}
-            initial={{ scale: 0 }}
-            animate={{ scale: indeterminate || checked ? 0.7 : 0 }}
-            exit={{ scale: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            {indeterminate ? <MinusIcon /> : <CheckIcon />}
-          </motion.div>
-          <div className={`${prefixClass}-box__border`}></div>
+      {initRender && (
+        <div className={`${prefixClass}-wrapper`}>
+          &nbsp;
+          <div className={`${prefixClass}-box`}>
+            <Wave ref={waveRef} />
+            <motion.div
+              key={transitionKey}
+              className={`${prefixClass}-icon`}
+              animate={{ scale: ['CheckIcon', 'MinusIcon'].includes(transitionKey) ? 0.7 : 0 }}
+              exit={{ scale: 0 }}
+              initial={{ scale: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {transitionKey === 'None' && null}
+              {transitionKey === 'CheckIcon' && <CheckIcon />}
+              {transitionKey === 'MinusIcon' && <MinusIcon />}
+            </motion.div>
+            <div className={`${prefixClass}-box__border`}></div>
+          </div>
         </div>
-      </div>
+      )}
       {children && <span className={`${prefixClass}-label`}>{children}</span>}
     </StyledCheckbox>
   )

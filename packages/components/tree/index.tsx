@@ -35,10 +35,14 @@ const RenderItem: FC<{
     indent = 20,
     checkable = false,
     expandOnClickNode = false,
+    cascade = false,
     multiple = false,
     onSelect,
+    onCheck,
+    data = [],
     fieldNames: fieldNamesProps = { children: 'children', key: 'key', label: 'label' },
   } = useContext(TreeContext)
+
   const fieldNames = {
     children: fieldNamesProps.children || 'children',
     label: fieldNamesProps.label || 'label',
@@ -50,34 +54,48 @@ const RenderItem: FC<{
   const nodeClassnames = classNames(`${prefixClass}-node`, {
     [`${prefixClass}-node--selected`]: selectedKeys.includes(itemKey),
   })
+  const getCheckedNodes = (checkedKeys: TreeProps['checkedKeys']) => {
+    // 获取选中的节点
+    const checkedNodes: TreeOption[] = []
+    const deepCheck = (children: TreeProps['data'] = []) => {
+      children.forEach(child => {
+        const childKey = (child?.[fieldNames.key] || '') as string
+        if (checkedKeys.includes(childKey)) {
+          checkedNodes.push(child)
+        }
+        deepCheck((child?.[fieldNames.children] as TreeProps['data']) || [])
+      })
+    }
+    deepCheck(data)
+    return checkedNodes
+  }
   const isExpanded = expandedKeys.includes(itemKey)
   const [transitionStatus, setTransitionStatus] = useState<TransitionStatus>('entered')
   const [expandedHeight, setExpandedHeight] = useState(0)
   const indeterminate = useMemo(() => {
-    if (itemChildren && itemChildren.length > 0) {
-      let checked = 0
-      let unchecked = 0
-      itemChildren.forEach(child => {
+    const deepChildren = (children: TreeProps['data'] = []): boolean => {
+      return children.some(child => {
         const childKey = (child?.[fieldNames.key] || '') as string
         if (checkedKeys.includes(childKey)) {
-          checked++
-        } else {
-          unchecked++
+          return true
         }
+        return deepChildren((child?.[fieldNames.children] as TreeProps['data']) || [])
       })
-      return checked > 0 && unchecked > 0
     }
-    return false
-  }, [checkedKeys])
+    return deepChildren(item.children)
+  }, [checkedKeys, item])
   const checkAll = useMemo(() => {
-    if (itemChildren && itemChildren.length > 0) {
-      return itemChildren.every(child => {
+    const deepChildren = (children: TreeProps['data'] = []): boolean => {
+      return children.every(child => {
         const childKey = (child?.[fieldNames.key] || '') as string
-        return checkedKeys.includes(childKey)
+        if (!checkedKeys.includes(childKey)) {
+          return false
+        }
+        return deepChildren((child?.[fieldNames.children] as TreeProps['data']) || [])
       })
     }
-    return false
-  }, [checkedKeys])
+    return deepChildren(itemChildren)
+  }, [checkedKeys, item])
   const handleExpand = () => {
     if (itemChildren && itemChildren.length > 0) {
       setExpandedKeys(
@@ -103,6 +121,15 @@ const RenderItem: FC<{
     return height
   }
   useEffect(() => {
+    if (cascade && checkable) {
+      if (checkAll) {
+        setCheckedKeys([...new Set([...checkedKeys, itemKey])])
+      } else {
+        setCheckedKeys(checkedKeys.filter(key => key !== itemKey))
+      }
+    }
+  }, [checkAll])
+  useEffect(() => {
     if (['entering', 'entered'].includes(transitionStatus)) {
       setExpandedHeight(computedExpandedChildrenHeight(itemChildren || []))
     } else {
@@ -110,17 +137,38 @@ const RenderItem: FC<{
     }
   }, [item, expandedKeys, isExpanded, transitionStatus])
   const handleCheck = (checked: boolean) => {
-    setCheckedKeys(checked ? [...checkedKeys, itemKey] : checkedKeys.filter(key => key !== itemKey))
-    const deepCheck = (children: TreeProps['data'] = [], checked: boolean) => {
-      children.forEach(child => {
-        const childKey = (child?.[fieldNames.key] || '') as string
-        setCheckedKeys(checkedKeys =>
-          checked ? [...checkedKeys, childKey] : checkedKeys.filter(key => key !== childKey)
-        )
-        deepCheck((child?.[fieldNames.children] as TreeProps['data']) || [], checked)
-      })
+    if (!checkable) return
+    if (cascade) {
+      const deepChildren = (children: TreeProps['data'] = []) => {
+        children.forEach(child => {
+          const childKey = (child?.[fieldNames.key] || '') as string
+          if (checked) {
+            checkedKeys.push(childKey)
+          } else {
+            checkedKeys.splice(checkedKeys.indexOf(childKey), 1)
+          }
+          deepChildren((child?.[fieldNames.children] as TreeProps['data']) || [])
+        })
+      }
+      deepChildren(itemChildren)
+      if (checked) {
+        checkedKeys.push(itemKey)
+      } else {
+        checkedKeys.splice(checkedKeys.indexOf(itemKey), 1)
+      }
+    } else {
+      if (checked) {
+        checkedKeys.push(itemKey)
+      } else {
+        checkedKeys.splice(checkedKeys.indexOf(itemKey), 1)
+      }
     }
-    deepCheck(itemChildren, checked)
+    setCheckedKeys([...new Set(checkedKeys)])
+    onCheck?.(checkedKeys, {
+      checked: checked,
+      checkedNodes: getCheckedNodes(checkedKeys),
+      node: item,
+    })
   }
   return (
     <Fragment key={itemKey}>
@@ -173,8 +221,8 @@ const RenderItem: FC<{
           {checkable && (
             <div className={`${prefixClass}-node-checkbox`}>
               <Checkbox
-                indeterminate={indeterminate}
-                checked={checkAll || checkedKeys.includes(itemKey)}
+                indeterminate={cascade && indeterminate}
+                checked={itemChildren?.length && cascade ? checkAll : checkedKeys.includes(itemKey)}
                 onChange={checked => {
                   handleCheck(checked)
                 }}
@@ -184,45 +232,48 @@ const RenderItem: FC<{
           <div className={`${prefixClass}-node-content`}>{itemLabel}</div>
         </div>
       </div>
-      <Transition
-        in={isExpanded}
-        isPortal={false}
-        onEnter={() => {
-          setTransitionStatus('exited')
-        }}
-        onEntering={() => {
-          setTransitionStatus('entering')
-        }}
-        onEntered={() => {
-          setTransitionStatus('entered')
-        }}
-        onExit={() => {
-          setTransitionStatus('entered')
-        }}
-        onExiting={() => {
-          setTransitionStatus('exiting')
-        }}
-        onExited={() => {
-          setTransitionStatus('exited')
-        }}
-      >
-        {status => {
-          if (isExpanded && status === 'entered') {
-            return itemChildren && itemChildren.length > 0 && renderTree(itemChildren, level + 1)
-          }
-          return (
-            <div
-              style={{
-                height: expandedHeight,
-                overflow: 'hidden',
-                transition: 'height 300ms linear,opacity 300ms linear',
-              }}
-            >
-              {itemChildren && itemChildren.length > 0 && renderTree(itemChildren, level + 1)}
-            </div>
-          )
-        }}
-      </Transition>
+      {itemChildren && itemChildren.length > 0 && (
+        <Transition
+          in={isExpanded}
+          animationClassName={'fade-in-height-expanded'}
+          isPortal={false}
+          onEnter={() => {
+            setTransitionStatus('exited')
+          }}
+          onEntering={() => {
+            setTransitionStatus('entering')
+          }}
+          onEntered={() => {
+            setTransitionStatus('entered')
+          }}
+          onExit={() => {
+            setTransitionStatus('entered')
+          }}
+          onExiting={() => {
+            setTransitionStatus('exiting')
+          }}
+          onExited={() => {
+            setTransitionStatus('exited')
+          }}
+        >
+          {status => {
+            if (isExpanded && status === 'entered') {
+              return renderTree(itemChildren, level + 1)
+            }
+            return (
+              <div
+                style={{
+                  height: expandedHeight,
+                  overflow: 'hidden',
+                  transition: 'height 300ms linear,opacity 300ms linear',
+                }}
+              >
+                {renderTree(itemChildren, level + 1)}
+              </div>
+            )
+          }}
+        </Transition>
+      )}
     </Fragment>
   )
 }
@@ -242,6 +293,9 @@ const TreeContext = createContext<
   selectedKeys: [],
   expandedKeys: [],
   checkedKeys: [],
+  setCheckedKeys: () => {},
+  setSelectedKeys: () => {},
+  setExpandedKeys: () => {},
 })
 export const Tree: FC<TreeProps> = props => {
   const {
@@ -266,20 +320,20 @@ export const Tree: FC<TreeProps> = props => {
     value: selectedKeysProps,
   })
   return (
-    <TreeContext.Provider
-      value={{
-        selectedKeys,
-        setSelectedKeys,
-        expandedKeys,
-        setExpandedKeys,
-        checkedKeys,
-        setCheckedKeys,
-        ...props,
-      }}
-    >
-      <StyledTree role="tree" className={treeClass} style={style}>
+    <StyledTree role="tree" className={treeClass} style={style}>
+      <TreeContext.Provider
+        value={{
+          ...props,
+          selectedKeys,
+          setSelectedKeys,
+          expandedKeys,
+          setExpandedKeys,
+          checkedKeys,
+          setCheckedKeys,
+        }}
+      >
         {renderTree(data)}
-      </StyledTree>
-    </TreeContext.Provider>
+      </TreeContext.Provider>
+    </StyledTree>
   )
 }

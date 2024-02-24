@@ -101,4 +101,12 @@ export interface TreeProps extends Omit<CommonType, 'children'> {
     selectedKeys: Array<string>,
     e: { selected: boolean; selectedNodes: Array<TreeOption>; node: TreeOption; event: MouseEvent }
   ) => void
+  /**
+   * @description Triggered by checking a tree node
+   * @default undefined
+   */
+  onCheck?: (
+    checkedKeys: Array<string>,
+    e: { checked: boolean; checkedNodes: Array<TreeOption>; node: TreeOption }
+  ) => void
 }

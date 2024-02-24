@@ -4,6 +4,7 @@ import { TreeOption } from '@regen-design/types'
 
 export default function Demo() {
   const [data] = useState(createData())
+  const [checkedKeys, setCheckedKeys] = useState<string[]>([])
   function createLabel(level: number): string {
     if (level === 4) return '道生一'
     if (level === 3) return '一生二'
@@ -22,5 +23,16 @@ export default function Demo() {
       }
     })
   }
-  return <Tree checkable cascade expandOnClickNode data={data} />
+  return (
+    <Tree
+      checkable
+      cascade
+      checkedKeys={checkedKeys}
+      onCheck={(checkedKeys, { checked, node, checkedNodes }) => {
+        console.log(checkedKeys, checked, node, checkedNodes)
+      }}
+      expandOnClickNode
+      data={data}
+    />
+  )
 }

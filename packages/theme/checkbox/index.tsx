@@ -64,14 +64,10 @@ export const StyledCheckbox = styled.div<CheckboxProps>`
           }
           return _theme.colors.light
         }
-        if (props.indeterminate) {
+        if (props.indeterminate || props.checked) {
           return _theme.colors.primary
         }
-        if (props.checked) {
-          return _theme.colors.primary
-        } else {
-          return 'inherit'
-        }
+        return 'inherit'
       }};
       transition:
         background-color 0.3s ease,
@@ -133,9 +129,7 @@ export const StyledCheckbox = styled.div<CheckboxProps>`
           }
           return _theme.borderColor
         }};
-      transition:
-        background-color 0.3s ease,
-        border 0.3s ease;
+      transition: border-color 0.3s ease;
     }
     box-sizing: border-box;
     position: relative;
