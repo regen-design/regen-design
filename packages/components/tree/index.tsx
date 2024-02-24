@@ -121,14 +121,14 @@ const RenderItem: FC<{
     return height
   }
   useEffect(() => {
-    if (cascade && checkable) {
+    if (cascade && checkable && itemChildren?.length) {
       if (checkAll) {
-        setCheckedKeys([...new Set([...checkedKeys, itemKey])])
+        setCheckedKeys(checkedKeys => [...new Set([...checkedKeys, itemKey])])
       } else {
-        setCheckedKeys(checkedKeys.filter(key => key !== itemKey))
+        setCheckedKeys(() => checkedKeys.filter(key => key !== itemKey))
       }
     }
-  }, [checkAll])
+  }, [checkAll, checkable, cascade])
   useEffect(() => {
     if (['entering', 'entered'].includes(transitionStatus)) {
       setExpandedHeight(computedExpandedChildrenHeight(itemChildren || []))
