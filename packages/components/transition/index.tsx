@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { createPortal } from 'react-dom'
 import '@regen-design/theme/transition.css'
 import { CSSTransition } from 'react-transition-group'
@@ -26,14 +26,14 @@ const TempTransition: FC<TransitionProps> = props => {
     </CSSTransition>
   )
 }
-
 TempTransition.displayName = 'Transition'
+const TempMemoTransition = memo(TempTransition)
 
 export const Transition: FC<TransitionProps> = props => {
   const isPortal = props.isPortal ?? true
   if (isPortal) {
-    return createPortal(<TempTransition {...props} />, props.container || document.body)
+    return createPortal(<TempMemoTransition {...props} />, props.container || document.body)
   } else {
-    return <TempTransition {...props} />
+    return <TempMemoTransition {...props} />
   }
 }

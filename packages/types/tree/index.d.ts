@@ -80,6 +80,11 @@ export interface TreeProps extends Omit<CommonType, 'children'> {
    */
   multiple?: boolean
   /**
+   * @description Whether to associate options
+   * @default false
+   */
+  cascade?: boolean
+  /**
    * @description Customize the fields of node title, key, and children
    * @default { key: 'key', label: 'label', children: 'children' }
    */

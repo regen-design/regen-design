@@ -7,6 +7,7 @@ import {
   SetStateAction,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react'
@@ -17,6 +18,7 @@ import { CaretRightIcon } from '@regen-design/icons'
 import { Transition } from '../transition'
 import { TransitionStatus } from 'react-transition-group'
 import { Checkbox } from '../checkbox'
+import { useMergedState } from '@regen-design/hooks'
 
 const RenderItem: FC<{
   item: TreeProps['data'][0]
@@ -51,6 +53,31 @@ const RenderItem: FC<{
   const isExpanded = expandedKeys.includes(itemKey)
   const [transitionStatus, setTransitionStatus] = useState<TransitionStatus>('entered')
   const [expandedHeight, setExpandedHeight] = useState(0)
+  const indeterminate = useMemo(() => {
+    if (itemChildren && itemChildren.length > 0) {
+      let checked = 0
+      let unchecked = 0
+      itemChildren.forEach(child => {
+        const childKey = (child?.[fieldNames.key] || '') as string
+        if (checkedKeys.includes(childKey)) {
+          checked++
+        } else {
+          unchecked++
+        }
+      })
+      return checked > 0 && unchecked > 0
+    }
+    return false
+  }, [checkedKeys])
+  const checkAll = useMemo(() => {
+    if (itemChildren && itemChildren.length > 0) {
+      return itemChildren.every(child => {
+        const childKey = (child?.[fieldNames.key] || '') as string
+        return checkedKeys.includes(childKey)
+      })
+    }
+    return false
+  }, [checkedKeys])
   const handleExpand = () => {
     if (itemChildren && itemChildren.length > 0) {
       setExpandedKeys(
@@ -82,6 +109,19 @@ const RenderItem: FC<{
       setExpandedHeight(0)
     }
   }, [item, expandedKeys, isExpanded, transitionStatus])
+  const handleCheck = (checked: boolean) => {
+    setCheckedKeys(checked ? [...checkedKeys, itemKey] : checkedKeys.filter(key => key !== itemKey))
+    const deepCheck = (children: TreeProps['data'] = [], checked: boolean) => {
+      children.forEach(child => {
+        const childKey = (child?.[fieldNames.key] || '') as string
+        setCheckedKeys(checkedKeys =>
+          checked ? [...checkedKeys, childKey] : checkedKeys.filter(key => key !== childKey)
+        )
+        deepCheck((child?.[fieldNames.children] as TreeProps['data']) || [], checked)
+      })
+    }
+    deepCheck(itemChildren, checked)
+  }
   return (
     <Fragment key={itemKey}>
       <div
@@ -119,9 +159,9 @@ const RenderItem: FC<{
               <div style={{ width: indent }}></div>
             </div>
           ))}
-
           <div
-            onClick={() => {
+            onClick={e => {
+              e.stopPropagation()
               handleExpand()
             }}
             className={`${prefixClass}-node-switcher 
@@ -133,11 +173,10 @@ const RenderItem: FC<{
           {checkable && (
             <div className={`${prefixClass}-node-checkbox`}>
               <Checkbox
-                checked={checkedKeys.includes(itemKey)}
+                indeterminate={indeterminate}
+                checked={checkAll || checkedKeys.includes(itemKey)}
                 onChange={checked => {
-                  setCheckedKeys(
-                    checked ? [...checkedKeys, itemKey] : checkedKeys.filter(key => key !== itemKey)
-                  )
+                  handleCheck(checked)
                 }}
               />
             </div>
@@ -147,7 +186,6 @@ const RenderItem: FC<{
       </div>
       <Transition
         in={isExpanded}
-        animationClassName={'fade-in-height-expanded'}
         isPortal={false}
         onEnter={() => {
           setTransitionStatus('exited')
@@ -206,11 +244,27 @@ const TreeContext = createContext<
   checkedKeys: [],
 })
 export const Tree: FC<TreeProps> = props => {
-  const { style = {}, className = '', data = [] } = props
+  const {
+    style = {},
+    className = '',
+    data = [],
+    defaultSelectedKeys = [],
+    defaultCheckedKeys = [],
+    defaultExpandedKeys = [],
+    checkedKeys: checkedKeysProps,
+    expandedKeys: expandedKeysProps,
+    selectedKeys: selectedKeysProps,
+  } = props
   const treeClass = classNames(prefixClass, className)
-  const [selectedKeys, setSelectedKeys] = useState<string[]>([])
-  const [expandedKeys, setExpandedKeys] = useState<string[]>([])
-  const [checkedKeys, setCheckedKeys] = useState<string[]>([])
+  const [checkedKeys, setCheckedKeys] = useMergedState(defaultCheckedKeys, {
+    value: checkedKeysProps,
+  })
+  const [expandedKeys, setExpandedKeys] = useMergedState(defaultExpandedKeys, {
+    value: expandedKeysProps,
+  })
+  const [selectedKeys, setSelectedKeys] = useMergedState(defaultSelectedKeys, {
+    value: selectedKeysProps,
+  })
   return (
     <TreeContext.Provider
       value={{

@@ -22,13 +22,5 @@ export default function Demo() {
       }
     })
   }
-  return (
-    <Tree
-      multiple
-      data={data}
-      onSelect={selectedKeys => {
-        console.log(selectedKeys)
-      }}
-    />
-  )
+  return <Tree checkable cascade expandOnClickNode data={data} />
 }

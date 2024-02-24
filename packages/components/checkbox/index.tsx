@@ -64,7 +64,6 @@ export const Checkbox: FC<CheckboxProps> = ({
           >
             {indeterminate ? <MinusIcon /> : <CheckIcon />}
           </motion.div>
-
           <div className={`${prefixClass}-box__border`}></div>
         </div>
       </div>

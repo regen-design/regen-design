@@ -10,6 +10,8 @@ import CustomKeyAndLabel from "./CustomKeyAndLabel"
 import CustomKeyAndLabelCode from "!!raw-loader!./CustomKeyAndLabel"
 import Multiple from "./Multiple"
 import MultipleCode from "!!raw-loader!./Multiple"
+import CascadeSelection from "./CascadeSelection"
+import CascadeSelectionCode from "!!raw-loader!./CascadeSelection"
 
 # 树 Tree
 
@@ -41,6 +43,11 @@ import MultipleCode from "!!raw-loader!./Multiple"
                    description={'后端会传来各种各样的数据。'}
                    code={String(CustomKeyAndLabelCode)}>
           <CustomKeyAndLabel />
+        </CodeBlock>
+        <CodeBlock title="级联选择"
+                   description={'设定 `cascade` 进行级联选择。'}
+                   code={String(CascadeSelectionCode)}>
+          <CascadeSelection />
         </CodeBlock>
       </Grid>
     </Grid>
