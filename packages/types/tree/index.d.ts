@@ -1,4 +1,5 @@
 import { CommonType } from '../common'
+import { MouseEvent } from 'react'
 export type TreeOption = TreeBaseOption & Record<string, unknown>
 export interface TreeBaseOption {
   /**
@@ -74,6 +75,11 @@ export interface TreeProps extends Omit<CommonType, 'children'> {
    */
   expandOnClickNode?: boolean
   /**
+   * @description Supports clicking multiple nodes (the node itself)
+   * @default false
+   */
+  multiple?: boolean
+  /**
    * @description Customize the fields of node title, key, and children
    * @default { key: 'key', label: 'label', children: 'children' }
    */
@@ -82,4 +88,12 @@ export interface TreeProps extends Omit<CommonType, 'children'> {
     label: string
     children: string
   }
+  /**
+   * @description Triggered by clicking on a tree node
+   * @default undefined
+   */
+  onSelect?: (
+    selectedKeys: Array<string>,
+    e: { selected: boolean; selectedNodes: Array<TreeOption>; node: TreeOption; event: MouseEvent }
+  ) => void
 }

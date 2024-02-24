@@ -33,6 +33,8 @@ const RenderItem: FC<{
     indent = 20,
     checkable = false,
     expandOnClickNode = false,
+    multiple = false,
+    onSelect,
     fieldNames: fieldNamesProps = { children: 'children', key: 'key', label: 'label' },
   } = useContext(TreeContext)
   const fieldNames = {
@@ -80,15 +82,31 @@ const RenderItem: FC<{
       setExpandedHeight(0)
     }
   }, [item, expandedKeys, isExpanded, transitionStatus])
-
   return (
     <Fragment key={itemKey}>
       <div
         role="treeitem"
         data-key={itemKey}
         className={`${prefixClass}-node-wrapper`}
-        onClick={() => {
-          setSelectedKeys([itemKey as string])
+        onClick={event => {
+          let _selectedKeys = [...selectedKeys]
+          if (multiple) {
+            const index = _selectedKeys.indexOf(itemKey)
+            if (index > -1) {
+              _selectedKeys = _selectedKeys.filter(key => key !== itemKey)
+            } else {
+              _selectedKeys.push(itemKey)
+            }
+            setSelectedKeys([..._selectedKeys])
+          } else {
+            setSelectedKeys([itemKey])
+          }
+          onSelect?.([..._selectedKeys], {
+            selected: isExpanded,
+            selectedNodes: [],
+            node: item,
+            event,
+          })
           if (expandOnClickNode) {
             handleExpand()
           }
@@ -185,6 +203,7 @@ const TreeContext = createContext<
 >({
   selectedKeys: [],
   expandedKeys: [],
+  checkedKeys: [],
 })
 export const Tree: FC<TreeProps> = props => {
   const { style = {}, className = '', data = [] } = props

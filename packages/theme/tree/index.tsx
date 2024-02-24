@@ -24,7 +24,7 @@ export const StyledTree = styled.div<TreeProps & ThemeProps>`
       &--selected {
         background-color: ${() => 'var(--r-node-color-active)'};
       }
-      &:hover {
+      &:not(&--selected):hover {
         background-color: ${() => 'var(--r-node-color-hover)'};
       }
       cursor: pointer;

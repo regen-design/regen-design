@@ -8,6 +8,8 @@ import Basic from "./Basic"
 import BasicCode from "!!raw-loader!./Basic"
 import CustomKeyAndLabel from "./CustomKeyAndLabel"
 import CustomKeyAndLabelCode from "!!raw-loader!./CustomKeyAndLabel"
+import Multiple from "./Multiple"
+import MultipleCode from "!!raw-loader!./Multiple"
 
 # 树 Tree
 
@@ -27,6 +29,11 @@ import CustomKeyAndLabelCode from "!!raw-loader!./CustomKeyAndLabel"
                    description={'好在这颗树不是活的，也不平衡。'}
                    code={String(BasicCode)}>
           <Basic />
+        </CodeBlock>
+        <CodeBlock title="多选节点"
+                   description={'设置 `multiple` 来允许多选节点。'}
+                   code={String(MultipleCode)}>
+          <Multiple />
         </CodeBlock>
       </Grid>
       <Grid yGap={16} cols={1}>
