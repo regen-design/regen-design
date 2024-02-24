@@ -16,11 +16,20 @@ export default function Demo() {
     return Array.from({ length: 6 - level }, (_, i) => {
       const key = baseKey + i
       return {
-        key,
-        label: createLabel(level),
-        children: createData(level - 1, `${key}-`),
+        whateverKey: key,
+        whateverLabel: createLabel(level),
+        whateverChildren: createData(level - 1, `${key}-`),
       }
     })
   }
-  return <Tree checkable expandOnClickNode data={data} />
+  return (
+    <Tree
+      data={data}
+      fieldNames={{
+        key: 'whateverKey',
+        children: 'whateverChildren',
+        label: 'whateverLabel',
+      }}
+    />
+  )
 }

@@ -3,13 +3,14 @@ import {
   Dispatch,
   FC,
   Fragment,
+  ReactNode,
   SetStateAction,
   useContext,
   useEffect,
   useRef,
   useState,
 } from 'react'
-import { TreeProps } from '@regen-design/types'
+import { TreeOption, TreeProps } from '@regen-design/types'
 import { StyledTree, StyledTreePrefixClass as prefixClass } from '@regen-design/theme'
 import classNames from 'classnames'
 import { CaretRightIcon } from '@regen-design/icons'
@@ -31,51 +32,66 @@ const RenderItem: FC<{
     setCheckedKeys,
     indent = 20,
     checkable = false,
+    expandOnClickNode = false,
+    fieldNames: fieldNamesProps = { children: 'children', key: 'key', label: 'label' },
   } = useContext(TreeContext)
+  const fieldNames = {
+    children: fieldNamesProps.children || 'children',
+    label: fieldNamesProps.label || 'label',
+    key: fieldNamesProps.key || 'key',
+  }
+  const itemKey = (item?.[fieldNames.key] || '') as string
+  const itemChildren = (item?.[fieldNames.children] || []) as Array<TreeOption>
+  const itemLabel = (item?.[fieldNames.label] || '') as ReactNode
   const nodeClassnames = classNames(`${prefixClass}-node`, {
-    [`${prefixClass}-node--selected`]: selectedKeys.includes(item.key),
+    [`${prefixClass}-node--selected`]: selectedKeys.includes(itemKey),
   })
-  const isExpanded = expandedKeys.includes(item.key)
+  const isExpanded = expandedKeys.includes(itemKey)
   const [transitionStatus, setTransitionStatus] = useState<TransitionStatus>('entered')
   const [expandedHeight, setExpandedHeight] = useState(0)
   const handleExpand = () => {
-    if (item.children && item.children.length > 0) {
+    if (itemChildren && itemChildren.length > 0) {
       setExpandedKeys(
-        expandedKeys.includes(item.key)
-          ? expandedKeys.filter(key => key !== item.key)
-          : [...expandedKeys, item.key]
+        expandedKeys.includes(itemKey)
+          ? expandedKeys.filter(key => key !== itemKey)
+          : [...expandedKeys, itemKey]
       )
     }
   }
   const computedExpandedChildrenHeight = (children: TreeProps['data']) => {
     let height = 0
     children.forEach(child => {
-      const element = document.querySelector(`[data-key="${child.key}"]`)
+      const childKey = (child?.[fieldNames.key] || '') as string
+      const childChildren = (child?.[fieldNames.children] || []) as Array<TreeOption>
+      const element = document.querySelector(`[data-key="${childKey}"]`)
       if (element) {
         height += element.getBoundingClientRect().height
       }
-      if (expandedKeys.includes(child.key)) {
-        height += computedExpandedChildrenHeight(child.children || [])
+      if (expandedKeys.includes(childKey)) {
+        height += computedExpandedChildrenHeight(childChildren || [])
       }
     })
     return height
   }
   useEffect(() => {
     if (['entering', 'entered'].includes(transitionStatus)) {
-      setExpandedHeight(computedExpandedChildrenHeight(item.children || []))
+      setExpandedHeight(computedExpandedChildrenHeight(itemChildren || []))
     } else {
       setExpandedHeight(0)
     }
   }, [item, expandedKeys, isExpanded, transitionStatus])
+
   return (
-    <Fragment key={item.key}>
+    <Fragment key={itemKey}>
       <div
         role="treeitem"
-        data-key={item.key}
+        data-key={itemKey}
         className={`${prefixClass}-node-wrapper`}
         onClick={() => {
-          setSelectedKeys([item.key])
-          handleExpand()
+          setSelectedKeys([itemKey as string])
+          if (expandOnClickNode) {
+            handleExpand()
+          }
         }}
         ref={nodeRef}
       >
@@ -87,32 +103,28 @@ const RenderItem: FC<{
           ))}
 
           <div
+            onClick={() => {
+              handleExpand()
+            }}
             className={`${prefixClass}-node-switcher 
               ${isExpanded ? `${prefixClass}-node-switcher--expanded` : ''} 
-              ${
-                !(item.children && item.children.length > 0)
-                  ? `${prefixClass}-node-switcher--hide`
-                  : ''
-              }`}
+              ${!(itemChildren && itemChildren.length > 0) ? `${prefixClass}-node-switcher--hide` : ''}`}
           >
             <CaretRightIcon />
           </div>
-
           {checkable && (
             <div className={`${prefixClass}-node-checkbox`}>
               <Checkbox
-                checked={checkedKeys.includes(item.key)}
+                checked={checkedKeys.includes(itemKey)}
                 onChange={checked => {
                   setCheckedKeys(
-                    checked
-                      ? [...checkedKeys, item.key]
-                      : checkedKeys.filter(key => key !== item.key)
+                    checked ? [...checkedKeys, itemKey] : checkedKeys.filter(key => key !== itemKey)
                   )
                 }}
               />
             </div>
           )}
-          <div className={`${prefixClass}-node-content`}>{item.label}</div>
+          <div className={`${prefixClass}-node-content`}>{itemLabel}</div>
         </div>
       </div>
       <Transition
@@ -140,7 +152,7 @@ const RenderItem: FC<{
       >
         {status => {
           if (isExpanded && status === 'entered') {
-            return item.children && item.children.length > 0 && renderTree(item.children, level + 1)
+            return itemChildren && itemChildren.length > 0 && renderTree(itemChildren, level + 1)
           }
           return (
             <div
@@ -150,7 +162,7 @@ const RenderItem: FC<{
                 transition: 'height 300ms linear,opacity 300ms linear',
               }}
             >
-              {item.children && item.children.length > 0 && renderTree(item.children, level + 1)}
+              {itemChildren && itemChildren.length > 0 && renderTree(itemChildren, level + 1)}
             </div>
           )
         }}
