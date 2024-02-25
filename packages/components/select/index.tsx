@@ -146,6 +146,7 @@ export const Select: FC<SelectProps> = props => {
     clearable = false,
     clearIcon,
     filterable = false,
+    defaultValue,
   } = props
   const selectClass = classNames(prefixClass, className, {
     [`${prefixClass}--disabled`]: disabled,
@@ -159,7 +160,7 @@ export const Select: FC<SelectProps> = props => {
   const clearIconRef = useRef<HTMLDivElement>(null)
   const [searchValue, setSearchValue] = useState('')
   const [innerRect, setInnerRect] = useState<DOMRect | null>(null)
-  const [value, setValue] = useMergedState(undefined, {
+  const [innerValue, setInnerValue] = useMergedState(defaultValue, {
     value: valueProps,
   })
   const getInnerRect = () => {
@@ -192,7 +193,7 @@ export const Select: FC<SelectProps> = props => {
   const Placeholder = <div className={`${prefixClass}__placeholder`}>{placeholder}</div>
   const SelectedText = (
     <div className={`${prefixClass}__text`}>
-      {options.find(item => item.value === value)?.label}
+      {options.find(item => item.value === (valueProps ?? innerValue))?.label}
     </div>
   )
   return (
@@ -204,14 +205,14 @@ export const Select: FC<SelectProps> = props => {
       disabled={disabled}
       size={size}
       style={style}
-      value={value}
+      value={valueProps ?? innerValue}
       clearable={clearable}
     >
       <SelectContext.Provider
         value={{
           ...props,
-          value,
-          setValue,
+          value: valueProps ?? innerValue,
+          setValue: setInnerValue,
           innerRect,
           isFocused,
           setIsFocused,
@@ -255,19 +256,19 @@ export const Select: FC<SelectProps> = props => {
             )}
             {!filterable ? (
               <>
-                {!value && Placeholder}
-                {value && SelectedText}
+                {!innerValue && Placeholder}
+                {innerValue && SelectedText}
               </>
             ) : (
-              <>{!searchValue && (value ? SelectedText : Placeholder)}</>
+              <>{!searchValue && (innerValue ? SelectedText : Placeholder)}</>
             )}
-            {clearable && value && (
+            {clearable && innerValue && (
               <div
                 ref={clearIconRef}
                 className={`${prefixClass}__clear`}
                 onClick={e => {
                   e.stopPropagation()
-                  setValue(undefined)
+                  setInnerValue(undefined)
                   onChange?.(undefined)
                 }}
               >

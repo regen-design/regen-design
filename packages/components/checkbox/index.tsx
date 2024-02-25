@@ -12,7 +12,7 @@ export const Checkbox: FC<CheckboxProps> = ({
   children,
   size = 'default',
   disabled = false,
-  checked: WChecked = false,
+  checked: checkedProps = false,
   indeterminate = false,
   onChange,
 }) => {
@@ -24,7 +24,7 @@ export const Checkbox: FC<CheckboxProps> = ({
   const [initRender, setInitRender] = useState(false)
   const waveRef = useRef<WaveRefProps>(null)
   const [checked] = useMergedState(false, {
-    value: WChecked,
+    value: checkedProps,
   })
   useEffect(() => {
     if (checked) {
@@ -46,7 +46,7 @@ export const Checkbox: FC<CheckboxProps> = ({
       className={checkboxClass}
       style={style}
       size={size}
-      checked={checked}
+      checked={checkedProps ?? checked}
       indeterminate={indeterminate}
       disabled={disabled}
       tabIndex={0}

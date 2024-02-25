@@ -7,6 +7,12 @@ export interface RadioProps extends CommonType {
    */
   checked?: boolean
   /**
+   * @description default checked
+   * @default false
+   * @type boolean
+   */
+  defaultChecked?: boolean
+  /**
    * @description onChange
    * @default undefined
    * @type (checked: boolean) => void

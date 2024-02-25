@@ -1,6 +1,8 @@
 import { Select, Space } from '@regen-design/components'
+import { useState } from 'react'
 
 export default function Demo() {
+  const [value, setValue] = useState('选项1')
   const options = [
     {
       value: '选项1',
@@ -25,7 +27,7 @@ export default function Demo() {
   ]
   return (
     <Space alignItems={'center'}>
-      <Select options={options} />
+      <Select value={value} onChange={setValue} options={options} />
     </Space>
   )
 }

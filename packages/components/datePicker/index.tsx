@@ -245,14 +245,15 @@ export const DatePicker = <T extends number | string>({
     }
   })
   const formattedInputValue = useMemo(() => {
-    return value ? formatDate(new Date(value), valueFormat || format) : ''
-  }, [value])
+    const currentValue = valueProps ?? value
+    return currentValue ? formatDate(new Date(currentValue), valueFormat || format) : ''
+  }, [valueProps, value])
   return (
     <DatePickerContext.Provider
       value={{
         isFocused,
         wrapperRect,
-        value,
+        value: valueProps ?? value,
         onChange,
         valueFormat,
         setValue,

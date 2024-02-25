@@ -1,9 +1,10 @@
-import { FC, useContext, useEffect, useRef, useState } from 'react'
+import { FC, useContext, useRef } from 'react'
 import { RadioProps, WaveRefProps } from '@regen-design/types'
 import { StyledRadio, StyledRadioPrefixClass as prefixClass } from '@regen-design/theme'
 import classNames from 'classnames'
 import { Wave } from '../wave'
 import { RadioGroupContext } from '../radioGroup'
+import { useMergedState } from '@regen-design/hooks'
 export const Radio: FC<RadioProps> = ({
   style = {},
   className = '',
@@ -13,22 +14,23 @@ export const Radio: FC<RadioProps> = ({
   children,
   onChange,
   index,
+  defaultChecked,
 }) => {
   const { optionType, optionsLength } = useContext(RadioGroupContext)
   const radioClass = classNames(prefixClass, className, {
     [`${prefixClass}--disabled`]: disabled,
   })
-  const [checked, setChecked] = useState(false)
+
+  const [checked, setChecked] = useMergedState(defaultChecked, {
+    value: WChecked,
+  })
   const waveRef = useRef<WaveRefProps>(null)
-  useEffect(() => {
-    setChecked(WChecked)
-  }, [WChecked])
   return (
     <StyledRadio
       role="radio"
       size={size}
       index={index}
-      checked={checked}
+      checked={WChecked ?? checked}
       disabled={disabled}
       className={radioClass}
       optionType={optionType}

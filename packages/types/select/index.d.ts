@@ -9,6 +9,11 @@ export interface SelectProps extends Omit<CommonType, 'children'> {
    */
   value?: string
   /**
+   * @description defaultValue of the select
+   * @default undefined
+   */
+  defaultValue?: string
+  /**
    * @description onChange event of the select
    * @type (value: string) => void
    * @default undefined

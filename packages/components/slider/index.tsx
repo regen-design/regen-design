@@ -51,7 +51,7 @@ export const Slider: FC<SliderProps> = ({
       }
     }
   }, [value, disabled])
-
+  const currentValue = valueProps ?? value
   return (
     <StyledSlider role="slider" disabled={disabled} className={sliderClass} style={style}>
       <div
@@ -71,14 +71,14 @@ export const Slider: FC<SliderProps> = ({
           className={`${prefixClass}-track`}
           ref={trackRef}
           style={{
-            width: `${((value - min) / (max - min)) * 100}%`,
+            width: `${((currentValue - min) / (max - min)) * 100}%`,
           }}
         />
         <div
           ref={thumbRef}
           className={`${prefixClass}-thumb-wrap`}
           style={{
-            left: `${((value - min) / (max - min)) * 100}%`,
+            left: `${((currentValue - min) / (max - min)) * 100}%`,
           }}
           onClick={e => {
             e.stopPropagation()

@@ -3,7 +3,6 @@ import {
   ForwardedRef,
   forwardRef,
   InputHTMLAttributes,
-  useEffect,
   useMemo,
   useRef,
   useState,
@@ -12,7 +11,7 @@ import { InputProps } from '@regen-design/types'
 import { StyledInput, StyledInputPrefixClass as prefixClass } from '@regen-design/theme'
 import GraphemeSplitter from 'grapheme-splitter'
 import classNames from 'classnames'
-import { useDebounce } from '@regen-design/hooks'
+import { useDebounce, useMergedState } from '@regen-design/hooks'
 import { CloseCircleIcon, EyeIcon, EyeInvisibleIcon } from '@regen-design/icons'
 
 const splitter = new GraphemeSplitter()
@@ -60,7 +59,9 @@ export const Input = forwardRef(
     const inputElementRef = useRef<HTMLInputElement>(null)
     const textareaElementRef = useRef<HTMLTextAreaElement>(null)
     const [isFocus, setIsFocus] = useState(false)
-    const [inputValue, setInputValue] = useState('')
+    const [inputValue, setInputValue] = useMergedState(defaultValue, {
+      value,
+    })
     const [isVisible, setIsVisible] = useState(false)
     // 将内部的 ref 传递给外部的 ref
     if (ref) {
@@ -74,13 +75,6 @@ export const Input = forwardRef(
         ref.current = element
       }
     }
-    useEffect(() => {
-      if (value === undefined) {
-        setInputValue(defaultValue)
-      } else {
-        setInputValue(value)
-      }
-    }, [value, defaultValue])
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       let _value = e.target.value
       if (realLength) {
@@ -98,14 +92,13 @@ export const Input = forwardRef(
       if (trim) {
         _value = _value.trim()
       }
-      onChange && onChange(_value)
       setInputValue(_value)
+      onChange?.(_value)
     }
     const [handleDebounceChange] = useDebounce(e => {
       handleChange(e)
     }, debounce)
     const handleClear = () => {
-      setInputValue('')
       onClear && onClear()
       onChange && onChange('')
     }
@@ -113,7 +106,7 @@ export const Input = forwardRef(
       type,
       disabled,
       readOnly,
-      value: inputValue,
+      value: value ?? inputValue,
       className: `${prefixClass}__${type === 'textarea' ? 'textarea' : 'input'}-el`,
       onFocus: e => {
         setIsFocus(true)
@@ -123,7 +116,6 @@ export const Input = forwardRef(
         onInput && onInput(e)
       },
       onChange: e => {
-        setInputValue(e.target.value)
         if (!debounce) {
           handleChange(e)
         } else {

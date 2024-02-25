@@ -59,7 +59,7 @@ export const Rate: FC<RateProps> = ({
       {Array(count)
         .fill(null)
         .map((_, index) => {
-          const isActive = isHover ? index < hoverValue : index < value
+          const isActive = isHover ? index < hoverValue : index < (valueProps ?? value)
           return (
             <div
               className={`${prefixClass}__item ${isActive ? `${prefixClass}__item--active` : ''}`}

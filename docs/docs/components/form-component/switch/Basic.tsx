@@ -10,7 +10,7 @@ export default function Demo() {
         onChange={e => {
           setChecked(e)
         }}
-      ></Switch>
+      />
     </Space>
   )
 }

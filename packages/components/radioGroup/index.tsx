@@ -1,9 +1,10 @@
-import { createContext, FC, Fragment, useEffect, useMemo, useState } from 'react'
+import { createContext, FC, Fragment, useMemo } from 'react'
 import { RadioGroupProps } from '@regen-design/types'
 import { StyledRadioGroup, StyledRadioGroupPrefixClass as prefixClass } from '@regen-design/theme'
 import classNames from 'classnames'
 import { Space } from '../space'
 import { Radio } from '../radio'
+import { useMergedState } from '@regen-design/hooks'
 
 export const RadioGroupContext = createContext<
   Pick<RadioGroupProps, 'optionType'> & {
@@ -24,19 +25,20 @@ export const RadioGroup: FC<RadioGroupProps> = ({
   size = 'default',
 }) => {
   const radioGroupClass = classNames(prefixClass, className)
-  const [checked, setChecked] = useState<string>('')
-  useEffect(() => {
-    if (value === undefined) {
-      setChecked(defaultValue)
-    } else {
-      setChecked(value)
-    }
-  }, [value, defaultValue])
+  const [checked, setChecked] = useMergedState(defaultValue, {
+    value,
+  })
+  const currentValue = value ?? checked
   const currentIndex = useMemo(() => {
-    return options.findIndex(option => option.value === checked)
-  }, [checked, options])
+    return options.findIndex(option => option.value === currentValue)
+  }, [currentValue, options])
   return (
-    <StyledRadioGroup role="radioGroup" value={checked} className={radioGroupClass} style={style}>
+    <StyledRadioGroup
+      role="radioGroup"
+      value={currentValue}
+      className={radioGroupClass}
+      style={style}
+    >
       <RadioGroupContext.Provider value={{ optionType, optionsLength: options.length }}>
         <Space xGap={optionType === 'button' ? 0 : 12}>
           {options.map((option, index) => {
@@ -45,7 +47,7 @@ export const RadioGroup: FC<RadioGroupProps> = ({
                 <Radio
                   index={index}
                   size={size}
-                  checked={checked === option.value}
+                  checked={currentValue === option.value}
                   disabled={option.disabled}
                   onChange={_checked => {
                     if (_checked) {

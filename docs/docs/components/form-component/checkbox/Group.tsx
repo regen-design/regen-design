@@ -7,7 +7,7 @@ export default function Demo() {
     { label: 'Pear', value: 'Pear' },
     { label: 'Orange', value: 'Orange', disabled: true },
   ]
-  const [value, setValue] = useState([])
+  const [value, setValue] = useState([''])
   return (
     <Space alignItems={'center'}>
       <CheckboxGroup value={value} options={options} onChange={setValue} />
