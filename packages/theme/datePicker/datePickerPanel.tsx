@@ -2,6 +2,7 @@ import { convertTheme } from '../tools'
 import styled from 'styled-components'
 import { Size, ThemeConfig } from '@regen-design/types'
 import { NAME_SPACE } from '@regen-design/constant'
+import { rgba } from 'polished'
 
 const prefix = `${NAME_SPACE}-panel`
 export const StyledDatePickerPanelPrefixClass = prefix
@@ -25,10 +26,40 @@ export const StyledDatePickerPanel = styled.div<{
   }};
   pointer-events: auto;
   overflow: auto;
+  display: grid;
+  &.${prefix}--date {
+    grid-template-areas:
+      'header'
+      'left-calendar'
+      'footer'
+      'action';
+  }
+  &.${prefix}--date-range {
+    .${prefix}-calendar--start {
+      grid-area: left-calendar;
+    }
+    .${prefix}-calendar--divider {
+      grid-area: divider;
+      height: 100%;
+      width: 1px;
+      background-color: ${props => {
+        const _theme = convertTheme(props.theme)
+        return _theme.borderColor
+      }};
+    }
+    .${prefix}-calendar--end {
+      grid-area: right-calendar;
+    }
+    grid-template-areas:
+      'left-calendar divider right-calendar'
+      'footer footer footer'
+      'action action action';
+  }
   .${prefix}-actions {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    grid-area: action;
     border-top: ${props => {
       const _theme = convertTheme(props.theme)
       return `1px solid ${_theme.borderColor}`
@@ -52,7 +83,10 @@ export const StyledDatePickerPanel = styled.div<{
     .${prefix}-dates {
       display: grid;
       position: relative;
-      gap: 4px;
+      //gap: 4px;
+      align-items: center;
+      justify-items: center;
+      flex-wrap: wrap;
       grid-template-columns: repeat(
         7,
         ${props => {
@@ -72,44 +106,80 @@ export const StyledDatePickerPanel = styled.div<{
         user-select: none;
         -webkit-user-select: none;
         position: relative;
-        line-height: ${props => {
-          const _theme = convertTheme(props.theme)
-          return _theme.components.datePicker.dateItemSize
-        }};
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
         text-align: center;
+        &::before,
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: inherit;
+          line-height: 28px;
+        }
+        &::before {
+          z-index: -2;
+        }
+        &::after {
+          z-index: -1;
+        }
+
+        &.${prefix}-dates__date--covered,&.${prefix}-dates__date--start {
+          &::before {
+            background-color: ${props => {
+              const _theme = convertTheme(props.theme)
+              return rgba(_theme.colors.primary, 0.15)
+            }};
+            width: ${props => {
+              const _theme = convertTheme(props.theme)
+              return _theme.components.datePicker.dateItemSize
+            }};
+            left: -25%;
+          }
+        }
         font-size: ${props => {
           const _theme = convertTheme(props.theme)
           return _theme.components.datePicker.dateItemFontSize
         }};
         color: #333639;
         cursor: pointer;
+        z-index: 0;
         transition: ${props => {
           const _theme = convertTheme(props.theme)
           return `background-color 300ms ${_theme.transition['ease-in']},
           color 300ms ${_theme.transition['ease-in']}`
         }};
-        border-radius: ${props => {
-          const _theme = convertTheme(props.theme)
-          return _theme.borderRadius
-        }};
         &:hover {
           background-color: #f3f3f5;
         }
         &.${prefix}-dates__date-selected {
-          background-color: ${props => {
-            const _theme = convertTheme(props.theme)
-            return _theme.colors.primary
-          }};
+          &::after {
+            background-color: ${props => {
+              const _theme = convertTheme(props.theme)
+              return _theme.colors.primary
+            }};
+          }
           color: ${props => {
             const _theme = convertTheme(props.theme)
             return _theme.colors.white
           }};
+          transition: none;
+        }
+
+        &.${prefix}-dates__date--end {
+          &::before {
+            width: 24px;
+          }
         }
         &.${prefix}-dates__date-secondary {
           color: #d1d1d6;
         }
         &.${prefix}-dates__date-today.${prefix}-dates__date-selected {
-          &:after {
+          .${prefix}-dates__sup {
             background-color: ${props => {
               const _theme = convertTheme(props.theme)
               return _theme.colors.light
@@ -117,13 +187,13 @@ export const StyledDatePickerPanel = styled.div<{
           }
         }
         &.${prefix}-dates__date-today {
-          &:after {
-            width: 6px;
-            height: 6px;
+          .${prefix}-dates__sup {
+            width: 4px;
+            height: 4px;
             content: '';
             position: absolute;
-            right: 4px;
-            top: 4px;
+            right: 1px;
+            top: 1px;
             border-radius: 50%;
             background-color: ${props => {
               const _theme = convertTheme(props.theme)

@@ -1,80 +1,92 @@
 import { CommonType, Size } from '../common'
 
-export interface DatePickerProps<T extends number | string> extends Omit<CommonType, 'children'> {
+export interface DatePickerProps<V extends DatePickerValueType, T extends DatePickerType>
+  extends Omit<CommonType, 'children'> {
   /**
    * @description The value of the date picker
-   * @type string | number
    * @default undefined
    */
-  value?: T
+  value?: DatePickerValueType<T>
   /**
    * @description The default value of the date picker
-   * @type string | number
    * @default undefined
    */
-  defaultValue?: T
+  defaultValue?: V
   /**
    * @description The onChange event of the date picker
-   * @type {(value: string | number) => void}
    * @default undefined
    */
-  onChange?: T extends number ? (value: number) => void : (value: string) => void
+  onChange?: DatePickerOnChangeType<V>
   /**
    * @description The disabled of the date picker
-   * @type boolean
    * @default false
    */
   disabled?: boolean
   /**
    * @description The placeholder of the date picker
-   * @type string
    * @default '选择日期'
    */
   placeholder?: string
   /**
    * @description The value format of the date picker
-   * @type string
    * @default undefined
    */
   valueFormat?: string
   /**
    * @description The min date of the date picker
-   * @type number
    */
   minDate?: number
   /**
    * @description The max date of the date picker
-   * @type number
    */
   maxDate?: number
   /**
    * @description The format of the date picker
-   * @type string
    * @default 'YYYY-MM-DD'
    */
   format?: string
   /**
    * @description The size of the date picker
-   * @type Size
    * @default 'default'
    */
   size?: Size
+  /**
+   * @description The type of the date picker
+   * @default 'date'
+   */
+  type?: DatePickerType
 }
 
 export interface DatePickerDateItemType {
   /**
    * @description The day of the date
-   * @type number
    */
   day: number
   /**
    * @description The date of the date
-   * @type Date
    */
   date: Date
   /**
    * @description is secondary date
-   * @type boolean
    */
   secondary: boolean
 }
+export type DatePickerType = 'date' | 'date-range'
+export type DatePickerValueType<T extends DatePickerType> = T extends 'date'
+  ? DatePickerValueDateType
+  : T extends 'date-range'
+    ? DatePickerValueDateRangeType
+    : never
+
+export type DatePickerValueDateRangeType = [number, number] | [string, string]
+export type DatePickerValueDateType = number | string
+
+export type DatePickerOnChangeType<T extends DatePickerValueType<DatePickerType>> = T extends number
+  ? (value: number) => void
+  : T extends string
+    ? (value: string) => void
+    : T extends [number, number]
+      ? (value: [number, number]) => void
+      : T extends [string, string]
+        ? (value: [string, string]) => void
+        : void
