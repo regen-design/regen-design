@@ -45,8 +45,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
       if (typeof value === 'number') {
         setValue && setValue(date.getTime())
         onChange && (onChange as (value: number) => void)(date.getTime())
-      }
-      if (typeof value === 'string') {
+      } else if (typeof value === 'string') {
         const _value = formatDate(date, valueFormat || format)
         setValue && setValue(_value)
         onChange && (onChange as (value: string) => void)(_value)
@@ -95,16 +94,44 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
         <div className={`${prefixPanelClass}-actions`}>
           <div className={`${prefixPanelClass}-actions__prefix`}></div>
           <div className={`${prefixPanelClass}-actions__suffix`}>
-            <Button
-              size={'tiny'}
-              onClick={e => {
-                e.stopPropagation()
-                const date = new Date()
-                handleCalendarClick(new Date(date.getFullYear(), date.getMonth(), date.getDate()))
-              }}
-            >
-              此刻
-            </Button>
+            {['date-range'].includes(type) && (
+              <>
+                <Button
+                  size={'tiny'}
+                  className={`${prefixPanelClass}-actions__suffix-clear`}
+                  onClick={e => {
+                    e.stopPropagation()
+                    setValue?.(null)
+                    onChange?.(null)
+                    setIsFocused?.(false)
+                  }}
+                >
+                  清除
+                </Button>
+                <Button
+                  size={'tiny'}
+                  type={'primary'}
+                  className={`${prefixPanelClass}-actions__suffix-clear`}
+                  onClick={e => {
+                    e.stopPropagation()
+                  }}
+                >
+                  确认
+                </Button>
+              </>
+            )}
+            {['date'].includes(type) && (
+              <Button
+                size={'tiny'}
+                onClick={e => {
+                  e.stopPropagation()
+                  const date = new Date()
+                  handleCalendarClick(new Date(date.getFullYear(), date.getMonth(), date.getDate()))
+                }}
+              >
+                此刻
+              </Button>
+            )}
           </div>
         </div>
       </StyledDatePickerPanel>
@@ -134,10 +161,9 @@ export const DatePicker = <V extends DatePickerValueType<T>, T extends DatePicke
   })
   const [isFocused, setIsFocused] = useState(false)
   const [wrapperRect, setWrapperRect] = useState<DOMRect | null>(null)
-  const [value, setValue] = useMergedState(undefined, {
+  const [value, setValue] = useMergedState<DatePickerValueType<DatePickerType>>(undefined, {
     value: valueProps,
   })
-
   useEffect(() => {
     if (isFocused) {
       if (wrapperRef.current) {

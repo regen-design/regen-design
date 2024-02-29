@@ -70,6 +70,9 @@ export const StyledDatePickerPanel = styled.div<{
     }};
     .${prefix}-actions__suffix {
       align-self: flex-end;
+      .${prefix}-actions__suffix-clear {
+        margin-right: 8px;
+      }
     }
   }
   .${prefix}-calendar {
@@ -127,18 +130,38 @@ export const StyledDatePickerPanel = styled.div<{
         &::after {
           z-index: -1;
         }
-
-        &.${prefix}-dates__date--covered,&.${prefix}-dates__date--start {
+        &.${prefix}-dates__date-range--covered {
+          &::before {
+            width: ${props => {
+              const _theme = convertTheme(props.theme)
+              return _theme.components.datePicker.dateItemSize
+            }};
+            left: -8px;
+          }
+        }
+        &.${prefix}-dates__date-range--start {
+          &::before {
+            width: 24px;
+            left: 25%;
+          }
+          &.${prefix}-dates__date-range--start_end {
+            &::before {
+              left: -25%;
+            }
+          }
+        }
+        &.${prefix}-dates__date-range--end {
+          &::before {
+            width: 24px;
+            left: -8px;
+          }
+        }
+        &.${prefix}-dates__date-range--covered,&.${prefix}-dates__date-range--start {
           &::before {
             background-color: ${props => {
               const _theme = convertTheme(props.theme)
               return rgba(_theme.colors.primary, 0.15)
             }};
-            width: ${props => {
-              const _theme = convertTheme(props.theme)
-              return _theme.components.datePicker.dateItemSize
-            }};
-            left: -25%;
           }
         }
         font-size: ${props => {
@@ -170,12 +193,13 @@ export const StyledDatePickerPanel = styled.div<{
           transition: none;
         }
 
-        &.${prefix}-dates__date--end {
-          &::before {
-            width: 24px;
-          }
-        }
         &.${prefix}-dates__date-secondary {
+          &.${prefix}-dates__date-range-selected_secondary {
+            background-color: ${props => {
+              const _theme = convertTheme(props.theme)
+              return _theme.colors.light
+            }};
+          }
           color: #d1d1d6;
         }
         &.${prefix}-dates__date-today.${prefix}-dates__date-selected {

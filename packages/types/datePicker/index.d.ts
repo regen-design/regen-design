@@ -78,7 +78,7 @@ export type DatePickerValueType<T extends DatePickerType> = T extends 'date'
     ? DatePickerValueDateRangeType
     : never
 
-export type DatePickerValueDateRangeType = [number, number] | [string, string]
+export type DatePickerValueDateRangeType = [number, number] | [string, string] | []
 export type DatePickerValueDateType = number | string
 
 export type DatePickerOnChangeType<T extends DatePickerValueType<DatePickerType>> = T extends number
@@ -89,4 +89,4 @@ export type DatePickerOnChangeType<T extends DatePickerValueType<DatePickerType>
       ? (value: [number, number]) => void
       : T extends [string, string]
         ? (value: [string, string]) => void
-        : void
+        : (value: null) => void

@@ -8,7 +8,11 @@ import {
 } from '@regen-design/icons'
 import { formatDate, isSameDate } from '@regen-design/utils'
 import classNames from 'classnames'
-import { DatePickerDateItemType, DatePickerValueDateRangeType } from '@regen-design/types'
+import {
+  DatePickerDateItemType,
+  DatePickerValueDateRangeType,
+  DatePickerValueDateType,
+} from '@regen-design/types'
 import { DatePickerContext } from './index'
 
 type Props = {
@@ -23,33 +27,38 @@ export const SimpleDatePanel: FC<Props> = ({ className = '', onClick, isEnd }) =
   const value = useMemo(() => {
     if (type === 'date-range') {
       if (isEnd) {
-        return contextValue[1]
+        return contextValue?.[1] || null
       }
       if (!isEnd) {
-        return contextValue[0]
+        return contextValue?.[0] || null
       }
     }
     return contextValue
   }, [contextValue, type, isEnd])
   useEffect(() => {
     if (type === 'date-range') {
-      const [value1, value2] = contextValue as DatePickerValueDateRangeType
+      const [value1, value2] = contextValue
+        ? (contextValue as DatePickerValueDateRangeType)
+        : [null, null]
       const value1Format = formatDate(new Date(value1), 'YYYY-MM')
       const value2Format = formatDate(new Date(value2), 'YYYY-MM')
       if (isEnd) {
-        if (value1Format === value2Format) {
+        if (value2 && value1Format === value2Format) {
           setCurrentMonth(new Date(new Date(value2).setDate(new Date(value2).getDate() + 30)))
         } else {
-          setCurrentMonth(new Date(value2))
+          handleSetCurrentMonth(value2)
         }
       }
       if (!isEnd) {
-        setCurrentMonth(new Date(value1))
+        handleSetCurrentMonth(value1)
       }
     } else {
-      setCurrentMonth(new Date(value))
+      handleSetCurrentMonth(value)
     }
-  }, [type, value])
+  }, [type, value, contextValue])
+  const handleSetCurrentMonth = (value?: DatePickerValueDateType) => {
+    setCurrentMonth(value ? new Date(value) : new Date())
+  }
   const getCurrentMothDates = () => {
     const newDate = currentMonth
     const year = newDate.getFullYear()
@@ -141,28 +150,39 @@ export const SimpleDatePanel: FC<Props> = ({ className = '', onClick, isEnd }) =
       <div className={`${prefixPanelClass}-dates`}>
         {dates.map((date, index) => {
           let isSelected = false
-          if (typeof value === 'number') {
-            isSelected = isSameDate(date.date, new Date(value))
+          if (type === 'date') {
+            if (typeof value === 'number') {
+              isSelected = isSameDate(date.date, new Date(value))
+            }
+            if (typeof value === 'string') {
+              isSelected = formatDate(date.date, valueFormat || format) === value
+            }
           }
-          if (typeof value === 'string') {
-            isSelected = formatDate(date.date, valueFormat || format) === value
-          }
-          const isCovered = isEnd ? date.date.getTime() < value : date.date.getTime() > value
-          const start =
-            type === 'date-range' && isSameDate(date.date, new Date(contextValue[0])) && isSelected
-          const end =
-            type === 'date-range' && isSameDate(date.date, new Date(contextValue[1])) && isSelected
+          const isCovered = value
+            ? isEnd
+              ? date.date.getTime() < value
+              : date.date.getTime() > value
+            : false
+          const start = type === 'date-range' && isSameDate(date.date, new Date(contextValue?.[0]))
+          const end = type === 'date-range' && isSameDate(date.date, new Date(contextValue?.[1]))
           const rangeDateClassName = {
-            [`${prefixPanelClass}-dates__date--covered`]: isCovered && !date.secondary,
-            [`${prefixPanelClass}-dates__date--start`]: start,
-            [`${prefixPanelClass}-dates__date--end`]: end,
+            [`${prefixPanelClass}-dates__date-range--covered`]: isCovered,
+            [`${prefixPanelClass}-dates__date-range--start`]: start,
+            [`${prefixPanelClass}-dates__date-range--end`]: end,
+            [`${prefixPanelClass}-dates__date-range--start_end`]: isEnd && start,
+            [`${prefixPanelClass}-dates__date-range--end_end`]: isEnd && end,
+            [`${prefixPanelClass}-dates__date-selected`]: start || end,
+          }
+          const rangeDateSecondaryClassName = {
+            [`${prefixPanelClass}-dates__date-range-selected_secondary`]: start || end,
           }
           const dateClassName = classNames(`${prefixPanelClass}-dates__date`, {
             [`${prefixPanelClass}-dates__date-secondary`]: date.secondary,
             [`${prefixPanelClass}-dates__date-today`]:
               isSameDate(date.date, new Date()) && !date.secondary,
             [`${prefixPanelClass}-dates__date-selected`]: isSelected && !date.secondary,
-            ...(type === 'date-range' ? rangeDateClassName : {}),
+            ...(type === 'date-range' && !date.secondary ? rangeDateClassName : {}),
+            ...(type === 'date-range' && date.secondary ? rangeDateSecondaryClassName : {}),
           })
           return (
             <div
@@ -170,7 +190,9 @@ export const SimpleDatePanel: FC<Props> = ({ className = '', onClick, isEnd }) =
               className={dateClassName}
               onClick={e => {
                 e.stopPropagation()
-                onClick?.(date.date)
+                if (type === 'date') {
+                  onClick?.(date.date)
+                }
               }}
             >
               <div className={`${prefixPanelClass}-dates__trigger`}></div>
