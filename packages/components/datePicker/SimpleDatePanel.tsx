@@ -6,13 +6,9 @@ import {
   AngleLeftIcon,
   AngleRightIcon,
 } from '@regen-design/icons'
-import { formatDate, isSameDate } from '@regen-design/utils'
+import { formatDate, isSameDate, isSameMonth } from '@regen-design/utils'
 import classNames from 'classnames'
-import {
-  DatePickerDateItemType,
-  DatePickerValueDateRangeType,
-  DatePickerValueDateType,
-} from '@regen-design/types'
+import { DatePickerDateItemType, DatePickerValueDateType } from '@regen-design/types'
 import { DatePickerContext } from './index'
 
 type Props = {
@@ -37,20 +33,15 @@ export const SimpleDatePanel: FC<Props> = ({ className = '', onClick, isEnd }) =
   }, [contextValue, type, isEnd])
   useEffect(() => {
     if (type === 'date-range') {
-      const [value1, value2] = contextValue
-        ? (contextValue as DatePickerValueDateRangeType)
-        : [null, null]
-      const value1Format = formatDate(new Date(value1), 'YYYY-MM')
-      const value2Format = formatDate(new Date(value2), 'YYYY-MM')
       if (isEnd) {
-        if (value2 && value1Format === value2Format) {
-          setCurrentMonth(new Date(new Date(value2).setDate(new Date(value2).getDate() + 30)))
-        } else {
-          handleSetCurrentMonth(value2)
+        const picker1 = new Date(contextValue?.[0] || null)
+        const picker2 = new Date(contextValue?.[1] || null)
+        // if the two pickers are in the same month, then set the current month to the second picker
+        if (Array.isArray(contextValue) && contextValue?.length && isSameMonth(picker1, picker2)) {
+          const year = picker2.getFullYear()
+          const month = picker2.getMonth() + 1
+          handleSetCurrentMonth(new Date(year, month, 1).getTime())
         }
-      }
-      if (!isEnd) {
-        handleSetCurrentMonth(value1)
       }
     } else {
       handleSetCurrentMonth(value)

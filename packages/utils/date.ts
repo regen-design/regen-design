@@ -17,3 +17,7 @@ export const isSameDate = (date1: Date, date2: Date) => {
   const d2 = new Date(date2?.getFullYear(), date2?.getMonth(), date2?.getDate())
   return d1.getTime() === d2.getTime()
 }
+
+export const isSameMonth = (date1: Date, date2: Date) => {
+  return date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth()
+}
