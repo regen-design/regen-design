@@ -2,7 +2,6 @@ import { convertTheme } from '../tools'
 import styled from 'styled-components'
 import { Size, ThemeConfig } from '@regen-design/types'
 import { NAME_SPACE } from '@regen-design/constant'
-import { rgba } from 'polished'
 
 const prefix = `${NAME_SPACE}-panel`
 export const StyledDatePickerPanelPrefixClass = prefix
@@ -86,7 +85,6 @@ export const StyledDatePickerPanel = styled.div<{
     .${prefix}-dates {
       display: grid;
       position: relative;
-      //gap: 4px;
       align-items: center;
       justify-items: center;
       flex-wrap: wrap;
@@ -104,7 +102,6 @@ export const StyledDatePickerPanel = styled.div<{
           return _theme.components.datePicker.dateItemSize
         }}
       );
-
       .${prefix}-dates__date {
         user-select: none;
         -webkit-user-select: none;
@@ -129,40 +126,6 @@ export const StyledDatePickerPanel = styled.div<{
         }
         &::after {
           z-index: -1;
-        }
-        &.${prefix}-dates__date-range--covered {
-          &::before {
-            width: ${props => {
-              const _theme = convertTheme(props.theme)
-              return _theme.components.datePicker.dateItemSize
-            }};
-            left: -8px;
-          }
-        }
-        &.${prefix}-dates__date-range--start {
-          &::before {
-            width: 24px;
-            left: 25%;
-          }
-          &.${prefix}-dates__date-range--start_end {
-            &::before {
-              left: -25%;
-            }
-          }
-        }
-        &.${prefix}-dates__date-range--end {
-          &::before {
-            width: 24px;
-            left: -8px;
-          }
-        }
-        &.${prefix}-dates__date-range--covered,&.${prefix}-dates__date-range--start {
-          &::before {
-            background-color: ${props => {
-              const _theme = convertTheme(props.theme)
-              return rgba(_theme.colors.primary, 0.15)
-            }};
-          }
         }
         font-size: ${props => {
           const _theme = convertTheme(props.theme)
@@ -194,12 +157,6 @@ export const StyledDatePickerPanel = styled.div<{
         }
 
         &.${prefix}-dates__date-secondary {
-          &.${prefix}-dates__date-range-selected_secondary {
-            background-color: ${props => {
-              const _theme = convertTheme(props.theme)
-              return _theme.colors.light
-            }};
-          }
           color: #d1d1d6;
         }
         &.${prefix}-dates__date-today.${prefix}-dates__date-selected {

@@ -158,31 +158,11 @@ export const SimpleDatePanel: FC<Props> = ({ className = '', onClick, isEnd }) =
               isSelected = formatDate(date.date, valueFormat || format) === value
             }
           }
-          const isCovered = value
-            ? isEnd
-              ? date.date.getTime() < value
-              : date.date.getTime() > value
-            : false
-          const start = type === 'date-range' && isSameDate(date.date, new Date(contextValue?.[0]))
-          const end = type === 'date-range' && isSameDate(date.date, new Date(contextValue?.[1]))
-          const rangeDateClassName = {
-            [`${prefixPanelClass}-dates__date-range--covered`]: isCovered,
-            [`${prefixPanelClass}-dates__date-range--start`]: start,
-            [`${prefixPanelClass}-dates__date-range--end`]: end,
-            [`${prefixPanelClass}-dates__date-range--start_end`]: isEnd && start,
-            [`${prefixPanelClass}-dates__date-range--end_end`]: isEnd && end,
-            [`${prefixPanelClass}-dates__date-selected`]: start || end,
-          }
-          const rangeDateSecondaryClassName = {
-            [`${prefixPanelClass}-dates__date-range-selected_secondary`]: start || end,
-          }
           const dateClassName = classNames(`${prefixPanelClass}-dates__date`, {
             [`${prefixPanelClass}-dates__date-secondary`]: date.secondary,
             [`${prefixPanelClass}-dates__date-today`]:
               isSameDate(date.date, new Date()) && !date.secondary,
             [`${prefixPanelClass}-dates__date-selected`]: isSelected && !date.secondary,
-            ...(type === 'date-range' && !date.secondary ? rangeDateClassName : {}),
-            ...(type === 'date-range' && date.secondary ? rangeDateSecondaryClassName : {}),
           })
           return (
             <div

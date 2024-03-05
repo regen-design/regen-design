@@ -2,7 +2,7 @@
 
 exports[`Button > should work with \`block\` prop 1`] = `
 <button
-  class="sc-beySPh iRhhd regen-button regen-button--default"
+  class="sc-dmyCSP lpkdZA regen-button regen-button--default regen-button--block"
   role="button"
   type="default"
 >
@@ -11,7 +11,7 @@ exports[`Button > should work with \`block\` prop 1`] = `
     style="margin: 0px; width: 0px;"
   >
     <i
-      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      class="sc-ktwOfi jbdEQQ regen-icon regen-icon-spinner"
       color="currentColor"
       role="icon"
     >
@@ -35,7 +35,7 @@ exports[`Button > should work with \`block\` prop 1`] = `
   </span>
   <div
     aria-hidden="true"
-    class="sc-gLLuof brHngp regen-wave "
+    class="sc-bZHSRq ifBpem regen-wave "
     role="wave"
     type="default"
   />
@@ -44,7 +44,7 @@ exports[`Button > should work with \`block\` prop 1`] = `
 
 exports[`Button > should work with \`circle\` prop 1`] = `
 <button
-  class="sc-beySPh htavfO regen-button regen-button--default"
+  class="sc-dmyCSP inNDzJ regen-button regen-button--default regen-button--circle"
   role="button"
   type="default"
 >
@@ -53,7 +53,7 @@ exports[`Button > should work with \`circle\` prop 1`] = `
     style="margin: 0px; width: 0px;"
   >
     <i
-      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      class="sc-ktwOfi jbdEQQ regen-icon regen-icon-spinner"
       color="currentColor"
       role="icon"
     >
@@ -77,7 +77,7 @@ exports[`Button > should work with \`circle\` prop 1`] = `
   </span>
   <div
     aria-hidden="true"
-    class="sc-gLLuof brHngp regen-wave "
+    class="sc-bZHSRq ifBpem regen-wave "
     role="wave"
     type="default"
   />
@@ -86,7 +86,7 @@ exports[`Button > should work with \`circle\` prop 1`] = `
 
 exports[`Button > should work with \`color\` prop 1`] = `
 <button
-  class="sc-beySPh cKzMmx regen-button regen-button--default"
+  class="sc-dmyCSP jnNWBK regen-button regen-button--default regen-button--#f00"
   color="#f00"
   role="button"
   type="default"
@@ -96,7 +96,7 @@ exports[`Button > should work with \`color\` prop 1`] = `
     style="margin: 0px; width: 0px;"
   >
     <i
-      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      class="sc-ktwOfi jbdEQQ regen-icon regen-icon-spinner"
       color="currentColor"
       role="icon"
     >
@@ -120,7 +120,7 @@ exports[`Button > should work with \`color\` prop 1`] = `
   </span>
   <div
     aria-hidden="true"
-    class="sc-gLLuof fUaixP regen-wave "
+    class="sc-bZHSRq ePXwds regen-wave "
     color="#f00"
     role="wave"
     type="default"
@@ -130,7 +130,7 @@ exports[`Button > should work with \`color\` prop 1`] = `
 
 exports[`Button > should work with \`dashed\` prop 1`] = `
 <button
-  class="sc-beySPh curGqt regen-button regen-button--default"
+  class="sc-dmyCSP WOAWk regen-button regen-button--default regen-button--dashed"
   role="button"
   type="default"
 >
@@ -139,7 +139,7 @@ exports[`Button > should work with \`dashed\` prop 1`] = `
     style="margin: 0px; width: 0px;"
   >
     <i
-      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      class="sc-ktwOfi jbdEQQ regen-icon regen-icon-spinner"
       color="currentColor"
       role="icon"
     >
@@ -163,7 +163,7 @@ exports[`Button > should work with \`dashed\` prop 1`] = `
   </span>
   <div
     aria-hidden="true"
-    class="sc-gLLuof brHngp regen-wave "
+    class="sc-bZHSRq ifBpem regen-wave "
     role="wave"
     type="default"
   />
@@ -172,7 +172,7 @@ exports[`Button > should work with \`dashed\` prop 1`] = `
 
 exports[`Button > should work with \`icon\` prop 1`] = `
 <button
-  class="sc-beySPh gtxcNf regen-button regen-button--default"
+  class="sc-dmyCSP hdDAq regen-button regen-button--default"
   role="button"
   type="default"
 >
@@ -189,7 +189,7 @@ exports[`Button > should work with \`icon\` prop 1`] = `
   />
   <div
     aria-hidden="true"
-    class="sc-gLLuof brHngp regen-wave "
+    class="sc-bZHSRq ifBpem regen-wave "
     role="wave"
     type="default"
   />
@@ -198,7 +198,7 @@ exports[`Button > should work with \`icon\` prop 1`] = `
 
 exports[`Button > should work with \`loading\` prop 1`] = `
 <button
-  class="sc-beySPh fkBTsY regen-button regen-button--default"
+  class="sc-dmyCSP iCJbcB regen-button regen-button--default regen-button--loading"
   role="button"
   type="default"
 >
@@ -207,7 +207,7 @@ exports[`Button > should work with \`loading\` prop 1`] = `
     style="width: 0px;"
   >
     <i
-      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      class="sc-ktwOfi jbdEQQ regen-icon regen-icon-spinner"
       color="currentColor"
       role="icon"
     >
@@ -231,16 +231,16 @@ exports[`Button > should work with \`loading\` prop 1`] = `
   </span>
   <div
     aria-hidden="true"
-    class="sc-gLLuof brHngp regen-wave "
+    class="sc-bZHSRq ifBpem regen-wave "
     role="wave"
     type="default"
   />
 </button>
 `;
 
-exports[`Button > should work with \`round\` prop 1`] = `
+exports[`Button > should work with \`rounded\` prop 1`] = `
 <button
-  class="sc-beySPh gDSzft regen-button regen-button--default"
+  class="sc-dmyCSP xqHlW regen-button regen-button--default regen-button--rounded"
   role="button"
   type="default"
 >
@@ -249,7 +249,7 @@ exports[`Button > should work with \`round\` prop 1`] = `
     style="margin: 0px; width: 0px;"
   >
     <i
-      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      class="sc-ktwOfi jbdEQQ regen-icon regen-icon-spinner"
       color="currentColor"
       role="icon"
     >
@@ -269,11 +269,11 @@ exports[`Button > should work with \`round\` prop 1`] = `
   <span
     class="regen-button__content"
   >
-    round
+    rounded
   </span>
   <div
     aria-hidden="true"
-    class="sc-gLLuof brHngp regen-wave "
+    class="sc-bZHSRq ifBpem regen-wave "
     role="wave"
     type="default"
   />
@@ -282,7 +282,7 @@ exports[`Button > should work with \`round\` prop 1`] = `
 
 exports[`Button > should work with \`size\` prop 1`] = `
 <button
-  class="sc-beySPh Xznjf regen-button regen-button--default"
+  class="sc-dmyCSP eySFtM regen-button regen-button--default regen-button--tiny"
   role="button"
   type="default"
 >
@@ -291,7 +291,7 @@ exports[`Button > should work with \`size\` prop 1`] = `
     style="margin: 0px; width: 0px;"
   >
     <i
-      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      class="sc-ktwOfi jbdEQQ regen-icon regen-icon-spinner"
       color="currentColor"
       role="icon"
     >
@@ -315,7 +315,7 @@ exports[`Button > should work with \`size\` prop 1`] = `
   </span>
   <div
     aria-hidden="true"
-    class="sc-gLLuof brHngp regen-wave "
+    class="sc-bZHSRq ifBpem regen-wave "
     role="wave"
     type="default"
   />
@@ -324,7 +324,7 @@ exports[`Button > should work with \`size\` prop 1`] = `
 
 exports[`Button > should work with \`size\` prop 2`] = `
 <button
-  class="sc-beySPh eeyMzH regen-button regen-button--default"
+  class="sc-dmyCSP kzJcZj regen-button regen-button--default regen-button--small"
   role="button"
   type="default"
 >
@@ -333,7 +333,7 @@ exports[`Button > should work with \`size\` prop 2`] = `
     style="margin: 0px; width: 0px;"
   >
     <i
-      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      class="sc-ktwOfi jbdEQQ regen-icon regen-icon-spinner"
       color="currentColor"
       role="icon"
     >
@@ -357,7 +357,7 @@ exports[`Button > should work with \`size\` prop 2`] = `
   </span>
   <div
     aria-hidden="true"
-    class="sc-gLLuof brHngp regen-wave "
+    class="sc-bZHSRq ifBpem regen-wave "
     role="wave"
     type="default"
   />
@@ -366,7 +366,7 @@ exports[`Button > should work with \`size\` prop 2`] = `
 
 exports[`Button > should work with \`size\` prop 3`] = `
 <button
-  class="sc-beySPh gtxcNf regen-button regen-button--default"
+  class="sc-dmyCSP hdDAq regen-button regen-button--default"
   role="button"
   type="default"
 >
@@ -375,7 +375,7 @@ exports[`Button > should work with \`size\` prop 3`] = `
     style="margin: 0px; width: 0px;"
   >
     <i
-      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      class="sc-ktwOfi jbdEQQ regen-icon regen-icon-spinner"
       color="currentColor"
       role="icon"
     >
@@ -399,7 +399,7 @@ exports[`Button > should work with \`size\` prop 3`] = `
   </span>
   <div
     aria-hidden="true"
-    class="sc-gLLuof brHngp regen-wave "
+    class="sc-bZHSRq ifBpem regen-wave "
     role="wave"
     type="default"
   />
@@ -408,7 +408,7 @@ exports[`Button > should work with \`size\` prop 3`] = `
 
 exports[`Button > should work with \`size\` prop 4`] = `
 <button
-  class="sc-beySPh gbmhnG regen-button regen-button--default"
+  class="sc-dmyCSP fdLVzl regen-button regen-button--default regen-button--large"
   role="button"
   type="default"
 >
@@ -417,7 +417,7 @@ exports[`Button > should work with \`size\` prop 4`] = `
     style="margin: 0px; width: 0px;"
   >
     <i
-      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      class="sc-ktwOfi jbdEQQ regen-icon regen-icon-spinner"
       color="currentColor"
       role="icon"
     >
@@ -441,7 +441,7 @@ exports[`Button > should work with \`size\` prop 4`] = `
   </span>
   <div
     aria-hidden="true"
-    class="sc-gLLuof brHngp regen-wave "
+    class="sc-bZHSRq ifBpem regen-wave "
     role="wave"
     type="default"
   />
@@ -450,7 +450,7 @@ exports[`Button > should work with \`size\` prop 4`] = `
 
 exports[`Button > should work with \`text\` prop 1`] = `
 <button
-  class="sc-beySPh gaoIzf regen-button regen-button--default"
+  class="sc-dmyCSP gqmPOm regen-button regen-button--default regen-button--text"
   role="button"
   type="default"
 >
@@ -459,7 +459,7 @@ exports[`Button > should work with \`text\` prop 1`] = `
     style="margin: 0px; width: 0px;"
   >
     <i
-      class="sc-eDLKkx gqexld regen-icon regen-icon-spinner"
+      class="sc-ktwOfi jbdEQQ regen-icon regen-icon-spinner"
       color="currentColor"
       role="icon"
     >
