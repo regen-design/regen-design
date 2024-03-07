@@ -2,6 +2,7 @@ import { convertTheme } from '../tools'
 import styled from 'styled-components'
 import { Size, ThemeConfig } from '@regen-design/types'
 import { NAME_SPACE } from '@regen-design/constant'
+import { rgba } from 'polished'
 
 const prefix = `${NAME_SPACE}-panel`
 export const StyledDatePickerPanelPrefixClass = prefix
@@ -110,6 +111,26 @@ export const StyledDatePickerPanel = styled.div<{
         height: 24px;
         line-height: 24px;
         text-align: center;
+        &.${prefix}-dates__date-range-start {
+          &::before {
+            left: 50%;
+          }
+        }
+        &.${prefix}-dates__date-range-end {
+          &::before {
+            right: 50%;
+          }
+        }
+
+        &.${prefix}-dates__date-range-start,
+          &.${prefix}-dates__date-range-end,&.${prefix}-dates__date-range-middle {
+          &::before {
+            background-color: ${props => {
+              const _theme = convertTheme(props.theme)
+              return rgba(_theme.colors.primary, 0.1)
+            }};
+          }
+        }
         &::before,
         &::after {
           content: '';
@@ -123,6 +144,8 @@ export const StyledDatePickerPanel = styled.div<{
         }
         &::before {
           z-index: -2;
+          left: -7px;
+          right: -7px;
         }
         &::after {
           z-index: -1;

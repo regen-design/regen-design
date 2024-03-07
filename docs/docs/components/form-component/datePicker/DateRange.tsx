@@ -3,7 +3,7 @@ import { useState } from 'react'
 export default function Demo() {
   const [value, setValue] = useState<[number, number]>([
     Date.now() - 1000 * 60 * 60 * 24 * 0,
-    Date.now() + 1000 * 60 * 60 * 24 * 1,
+    Date.now() + 1000 * 60 * 60 * 24 * 30,
   ])
   return (
     <>

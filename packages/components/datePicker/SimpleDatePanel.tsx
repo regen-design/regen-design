@@ -6,7 +6,7 @@ import {
   AngleLeftIcon,
   AngleRightIcon,
 } from '@regen-design/icons'
-import { formatDate, isSameDate, isSameMonth } from '@regen-design/utils'
+import { formatDate, isBetweenDate, isSameDate, isSameMonth } from '@regen-design/utils'
 import classNames from 'classnames'
 import { DatePickerDateItemType, DatePickerValueDateType } from '@regen-design/types'
 import { DatePickerContext } from './index'
@@ -21,16 +21,8 @@ export const SimpleDatePanel: FC<Props> = ({ className = '', onClick, isEnd }) =
   const [dates, setDates] = useState<DatePickerDateItemType[]>([])
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date())
   const value = useMemo(() => {
-    if (type === 'date-range') {
-      if (isEnd) {
-        return contextValue?.[1] || null
-      }
-      if (!isEnd) {
-        return contextValue?.[0] || null
-      }
-    }
     return contextValue
-  }, [contextValue, type, isEnd])
+  }, [contextValue])
   useEffect(() => {
     if (type === 'date-range') {
       if (isEnd) {
@@ -41,10 +33,14 @@ export const SimpleDatePanel: FC<Props> = ({ className = '', onClick, isEnd }) =
           const year = picker2.getFullYear()
           const month = picker2.getMonth() + 1
           handleSetCurrentMonth(new Date(year, month, 1).getTime())
+        } else {
+          handleSetCurrentMonth(new Date(picker2.getFullYear(), picker2.getMonth(), 1).getTime())
         }
       }
     } else {
-      handleSetCurrentMonth(value)
+      if (type === 'date' && !Array.isArray(value)) {
+        handleSetCurrentMonth(value)
+      }
     }
   }, [type, value, contextValue])
   const handleSetCurrentMonth = (value?: DatePickerValueDateType) => {
@@ -66,6 +62,8 @@ export const SimpleDatePanel: FC<Props> = ({ className = '', onClick, isEnd }) =
     }
     const firstDay = new Date(year, month, 1)
     const firstDayWeek = firstDay.getDay()
+    // 如果第一天是周一，那么前面补一排
+
     for (let i = 1; i < firstDayWeek; i++) {
       const date = new Date(year, month, 1 - i)
       dates.unshift({
@@ -141,6 +139,7 @@ export const SimpleDatePanel: FC<Props> = ({ className = '', onClick, isEnd }) =
       <div className={`${prefixPanelClass}-dates`}>
         {dates.map((date, index) => {
           let isSelected = false
+          let rangeDateClass = {}
           if (type === 'date') {
             if (typeof value === 'number') {
               isSelected = isSameDate(date.date, new Date(value))
@@ -148,12 +147,44 @@ export const SimpleDatePanel: FC<Props> = ({ className = '', onClick, isEnd }) =
             if (typeof value === 'string') {
               isSelected = formatDate(date.date, valueFormat || format) === value
             }
+          } else {
+            if (Array.isArray(value) && type === 'date-range') {
+              // if the value is an array, then check if the date is in the array
+              isSelected = value.some(item => {
+                if (typeof item === 'number') {
+                  return isSameDate(date.date, new Date(item))
+                }
+                if (typeof item === 'string') {
+                  return formatDate(date.date, valueFormat || format) === item
+                }
+                return false
+              })
+              if (value.length === 2 && !date.secondary) {
+                const [start, end] = value
+                if (isBetweenDate(date.date, new Date(start), new Date(end))) {
+                  rangeDateClass = {
+                    [`${prefixPanelClass}-dates__date-range-middle`]: true,
+                  }
+                }
+                if (isSameDate(date.date, new Date(start))) {
+                  rangeDateClass = {
+                    [`${prefixPanelClass}-dates__date-range-start`]: true,
+                  }
+                }
+                if (isSameDate(date.date, new Date(end))) {
+                  rangeDateClass = {
+                    [`${prefixPanelClass}-dates__date-range-end`]: true,
+                  }
+                }
+              }
+            }
           }
           const dateClassName = classNames(`${prefixPanelClass}-dates__date`, {
             [`${prefixPanelClass}-dates__date-secondary`]: date.secondary,
             [`${prefixPanelClass}-dates__date-today`]:
               isSameDate(date.date, new Date()) && !date.secondary,
             [`${prefixPanelClass}-dates__date-selected`]: isSelected && !date.secondary,
+            ...rangeDateClass,
           })
           return (
             <div

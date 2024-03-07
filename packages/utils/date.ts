@@ -1,4 +1,5 @@
-export const formatDate = (date: Date, format: string = 'YYYY-MM-DD') => {
+export const formatDate = (date: Date | number | string, format: string = 'YYYY-MM-DD') => {
+  if (!(date instanceof Date)) date = new Date(date)
   const map: { [key: string]: number } = {
     Y: date.getFullYear(),
     M: date.getMonth() + 1,
@@ -20,4 +21,8 @@ export const isSameDate = (date1: Date, date2: Date) => {
 
 export const isSameMonth = (date1: Date, date2: Date) => {
   return date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth()
+}
+
+export const isBetweenDate = (date: Date, start: Date, end: Date) => {
+  return date.getTime() >= start.getTime() && date.getTime() <= end.getTime()
 }
