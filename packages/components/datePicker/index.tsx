@@ -11,7 +11,7 @@ import { Input } from '../input'
 import { CalendarIcon } from '@regen-design/icons'
 import { Button, Transition } from '..'
 import { useMergedState, useOutsideClick } from '@regen-design/hooks'
-import { formatDate, getCurrentMonth, getNextMonth } from '@regen-design/utils'
+import { formatDate, getCurrentMonth, getNextMonth, isSameMonth } from '@regen-design/utils'
 import { SimpleDatePanel } from './SimpleDatePanel'
 export const DatePickerContext = createContext<
   DatePickerProps<DatePickerValueType> & {
@@ -201,10 +201,14 @@ export const DatePicker = <V extends DatePickerValueType>({
   })
   useEffect(() => {
     if (type === 'date-range' && (value?.[0] || value?.[1])) {
-      setPanelMonth([new Date(value[0]), new Date(value[1])])
+      if (isSameMonth(value[0], value[1])) {
+        setPanelMonth([getCurrentMonth(value[0]), getNextMonth(value[0])])
+      } else {
+        setPanelMonth([getCurrentMonth(value[0]), getCurrentMonth(value[1])])
+      }
     } else {
       if (!Array.isArray(value)) {
-        const _value = value || new Date()
+        const _value = value || getCurrentMonth()
         setPanelMonth([getCurrentMonth(_value), getNextMonth(_value)])
       }
     }
