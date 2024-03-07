@@ -6,45 +6,51 @@ import {
   AngleLeftIcon,
   AngleRightIcon,
 } from '@regen-design/icons'
-import { formatDate, isBetweenDate, isSameDate, isSameMonth } from '@regen-design/utils'
+import { formatDate, isBetweenDate, isSameDate } from '@regen-design/utils'
 import classNames from 'classnames'
-import { DatePickerDateItemType, DatePickerValueDateType } from '@regen-design/types'
+import { DatePickerDateItemType } from '@regen-design/types'
 import { DatePickerContext } from './index'
 
 type Props = {
   className?: string
   onClick?: (date: Date) => void
+  onMouseOver?: (date: Date) => void
+  onMouseLeave?: (date: Date) => void
   isEnd?: boolean
 }
-export const SimpleDatePanel: FC<Props> = ({ className = '', onClick, isEnd }) => {
-  const { value: contextValue, format, valueFormat, type } = useContext(DatePickerContext)
+export const SimpleDatePanel: FC<Props> = ({
+  className = '',
+  onClick,
+  onMouseOver,
+  onMouseLeave,
+  isEnd,
+}) => {
+  const {
+    value: contextValue,
+    tmpValue,
+    format,
+    valueFormat,
+    type,
+    panelMonth,
+    setPanelMonth,
+  } = useContext(DatePickerContext)
   const [dates, setDates] = useState<DatePickerDateItemType[]>([])
-  const [currentMonth, setCurrentMonth] = useState<Date>(new Date())
+
   const value = useMemo(() => {
-    return contextValue
-  }, [contextValue])
-  useEffect(() => {
-    if (type === 'date-range') {
-      if (isEnd) {
-        const picker1 = new Date(contextValue?.[0] || null)
-        const picker2 = new Date(contextValue?.[1] || null)
-        // if the two pickers are in the same month, then set the current month to the second picker
-        if (Array.isArray(contextValue) && contextValue?.length && isSameMonth(picker1, picker2)) {
-          const year = picker2.getFullYear()
-          const month = picker2.getMonth() + 1
-          handleSetCurrentMonth(new Date(year, month, 1).getTime())
-        } else {
-          handleSetCurrentMonth(new Date(picker2.getFullYear(), picker2.getMonth(), 1).getTime())
-        }
-      }
-    } else {
-      if (type === 'date' && !Array.isArray(value)) {
-        handleSetCurrentMonth(value)
-      }
+    if (type === 'date-range' && Array.isArray(tmpValue) && tmpValue?.length) {
+      return tmpValue
     }
-  }, [type, value, contextValue])
-  const handleSetCurrentMonth = (value?: DatePickerValueDateType) => {
-    setCurrentMonth(value ? new Date(value) : new Date())
+    return contextValue
+  }, [contextValue, tmpValue])
+  const currentMonth = useMemo(() => {
+    return isEnd ? panelMonth[1] : panelMonth[0]
+  }, [panelMonth])
+  const setCurrentMonth = (date: Date) => {
+    if (isEnd) {
+      setPanelMonth?.([panelMonth[0], date])
+    } else {
+      setPanelMonth?.([date, panelMonth[1]])
+    }
   }
   const getCurrentMothDates = () => {
     const newDate = currentMonth
@@ -61,9 +67,7 @@ export const SimpleDatePanel: FC<Props> = ({ className = '', onClick, isEnd }) =
       })
     }
     const firstDay = new Date(year, month, 1)
-    const firstDayWeek = firstDay.getDay()
-    // 如果第一天是周一，那么前面补一排
-
+    const firstDayWeek = firstDay.getDay() === 0 ? 7 : firstDay.getDay()
     for (let i = 1; i < firstDayWeek; i++) {
       const date = new Date(year, month, 1 - i)
       dates.unshift({
@@ -71,6 +75,17 @@ export const SimpleDatePanel: FC<Props> = ({ className = '', onClick, isEnd }) =
         date,
         secondary: true,
       })
+    }
+    // if the first day of the month is Monday, then add the last days of the previous month
+    if (firstDayWeek === 1) {
+      for (let i = 1; i <= 7; i++) {
+        const date = new Date(year, month, 1 - i)
+        dates.unshift({
+          day: date.getDate(),
+          date,
+          secondary: true,
+        })
+      }
     }
     for (let i = 1; 42 - dates.length; i++) {
       const date = new Date(year, month + 1, i)
@@ -159,19 +174,19 @@ export const SimpleDatePanel: FC<Props> = ({ className = '', onClick, isEnd }) =
                 }
                 return false
               })
-              if (value.length === 2 && !date.secondary) {
+              if (!date.secondary) {
                 const [start, end] = value
-                if (isBetweenDate(date.date, new Date(start), new Date(end))) {
+                if (start && end && isBetweenDate(date.date, new Date(start), new Date(end))) {
                   rangeDateClass = {
                     [`${prefixPanelClass}-dates__date-range-middle`]: true,
                   }
                 }
-                if (isSameDate(date.date, new Date(start))) {
+                if (start && isSameDate(date.date, new Date(start))) {
                   rangeDateClass = {
                     [`${prefixPanelClass}-dates__date-range-start`]: true,
                   }
                 }
-                if (isSameDate(date.date, new Date(end))) {
+                if (end && isSameDate(date.date, new Date(end))) {
                   rangeDateClass = {
                     [`${prefixPanelClass}-dates__date-range-end`]: true,
                   }
@@ -192,9 +207,15 @@ export const SimpleDatePanel: FC<Props> = ({ className = '', onClick, isEnd }) =
               className={dateClassName}
               onClick={e => {
                 e.stopPropagation()
-                if (type === 'date') {
-                  onClick?.(date.date)
-                }
+                onClick?.(date.date)
+              }}
+              onMouseOver={e => {
+                e.stopPropagation()
+                onMouseOver?.(date.date)
+              }}
+              onMouseLeave={e => {
+                e.stopPropagation()
+                onMouseLeave?.(date.date)
               }}
             >
               <div className={`${prefixPanelClass}-dates__trigger`}></div>

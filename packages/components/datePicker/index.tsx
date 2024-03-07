@@ -1,5 +1,5 @@
 import { createContext, forwardRef, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { DatePickerProps, DatePickerType, DatePickerValueType } from '@regen-design/types'
+import { DatePickerProps, DatePickerValueType } from '@regen-design/types'
 import {
   StyledDatePicker,
   StyledDatePickerPrefixClass as prefixClass,
@@ -11,15 +11,20 @@ import { Input } from '../input'
 import { CalendarIcon } from '@regen-design/icons'
 import { Button, Transition } from '..'
 import { useMergedState, useOutsideClick } from '@regen-design/hooks'
-import { formatDate } from '@regen-design/utils'
+import { formatDate, getCurrentMonth, getNextMonth } from '@regen-design/utils'
 import { SimpleDatePanel } from './SimpleDatePanel'
 export const DatePickerContext = createContext<
-  DatePickerProps<DatePickerValueType<DatePickerType>, DatePickerType> & {
+  DatePickerProps<DatePickerValueType> & {
     isFocused: boolean
     wrapperRect: DOMRect | null
     setValue?: (value: any) => void
+    tmpValue?: DatePickerValueType
+    setTmpValue?: (value: any) => void
     setIsFocused?: (value: boolean) => void
+    panelMonth?: [Date, Date]
+    setPanelMonth?: (value: [Date, Date]) => void
     setFormattedValue?: (value: string) => void
+    valueProps?: DatePickerValueType
   }
 >({
   isFocused: false,
@@ -33,14 +38,39 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
     wrapperRect,
     value,
     setValue,
+    tmpValue,
+    setTmpValue,
     setIsFocused,
     format,
     onChange,
     valueFormat,
   } = useContext(DatePickerContext)
+  const oldStartValue = useRef<number | null>(null)
+  const handleCalendarMouseOver = (date: Date) => {
+    if (type === 'date-range') {
+      if (Array.isArray(tmpValue) && tmpValue.length !== 0) {
+        setTmpValue?.(() => {
+          if (oldStartValue.current < date.getTime()) {
+            return [oldStartValue.current, date.getTime()]
+          } else {
+            return [date.getTime(), oldStartValue.current]
+          }
+        })
+      }
+    }
+  }
   const handleCalendarClick = (date: Date) => {
-    if (Array.isArray(value)) {
-      console.log('date', date)
+    if (type === 'date-range') {
+      if (Array.isArray(tmpValue) && tmpValue.length === 0) {
+        setTmpValue?.([date.getTime()])
+        oldStartValue.current = date.getTime() as number
+      }
+      if (Array.isArray(tmpValue) && tmpValue.length === 2) {
+        setValue?.(tmpValue)
+        setTmpValue?.([])
+        onChange?.(tmpValue as never)
+        setIsFocused?.(false)
+      }
     } else {
       if (typeof value === 'number') {
         setValue && setValue(date.getTime())
@@ -50,8 +80,8 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
         setValue && setValue(_value)
         onChange && (onChange as (value: string) => void)(_value)
       }
+      setIsFocused?.(false)
     }
-    setIsFocused?.(false)
   }
   const topValue = useMemo(() => {
     if (wrapperRect) {
@@ -82,12 +112,14 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
             <SimpleDatePanel
               className={`${prefixPanelClass}-calendar--start`}
               onClick={handleCalendarClick}
+              onMouseOver={handleCalendarMouseOver}
             />
             <div className={`${prefixPanelClass}-calendar--divider`} />
             <SimpleDatePanel
               className={`${prefixPanelClass}-calendar--end`}
               onClick={handleCalendarClick}
               isEnd
+              onMouseOver={handleCalendarMouseOver}
             />
           </>
         )}
@@ -102,7 +134,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
                   onClick={e => {
                     e.stopPropagation()
                     setValue?.(null)
-                    onChange?.(null)
+                    onChange?.(null as never)
                     setIsFocused?.(false)
                   }}
                 >
@@ -114,6 +146,8 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
                   className={`${prefixPanelClass}-actions__suffix-clear`}
                   onClick={e => {
                     e.stopPropagation()
+                    onChange?.(value as never)
+                    setIsFocused?.(false)
                   }}
                 >
                   确认
@@ -139,7 +173,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement>((_, ref) => {
   )
 })
 DatePickerPanel.displayName = 'DatePickerPanel'
-export const DatePicker = <V extends DatePickerValueType<T>, T extends DatePickerType>({
+export const DatePicker = <V extends DatePickerValueType>({
   style = {},
   className = '',
   placeholder = '选择日期',
@@ -152,18 +186,35 @@ export const DatePicker = <V extends DatePickerValueType<T>, T extends DatePicke
   size,
   valueFormat,
   type = 'date',
-}: DatePickerProps<V, T>) => {
+}: DatePickerProps<V>) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
   const datePickerClass = classNames(prefixClass, className, {
     [`${prefixClass}--disabled`]: disabled,
   })
+  const [panelMonth, setPanelMonth] = useState<[Date, Date]>([getCurrentMonth(), getNextMonth()])
   const [isFocused, setIsFocused] = useState(false)
   const [wrapperRect, setWrapperRect] = useState<DOMRect | null>(null)
-  const [value, setValue] = useMergedState<DatePickerValueType<DatePickerType>>(undefined, {
+  const [value, setValue] = useMergedState<DatePickerValueType>(undefined, {
     value: valueProps,
   })
+  useEffect(() => {
+    if (type === 'date-range' && (value?.[0] || value?.[1])) {
+      setPanelMonth([new Date(value[0]), new Date(value[1])])
+    } else {
+      if (!Array.isArray(value)) {
+        const _value = value || new Date()
+        setPanelMonth([getCurrentMonth(_value), getNextMonth(_value)])
+      }
+    }
+  }, [value, type])
+  const [tmpValue, setTmpValue] = useState<DatePickerValueType>([])
+  useEffect(() => {
+    if (valueProps === undefined && type === 'date-range') {
+      setValue([])
+    }
+  }, [type, valueProps])
   useEffect(() => {
     if (isFocused) {
       if (wrapperRef.current) {
@@ -176,11 +227,17 @@ export const DatePicker = <V extends DatePickerValueType<T>, T extends DatePicke
   }, [isFocused])
   useOutsideClick([wrapperRef, panelRef], () => {
     if (isFocused) {
+      if (type === 'date-range' && Array.isArray(value) && value.length !== 2) {
+        setValue([])
+      }
+      if (Array.isArray(tmpValue) && tmpValue.length === 2) {
+        setTmpValue([])
+      }
       setIsFocused(false)
     }
   })
   const formattedInputValue = useMemo(() => {
-    const currentValue = valueProps ?? value
+    const currentValue = Array.isArray(tmpValue) && tmpValue.length > 0 ? tmpValue : value
     if (!Array.isArray(currentValue)) {
       return currentValue ? formatDate(new Date(currentValue), valueFormat || format) : ''
     } else {
@@ -188,18 +245,23 @@ export const DatePicker = <V extends DatePickerValueType<T>, T extends DatePicke
         .map(item => (item ? formatDate(new Date(item), valueFormat || format) : ''))
         .join(' ~ ')
     }
-  }, [valueProps, value])
+  }, [value, tmpValue])
   return (
     <DatePickerContext.Provider
       value={{
         isFocused,
         wrapperRect,
-        value: valueProps ?? value,
+        value,
         onChange,
         valueFormat,
         setValue,
+        tmpValue,
+        setTmpValue,
         setIsFocused,
         type,
+        valueProps,
+        panelMonth,
+        setPanelMonth,
       }}
     >
       <StyledDatePicker

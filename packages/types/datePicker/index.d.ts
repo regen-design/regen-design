@@ -1,12 +1,12 @@
 import { CommonType, Size } from '../common'
 
-export interface DatePickerProps<V extends DatePickerValueType, T extends DatePickerType>
+export interface DatePickerProps<V extends DatePickerValueType>
   extends Omit<CommonType, 'children'> {
   /**
    * @description The value of the date picker
    * @default undefined
    */
-  value?: DatePickerValueType<T>
+  value?: V
   /**
    * @description The default value of the date picker
    * @default undefined
@@ -72,16 +72,11 @@ export interface DatePickerDateItemType {
   secondary: boolean
 }
 export type DatePickerType = 'date' | 'date-range'
-export type DatePickerValueType<T extends DatePickerType> = T extends 'date'
-  ? DatePickerValueDateType
-  : T extends 'date-range'
-    ? DatePickerValueDateRangeType
-    : never
-
-export type DatePickerValueDateRangeType = [number, number] | [string, string] | []
+export type DatePickerValueType = DatePickerValueDateType | DatePickerValueDateRangeType
+export type DatePickerValueDateRangeType = [number, number] | [string, string] | number[] | string[]
 export type DatePickerValueDateType = number | string
 
-export type DatePickerOnChangeType<T extends DatePickerValueType<DatePickerType>> = T extends number
+export type DatePickerOnChangeType<T extends number | string> = T extends number
   ? (value: number) => void
   : T extends string
     ? (value: string) => void
@@ -89,4 +84,8 @@ export type DatePickerOnChangeType<T extends DatePickerValueType<DatePickerType>
       ? (value: [number, number]) => void
       : T extends [string, string]
         ? (value: [string, string]) => void
-        : (value: null) => void
+        : T extends number[]
+          ? (value: number[]) => void
+          : T extends string[]
+            ? (value: string[]) => void
+            : (value: null) => void
