@@ -11,6 +11,7 @@ export type Color =
   | 'placeholder'
   | 'white'
   | 'black'
+  | 'zinc'
 export interface ThemeProps {
   /**
    * @description component theme

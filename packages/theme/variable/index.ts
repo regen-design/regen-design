@@ -4,14 +4,15 @@ export const defaultTheme: ThemeConfig = {
   colors: {
     primary: '#6060e0',
     danger: '#e75050',
-    success: '#33b770',
+    success: '#03d55b',
     warning: '#f3a400',
     info: '#5f99ff',
     dark: '#323538',
     light: '#fafafa',
     placeholder: '#c2c2c2',
-    white: 'rgb(255,255,255)',
-    black: 'rgb(0,0,0)',
+    white: '#ffffff',
+    black: '#000000',
+    zinc: '#c2c2c2',
   },
   fontSizes: {
     tiny: '12px',

@@ -63,7 +63,6 @@ export const Input = forwardRef(
       value,
     })
     const [isVisible, setIsVisible] = useState(false)
-    // 将内部的 ref 传递给外部的 ref
     if (ref) {
       let element = inputElementRef.current
       if (type === 'textarea') {

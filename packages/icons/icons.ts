@@ -134,6 +134,7 @@ export const SvgIcons = {
   MinusIcon: Icons.MinusIcon,
   MobileNotchIcon: Icons.MobileNotchIcon,
   PaperPlaneIcon: Icons.PaperPlaneIcon,
+  PaperclipVerticalIcon: Icons.PaperclipVerticalIcon,
   PencilIcon: Icons.PencilIcon,
   PhoneCallIcon: Icons.PhoneCallIcon,
   PictureIcon: Icons.PictureIcon,
