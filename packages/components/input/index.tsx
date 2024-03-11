@@ -195,7 +195,7 @@ export const Input = forwardRef(
             </div>
           )}
           {showCount && (
-            <div className={`${prefixClass}__suffix`}>
+            <div className={`${prefixClass}__suffix active`}>
               {valueLength}
               {maxLength && `/${maxLength}`}
             </div>
