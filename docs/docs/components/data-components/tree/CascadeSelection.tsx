@@ -4,7 +4,7 @@ import { TreeOption } from '@regen-design/types'
 
 export default function Demo() {
   const [data] = useState(createData())
-  const [checkedKeys, setCheckedKeys] = useState<string[]>([])
+  const [checkedKeys] = useState<string[]>([])
   function createLabel(level: number): string {
     if (level === 4) return '道生一'
     if (level === 3) return '一生二'

@@ -22,5 +22,5 @@ export default function Demo() {
       }
     })
   }
-  return <Tree checkable expandOnClickNode data={data} />
+  return <Tree checkable defaultExpandedKeys={['0', '0-0']} expandOnClickNode data={data} />
 }

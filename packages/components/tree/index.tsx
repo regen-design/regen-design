@@ -130,12 +130,12 @@ const RenderItem: FC<{
     }
   }, [checkAll, checkable, cascade])
   useEffect(() => {
-    if (['entering', 'entered'].includes(transitionStatus)) {
+    if (['entering', 'entered'].includes(transitionStatus) && isExpanded) {
       setExpandedHeight(computedExpandedChildrenHeight(itemChildren || []))
     } else {
       setExpandedHeight(0)
     }
-  }, [item, expandedKeys, isExpanded, transitionStatus])
+  }, [item, expandedKeys, isExpanded, transitionStatus, itemChildren])
   const handleCheck = (checked: boolean) => {
     if (!checkable) return
     if (cascade) {
@@ -237,6 +237,7 @@ const RenderItem: FC<{
           in={isExpanded}
           animationClassName={'fade-in-height-expanded'}
           isPortal={false}
+          timeout={300}
           onEnter={() => {
             setTransitionStatus('exited')
           }}
@@ -265,7 +266,7 @@ const RenderItem: FC<{
                 style={{
                   height: expandedHeight,
                   overflow: 'hidden',
-                  transition: 'height 300ms linear,opacity 300ms linear',
+                  transition: 'height 300ms ease-in',
                 }}
               >
                 {renderTree(itemChildren, level + 1)}
@@ -288,6 +289,7 @@ const TreeContext = createContext<
     setExpandedKeys?: Dispatch<SetStateAction<string[]>>
     checkedKeys?: string[]
     setCheckedKeys?: Dispatch<SetStateAction<string[]>>
+    componentKey?: string
   } & TreeProps
 >({
   selectedKeys: [],
