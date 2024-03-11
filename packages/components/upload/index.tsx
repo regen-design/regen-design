@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react'
+import { FC, useMemo, useRef, useState } from 'react'
 import { FileInfoType, UploadProps } from '@regen-design/types'
 import { StyledUpload, StyledUploadPrefixClass as prefixClass } from '@regen-design/theme'
 import classNames from 'classnames'
@@ -10,10 +10,26 @@ export const Upload: FC<UploadProps> = ({
   children,
   action,
   method = 'POST',
+  onChange,
+  onRemove,
+  fileList: fileListProps,
+  data,
+  name = 'file',
+  responseType,
 }) => {
   const UploadClass = classNames(prefixClass, className)
   const fileRef = useRef<HTMLInputElement>(null)
-  const [fileList, setFileList] = useState<FileInfoType[]>([])
+  const [_fileList, setFileList] = useState<FileInfoType[]>([])
+
+  const fileList = useMemo(() => {
+    return (fileListProps || _fileList).map(file => {
+      return {
+        ...file,
+        percent: file.percent || 0,
+        status: file.status || 'done',
+      }
+    })
+  }, [fileListProps, _fileList])
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target
     if (!files || files.length === 0) return
@@ -45,10 +61,11 @@ export const Upload: FC<UploadProps> = ({
   }
   const submitImpl = (fileInfo: FileInfoType) => {
     const request = new XMLHttpRequest()
+    request.responseType = responseType
     const formData = new FormData()
-    appendData(formData, {})
+    appendData(formData, data)
     if (fileInfo.file !== null) {
-      formData.append('file', fileInfo.file)
+      formData.append(name, fileInfo.file)
     }
     if (action !== undefined) {
       request.open(method.toUpperCase(), action)
@@ -58,7 +75,6 @@ export const Upload: FC<UploadProps> = ({
     }
     // 进度
     request.upload.addEventListener('progress', event => {
-      console.log(event)
       if (event.lengthComputable) {
         const percentComplete = (event.loaded / event.total) * 100
         fileInfo.percent = Number(percentComplete.toFixed(2))
@@ -70,11 +86,13 @@ export const Upload: FC<UploadProps> = ({
         if (request.status === 200) {
           fileInfo.status = 'done'
           fileInfo.percent = 100
+          fileInfo.response = request.response
           handlerUpdateFileList()
         } else {
           fileInfo.status = 'error'
           handlerUpdateFileList()
         }
+        onChange?.(fileInfo, [...fileList, fileInfo])
       }
     }
   }
@@ -111,6 +129,7 @@ export const Upload: FC<UploadProps> = ({
                 <Button
                   icon={<CloseIcon />}
                   onClick={() => {
+                    onRemove?.(file)
                     setFileList(fileList.filter(f => f.uid !== file.uid))
                   }}
                   size={'large'}

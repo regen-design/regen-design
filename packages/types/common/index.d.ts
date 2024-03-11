@@ -30,6 +30,7 @@ export type Theme = 'light' | 'dark'
 export type Size = 'tiny' | 'small' | 'default' | 'large'
 export type Type = 'default' | 'primary' | 'info' | 'success' | 'warning' | 'danger'
 export type Align = 'left' | 'center' | 'right'
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS'
 export type Placement =
   | 'top'
   | 'bottom'
