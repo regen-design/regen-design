@@ -12,6 +12,7 @@ import Footer from "./Footer"
 import FooterCode from '!!raw-loader!./Footer'
 import Size from "./Size"
 import SizeCode from '!!raw-loader!./Size'
+import Api from './Api'
 
 # 卡片 Card
 
@@ -42,3 +43,11 @@ import SizeCode from '!!raw-loader!./Size'
   </ThemeProvider>)}
 </BrowserOnly>
 
+## API
+<BrowserOnly>
+  {() => (
+    <ThemeProvider>
+      <Api />
+    </ThemeProvider>
+  )}
+</BrowserOnly>

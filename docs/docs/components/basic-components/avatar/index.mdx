@@ -14,6 +14,7 @@ import FontSize from "./FontSize"
 import FontSizeCode from "!!raw-loader!./FontSize"
 import Name from "./Name"
 import NameCode from "!!raw-loader!./Name"
+import Api from "./Api"
 
 # 头像 Avatar
 
@@ -57,4 +58,13 @@ import NameCode from "!!raw-loader!./Name"
       </Grid>
     </Grid>
   </ThemeProvider>)}
+</BrowserOnly>
+
+## API
+<BrowserOnly>
+  {() => (
+    <ThemeProvider>
+      <Api />
+    </ThemeProvider>
+  )}
 </BrowserOnly>

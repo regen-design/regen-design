@@ -7,6 +7,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import { CodeBlock, ThemeProvider } from '@regen-design/components'
 import Icons from './Icons';
+import Api from './Api';
 import IconsCode from '!!raw-loader!./Icons';
 
 # 图标 Icons
@@ -43,4 +44,13 @@ import IconsCode from '!!raw-loader!./Icons';
       <Icons />
     </CodeBlock>
   </ThemeProvider>)}
+</BrowserOnly>
+
+## API
+<BrowserOnly>
+  {() => (
+    <ThemeProvider>
+      <Api />
+    </ThemeProvider>
+  )}
 </BrowserOnly>

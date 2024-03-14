@@ -8,14 +8,14 @@ export default function Demo() {
   ]
   const dataSource = [
     {
-      name: 'type',
-      type: `[Type](https://github.com/regen-design/regen-design/blob/master/packages/types/common/index.d.ts)`,
+      name: '[type](https://github.com/regen-design/regen-design/blob/master/packages/types/common/index.d.ts)',
+      type: "`'default' | 'primary' | 'info' | 'success' | 'warning' | 'danger'`",
       defaultValue: 'default',
       description: '按钮类型',
     },
     {
-      name: 'size',
-      type: `[Size](https://github.com/regen-design/regen-design/blob/master/packages/types/common/index.d.ts)`,
+      name: '[size](https://github.com/regen-design/regen-design/blob/master/packages/types/common/index.d.ts)',
+      type: "`'tiny' | 'small' | 'default' | 'large'`",
       defaultValue: 'default',
       description: '按钮大小',
     },
