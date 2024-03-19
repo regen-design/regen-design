@@ -246,7 +246,9 @@ export const DatePicker = <V extends DatePickerValueType>({
       return currentValue ? formatDate(new Date(currentValue), valueFormat || format) : ''
     } else {
       return currentValue
-        .map(item => (item ? formatDate(new Date(item), valueFormat || format) : ''))
+        .map((item: string | number | Date) =>
+          item ? formatDate(new Date(item), valueFormat || format) : ''
+        )
         .join(' ~ ')
     }
   }, [value, tmpValue])
