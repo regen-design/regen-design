@@ -3,7 +3,7 @@
   "version": "0.0.1-beta.4",
   "description": "A unique design style and React ui component library",
   "main": "dist/lib/index.js",
-  "types": "./index.d.ts",
+  "types": "dist/index.d.ts",
   "module": "dist/es/index.js",
   "unpkg": "dist/lib/index.js",
   "jsdelivr": "dist/lib/index.js",
@@ -17,11 +17,16 @@
     "/LICENSE",
     "README.md"
   ],
+  "engines": {
+    "node": ">=14",
+    "npm": ">=7",
+    "pnpm": ">=6"
+  },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "lint": " eslint \"packages/**/*.+(cjs|js|ts|jsx|tsx)\"",
     "format": "npx prettier --write \"packages/**/*.+(cjs|js|ts|jsx|tsx)\"",
-    "build": "npx pnpm run rollup && npx  pnpm run afterBuild",
+    "build": "npx pnpm run rollup && npx pnpm run afterBuild",
     "dev": "npm run docs:dev",
     "docs:dev": "npx pnpm -C docs start",
     "docs:build": "npx pnpm -C docs build",
