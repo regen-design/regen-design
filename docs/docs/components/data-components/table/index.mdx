@@ -5,6 +5,8 @@ sidebar_position: 1
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 import Basic from "./Basic"
+import Api from "./Api"
+import ColumnItemApi from "./ColumnItemApi"
 import BasicCode from "!!raw-loader!./Basic"
 import Empty from "./Empty"
 import EmptyCode from "!!raw-loader!./Empty"
@@ -28,4 +30,22 @@ import EmptyCode from "!!raw-loader!./Empty"
       </CodeBlock>
     </Grid>
   </ThemeProvider>)}
+</BrowserOnly>
+
+## API
+<BrowserOnly>
+  {() => (
+    <ThemeProvider>
+      <Api />
+    </ThemeProvider>
+  )}
+</BrowserOnly>
+
+## TableColumnItem API
+<BrowserOnly>
+  {() => (
+    <ThemeProvider>
+      <ColumnItemApi />
+    </ThemeProvider>
+  )}
 </BrowserOnly>

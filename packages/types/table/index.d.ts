@@ -1,11 +1,11 @@
 import { CommonType } from '../common'
-import { ReactNode } from 'react'
+import { CSSProperties, ReactNode } from 'react'
 
 export interface TableColumnItem {
   /**
    * @description The title of table column
    */
-  title: string
+  title: ReactNode
   /**
    * @description The key of table column
    */
@@ -17,7 +17,7 @@ export interface TableColumnItem {
   /**
    * @description The width of table column
    */
-  width?: string
+  width?: CSSProperties['width']
   /**
    * @description The render of table column
    */

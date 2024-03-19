@@ -5,6 +5,8 @@ sidebar_position: 6
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 import Basic from "./Basic"
+import Api from "./Api"
+import TreeBaseOptionApi from "./TreeBaseOptionApi"
 import BasicCode from "!!raw-loader!./Basic"
 import CustomKeyAndLabel from "./CustomKeyAndLabel"
 import CustomKeyAndLabelCode from "!!raw-loader!./CustomKeyAndLabel"
@@ -52,4 +54,22 @@ import CascadeSelectionCode from "!!raw-loader!./CascadeSelection"
       </Grid>
     </Grid>
   </ThemeProvider>)}
+</BrowserOnly>
+
+## API
+<BrowserOnly>
+  {() => (
+    <ThemeProvider>
+      <Api />
+    </ThemeProvider>
+  )}
+</BrowserOnly>
+
+## TreeBaseOption
+<BrowserOnly>
+  {() => (
+    <ThemeProvider>
+      <TreeBaseOptionApi />
+    </ThemeProvider>
+  )}
 </BrowserOnly>

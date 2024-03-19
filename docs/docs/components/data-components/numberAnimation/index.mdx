@@ -5,6 +5,7 @@ sidebar_position: 3
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 import Basic from "./Basic"
+import Api from "./Api"
 import BasicCode from "!!raw-loader!./Basic"
 import Precision from "./Precision"
 import PrecisionCode from "!!raw-loader!./Precision"
@@ -35,4 +36,13 @@ import PrecisionCode from "!!raw-loader!./Precision"
       </Grid>
     </Grid>
   </ThemeProvider>)}
+</BrowserOnly>
+
+## API
+<BrowserOnly>
+  {() => (
+    <ThemeProvider>
+      <Api />
+    </ThemeProvider>
+  )}
 </BrowserOnly>

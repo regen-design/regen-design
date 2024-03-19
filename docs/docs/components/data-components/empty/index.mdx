@@ -5,6 +5,7 @@ sidebar_position: 1
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 import Basic from "./Basic"
+import Api from "./Api"
 import BasicCode from "!!raw-loader!./Basic"
 
 # 空状态 Empty
@@ -26,4 +27,13 @@ import BasicCode from "!!raw-loader!./Basic"
       </Grid>
     </Grid>
   </ThemeProvider>)}
+</BrowserOnly>
+
+## API
+<BrowserOnly>
+  {() => (
+    <ThemeProvider>
+      <Api />
+    </ThemeProvider>
+  )}
 </BrowserOnly>

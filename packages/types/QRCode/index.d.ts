@@ -17,16 +17,6 @@ export interface QRCodeProps extends CommonType {
    */
   scale?: number
   /**
-   * @description The background color of the QRCode
-   * @default '#fff'
-   */
-  bgColor?: string
-  /**
-   * @description The foreground color of the QRCode
-   * @default '#000'
-   */
-  fgColor?: string
-  /**
    * @description The margin of the QRCode
    * @default 0
    */

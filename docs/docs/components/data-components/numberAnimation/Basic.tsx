@@ -1,5 +1,5 @@
 import { Button, NumberAnimation, Space } from '@regen-design/components'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { NumberAnimationInstance } from '@regen-design/types'
 
 export default function Demo() {
