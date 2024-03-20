@@ -6,6 +6,7 @@ export interface FormInstance {
   setFieldValue: (name: string, value: any) => void
   setFieldsValue: (values: any) => void
   validateFields: (nameList?: string[]) => Promise<any>
+  submit: () => void
 }
 export interface FormProps extends CommonType {
   /**

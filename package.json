@@ -132,7 +132,8 @@
     "tslib": "^2.6.2",
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
-    "vitest": "^1.2.1"
+    "vitest": "^1.2.1",
+    "zustand": "^4.5.2"
   },
   "dependencies": {
     "@regen-design/components": "workspace:^",
