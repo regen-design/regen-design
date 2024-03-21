@@ -6,7 +6,6 @@ export interface FormInstance {
   setFieldValue: (name: string, value: any) => void
   setFieldsValue: (values: any) => void
   validateFields: (nameList?: string[]) => Promise<any>
-  submit: () => void
 }
 export interface FormProps extends CommonType {
   /**
@@ -17,14 +16,6 @@ export interface FormProps extends CommonType {
    * @description The initial values of the form.
    */
   initialValues?: any
-  /**
-   * @description The callback function that is triggered when the form is reset.
-   */
-  onReset?: () => void
-  /**
-   * @description The callback function that is triggered when the form is submitted.
-   */
-  onSubmit?: (values: any) => void
   /**
    * @description The form inline layout.
    */

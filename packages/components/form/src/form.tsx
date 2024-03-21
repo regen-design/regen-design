@@ -18,8 +18,6 @@ export const Form: FC<FormProps> = ({
   form: formProps,
   inline = false,
   children,
-  onSubmit,
-  onReset,
 }) => {
   const formClass = classNames(prefixClass, className, {
     [`${prefixClass}-inline`]: inline,
@@ -40,16 +38,7 @@ export const Form: FC<FormProps> = ({
   }, [setFormElement, formRef])
   return (
     <FormContext.Provider value={{ formValue, setFormValue, componentName: prefixClass, formRef }}>
-      <StyledForm
-        style={style}
-        ref={formRef}
-        className={formClass}
-        onReset={onReset}
-        onSubmit={e => {
-          e.preventDefault()
-          onSubmit?.(formValue)
-        }}
-      >
+      <StyledForm style={style} ref={formRef} className={formClass}>
         {children}
       </StyledForm>
     </FormContext.Provider>

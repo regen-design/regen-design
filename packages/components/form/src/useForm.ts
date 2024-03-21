@@ -1,15 +1,10 @@
 import { FormInstance } from '@regen-design/types'
 import { useState } from 'react'
-import { useFormStore } from './store'
 
 export const useForm = (): [FormInstance] => {
   const [formData, setFormData] = useState({})
-  const [formElement] = useFormStore(state => [state.formElement])
   return [
     {
-      submit: () => {
-        formElement.submit()
-      },
       getFieldsValue: () => {
         return formData
       },

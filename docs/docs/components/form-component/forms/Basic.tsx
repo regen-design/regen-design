@@ -4,12 +4,7 @@ export default function Demo() {
   const [$form] = useForm()
   return (
     <>
-      <Form
-        form={$form}
-        onSubmit={values => {
-          console.log(values)
-        }}
-      >
+      <Form form={$form}>
         <FormItem label="Username" name="username" required>
           <Input />
         </FormItem>
