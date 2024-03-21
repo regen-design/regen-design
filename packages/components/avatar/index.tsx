@@ -46,6 +46,7 @@ export const Avatar: FC<AvatarProps> = ({
         size={size}
         rounded={rounded}
         role="avatar"
+        data-testid="avatar"
         color={color}
         backgroundColor={backgroundColor}
         borderColor={borderColor}
