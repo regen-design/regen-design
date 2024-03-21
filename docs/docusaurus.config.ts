@@ -3,10 +3,8 @@ import type { Config } from '@docusaurus/types'
 import type * as Preset from '@docusaurus/preset-classic'
 import { convertToUpperCase } from '@regen-design/utils'
 import packageConfig from '../package.json'
-
 // convert package name to title case
 const CapitalizedTitle = convertToUpperCase(packageConfig.name, ' ')
-
 const config: Config = {
   title: CapitalizedTitle,
   tagline: packageConfig.description,
@@ -14,10 +12,10 @@ const config: Config = {
   themes: [],
   plugins: [],
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://regen-design.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/regen-design',
+  baseUrl: '/',
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: '@' + packageConfig.name, // Usually your GitHub org/user name.
