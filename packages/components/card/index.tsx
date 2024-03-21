@@ -18,13 +18,19 @@ export const Card: FC<CardProps> = ({
   })
   return (
     <StyledCard role="card" className={cardClass} style={style} size={size}>
-      <div className={prefixClass + '-header'}>
+      <div role="card-header" className={prefixClass + '-header'}>
         <div className={prefixClass + '-header-title'}>{title}</div>
         <div className={prefixClass + '-header-extra'}>{extra}</div>
       </div>
-      <div className={prefixClass + '-body'}>{children}</div>
+      <div role="card-body" className={prefixClass + '-body'}>
+        {children}
+      </div>
       {footer && (
-        <div style={footerStyle} className={`${prefixClass + '-footer'} ${footerClassName}`}>
+        <div
+          role="card-footer"
+          style={footerStyle}
+          className={`${prefixClass + '-footer'} ${footerClassName}`}
+        >
           {footer}
         </div>
       )}

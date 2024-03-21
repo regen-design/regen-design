@@ -6,17 +6,22 @@ import { defaultTheme } from '@regen-design/theme'
 
 describe('Avatar', () => {
   test('should render correctly', () => {
-    render(<Avatar />)
+    const element = render(<Avatar />)
+    expect(element).toMatchSnapshot()
     expect(screen.getByTestId('avatar')).toBeInTheDocument()
   })
 
   test('should render children', () => {
-    render(<Avatar>Avatar</Avatar>)
+    const element = render(<Avatar>Avatar</Avatar>)
+    expect(element).toMatchSnapshot()
     expect(screen.getByText('Avatar')).toBeInTheDocument()
   })
 
   test('should render src', () => {
-    render(<Avatar src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" />)
+    const element = render(
+      <Avatar src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" />
+    )
+    expect(element).toMatchSnapshot()
     expect(screen.getByTestId('avatar').querySelector('img')).toHaveAttribute(
       'src',
       'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50'
@@ -24,7 +29,8 @@ describe('Avatar', () => {
   })
 
   test('should render size', () => {
-    render(<Avatar size={'default'} />)
+    const element = render(<Avatar size={'default'} />)
+    expect(element).toMatchSnapshot()
     expect(screen.getByTestId('avatar')).toHaveStyle(
       `width: ${defaultTheme.components.avatar.size['default']}`
     )
@@ -34,17 +40,20 @@ describe('Avatar', () => {
   })
 
   test('should render rounded', () => {
-    render(<Avatar rounded />)
+    const element = render(<Avatar rounded />)
+    expect(element).toMatchSnapshot()
     expect(screen.getByTestId('avatar')).toHaveStyle('border-radius: 50%')
   })
 
   test('should render style', () => {
-    render(<Avatar style={{ color: 'red' }} />)
+    const element = render(<Avatar style={{ color: 'red' }} />)
+    expect(element).toMatchSnapshot()
     expect(screen.getByTestId('avatar')).toHaveStyle('color: red')
   })
 
   test('should render className', () => {
-    render(<Avatar className="test" />)
+    const element = render(<Avatar className="test" />)
+    expect(element).toMatchSnapshot()
     expect(screen.getByTestId('avatar')).toHaveClass('test')
   })
 })
