@@ -6,6 +6,7 @@ export interface FormInstance {
   setFieldValue: (name: string, value: any) => void
   setFieldsValue: (values: any) => void
   validateFields: (nameList?: string[]) => Promise<any>
+  submit: () => void
 }
 export interface FormProps extends CommonType {
   /**
@@ -20,6 +21,10 @@ export interface FormProps extends CommonType {
    * @description The form inline layout.
    */
   inline?: boolean
+  /**
+   * @description The finish event of the form.
+   */
+  onFinish?: (values: any) => void
 }
 
 export interface FormItemProps extends CommonType {

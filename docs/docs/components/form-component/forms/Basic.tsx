@@ -4,7 +4,12 @@ export default function Demo() {
   const [$form] = useForm()
   return (
     <>
-      <Form form={$form}>
+      <Form
+        form={$form}
+        onFinish={e => {
+          console.log(e)
+        }}
+      >
         <FormItem label="Username" name="username" required>
           <Input />
         </FormItem>
@@ -12,7 +17,7 @@ export default function Demo() {
       <Button
         onClick={e => {
           e.preventDefault()
-          $form.submit()
+          console.log($form.getFieldsValue())
         }}
       >
         提交

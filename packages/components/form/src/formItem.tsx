@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { FormContext } from './form'
 export const FormItem: FC<FormItemProps> = ({ className, children, name, label, required }) => {
   const formItemClass = classNames(prefixClass, className)
-  const { formValue, setFormValue, componentName } = useContext(FormContext)
+  const { getFieldValue, setFieldValue, componentName } = useContext(FormContext)
   if (!componentName) {
     throw new Error('FormItem must be wrapped in a Form component')
   }
@@ -19,12 +19,9 @@ export const FormItem: FC<FormItemProps> = ({ className, children, name, label, 
       )}
       <div className={`${formItemClass}-blank`}>
         {cloneElement(children as ReactElement, {
-          value: formValue?.[name],
+          value: getFieldValue(name),
           onChange: (value: any) => {
-            setFormValue({
-              ...formValue,
-              [name]: value,
-            })
+            setFieldValue(name, value)
           },
         })}
       </div>
