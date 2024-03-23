@@ -6,6 +6,7 @@ export interface FormInstance {
   setFieldValue: (name: string, value: any) => void
   setFieldsValue: (values: any) => void
   validateFields: (nameList?: string[]) => Promise<any>
+  registerField: (name: string, callback: any) => () => void
   submit: () => void
 }
 export interface FormProps extends CommonType {
@@ -40,4 +41,19 @@ export interface FormItemProps extends CommonType {
    * @description The required status of the form item.
    */
   required?: boolean
+  /**
+   * @description The rules of the form item.
+   */
+  rules?: Rule[]
+}
+
+export interface Rule {
+  /**
+   * @description Is it a required field?
+   */
+  required?: boolean
+  /**
+   * @description Error message.
+   */
+  message?: string
 }

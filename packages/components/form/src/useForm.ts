@@ -1,30 +1,43 @@
 import { FormInstance } from '@regen-design/types'
 import { useRef, useState } from 'react'
 
+interface Callbacks {
+  onFinish?: (values: any) => void
+  [key: string]: any
+}
 class FormStore {
   constructor(private forceReRender: () => void) {}
-  public store = {}
-  public submit = () => {
-    console.log(this)
+  private store = {}
+  private callbacks: Callbacks = {}
+  private submit = () => {
+    const { onFinish } = this.callbacks
+    onFinish?.(this.store)
   }
-  public getFieldsValue = () => {
+  private registerField = (name, callback) => {
+    this.callbacks[name] = callback
+    return () => {
+      delete this.callbacks[name]
+    }
+  }
+
+  private getFieldsValue = () => {
     return { ...this.store }
   }
-  public getFieldValue = (name: string | number) => {
+  private getFieldValue = (name: string | number) => {
     return this.store[name]
   }
-  public setFieldsValue = values => {
+  private setFieldsValue = values => {
     this.store = {
       ...this.store,
       ...values,
     }
     this.forceReRender()
   }
-  public setFieldValue = (name, value) => {
+  private setFieldValue = (name, value) => {
     this.store[name] = value
     this.forceReRender()
   }
-  public validateFields = () => {
+  private validateFields = () => {
     return Promise.resolve()
   }
   public getForm = (): FormInstance => ({
@@ -33,6 +46,7 @@ class FormStore {
     setFieldsValue: this.setFieldsValue,
     setFieldValue: this.setFieldValue,
     validateFields: this.validateFields,
+    registerField: this.registerField,
     submit: this.submit,
   })
 }

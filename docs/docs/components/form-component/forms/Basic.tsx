@@ -10,14 +10,27 @@ export default function Demo() {
           console.log(e)
         }}
       >
-        <FormItem label="Username" name="username" required>
+        <FormItem
+          label="Username"
+          name="username"
+          required
+          rules={[{ required: true, message: 'Please input your username!' }]}
+        >
           <Input />
+        </FormItem>
+        <FormItem
+          label="Password"
+          name="password"
+          required
+          rules={[{ required: true, message: 'Please input your password!' }]}
+        >
+          <Input type={'password'} />
         </FormItem>
       </Form>
       <Button
         onClick={e => {
           e.preventDefault()
-          console.log($form.getFieldsValue())
+          $form.submit()
         }}
       >
         提交

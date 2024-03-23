@@ -26,7 +26,9 @@ export const Form: FC<FormProps> = ({
   const formRef = useRef<HTMLFormElement>(null)
   const [setFormElement] = useFormStore(state => [state.setFormElement, state.setFormProps])
   const [formInstance] = useForm(form)
-
+  useEffect(() => {
+    formInstance.registerField('onFinish', onFinish)
+  }, [onFinish, formInstance])
   useEffect(() => {
     setFormElement(formRef.current)
   }, [setFormElement, formRef])

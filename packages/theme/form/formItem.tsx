@@ -41,7 +41,12 @@ export const StyledFormItem = styled.div<FormProps & ThemeProps>`
     position: relative;
   }
   .${prefix}-feedback {
+    &__error {
+      color: ${props => props.theme.colors.danger};
+    }
     grid-area: feedback;
     margin-top: 4px;
+    font-size: 14px;
+    min-height: 24px;
   }
 `
