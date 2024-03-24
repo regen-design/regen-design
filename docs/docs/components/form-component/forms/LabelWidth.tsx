@@ -6,13 +6,13 @@ export default function Demo() {
     <>
       <Form
         form={$form}
-        inline
+        labelWidth={120}
         onFinish={e => {
           console.log(e)
         }}
       >
         <FormItem label="Username" name="username" required rules={[{ required: true }]}>
-          <Input clearable />
+          <Input />
         </FormItem>
         <FormItem label="Password" name="password" required rules={[{ required: true }]}>
           <Input type={'password'} />

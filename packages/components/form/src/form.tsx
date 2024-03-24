@@ -8,24 +8,17 @@ export const FormContext = createContext<
   Partial<
     {
       componentName?: string
-      formRef: React.RefObject<HTMLFormElement>
     } & FormInstance &
-      InternalHooks
+      InternalHooks &
+      FormProps
   >
 >({})
-export const Form: FC<FormProps> = ({
-  style = {},
-  className = '',
-  form,
-  inline = false,
-  children,
-  onFinish,
-  onFinishFailed,
-}) => {
+export const Form: FC<FormProps> = props => {
+  const { children, className, style, inline, form, onFinish, onFinishFailed } = props
   const formClass = classNames(prefixClass, className, {
     [`${prefixClass}-inline`]: inline,
   })
-  const formRef = useRef<HTMLFormElement>(null)
+
   const [formInstance] = useForm(form)
   const internalHooks = (formInstance as InnerInstance).getInternalHooks(FORM_INTERNAL_HOOKS)
   useEffect(() => {
@@ -35,11 +28,10 @@ export const Form: FC<FormProps> = ({
 
   return (
     <FormContext.Provider
-      value={{ ...formInstance, ...internalHooks, componentName: prefixClass, formRef }}
+      value={{ ...formInstance, ...internalHooks, ...props, componentName: prefixClass }}
     >
       <StyledForm
         style={style}
-        ref={formRef}
         className={formClass}
         onSubmit={e => {
           e.stopPropagation()

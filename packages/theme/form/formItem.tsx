@@ -22,6 +22,7 @@ export const StyledFormItem = styled.div<FormProps & ThemeProps>`
     .${prefix}-label__text {
       grid-area: text;
       white-space: nowrap;
+      text-align: right;
     }
     .${prefix}-label__mark {
       &.hidden {

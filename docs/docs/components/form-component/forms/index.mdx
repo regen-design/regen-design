@@ -8,6 +8,8 @@ import Basic from "./Basic"
 import BasicCode from '!!raw-loader!./Basic'
 import Inline from "./Inline"
 import InlineCode from '!!raw-loader!./Inline'
+import LabelWidth from "./LabelWidth"
+import LabelWidthCode from '!!raw-loader!./LabelWidth'
 
 
 # 表单 Form
@@ -25,6 +27,10 @@ import InlineCode from '!!raw-loader!./Inline'
         <CodeBlock title="行内表单"
                    code={String(InlineCode)}>
           <Inline />
+        </CodeBlock>
+        <CodeBlock title="设置标签宽度"
+                   code={String(LabelWidthCode)}>
+          <LabelWidth />
         </CodeBlock>
     </Grid>
     </Grid>

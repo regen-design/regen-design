@@ -9,7 +9,8 @@ export const FormItem: FC<FormItemProps> = props => {
   const formItemClass = classNames(prefixClass, className)
   const [errorMessages, setErrorMessages] = useState<string>('')
   const [isError, setIsError] = useState<boolean>(false)
-  const { getFieldValue, setFieldValue, componentName, registerField } = useContext(FormContext)
+  const { getFieldValue, setFieldValue, componentName, registerField, labelWidth } =
+    useContext(FormContext)
   if (!componentName) {
     throw new Error('FormItem must be wrapped in a Form component')
   }
@@ -50,7 +51,13 @@ export const FormItem: FC<FormItemProps> = props => {
   return (
     <StyledFormItem className={formItemClass}>
       {label && (
-        <label className={`${formItemClass}-label`} htmlFor={name}>
+        <label
+          className={`${formItemClass}-label`}
+          htmlFor={name}
+          style={{
+            width: labelWidth,
+          }}
+        >
           <span className={`${formItemClass}-label__text`}>{label}</span>
           <span className={`${formItemClass}-label__mark ${!required ? 'hidden' : ''}`}>*</span>
         </label>

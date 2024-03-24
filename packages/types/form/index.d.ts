@@ -1,4 +1,5 @@
 import { CommonType } from '../common'
+import { CSSProperties } from 'react'
 
 export interface ErrorEntity {
   errorFields: ErrorInfo
@@ -37,6 +38,10 @@ export interface FormProps extends CommonType {
    * @description The form inline layout.
    */
   inline?: boolean
+  /**
+   * @description label width
+   */
+  labelWidth?: CSSProperties['width']
   /**
    * @description The finish event of the form.
    */
