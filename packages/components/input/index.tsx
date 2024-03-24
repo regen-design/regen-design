@@ -172,8 +172,9 @@ export const Input = forwardRef(
               </div>
             </div>
           )}
-
-          <div className={`${prefixClass}__suffix ${suffix ? 'active' : ''}`}>{suffix}</div>
+          {suffix && (
+            <div className={`${prefixClass}__suffix ${suffix ? 'active' : ''}`}>{suffix}</div>
+          )}
           {type === 'password' && (
             <div className={`${prefixClass}__suffix ${showPassword ? 'active' : ''}`}>
               <div

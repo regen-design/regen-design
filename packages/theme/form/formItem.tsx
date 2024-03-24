@@ -48,5 +48,6 @@ export const StyledFormItem = styled.div<FormProps & ThemeProps>`
     margin-top: 4px;
     font-size: 14px;
     min-height: 24px;
+    transform-origin: top;
   }
 `

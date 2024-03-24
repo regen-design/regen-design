@@ -20,8 +20,9 @@ export const FormItem: FC<FormItemProps> = props => {
         const errors: string[] = []
         for (let i = 0; i < rules.length; i++) {
           if (rules[i].required && !value) {
-            setErrorMessages(rules[i].message)
-            errors.push(rules[i].message)
+            const message = rules[i].message || `${label} is required`
+            setErrorMessages(message)
+            errors.push(message)
             isError = true
           }
         }
@@ -69,8 +70,8 @@ export const FormItem: FC<FormItemProps> = props => {
       <motion.div
         animate={isError ? 'open' : 'closed'}
         variants={{
-          open: { opacity: 1, scaleY: 1, transformOrigin: 'top' },
-          closed: { opacity: 0, scaleY: 0, transformOrigin: 'top' },
+          open: { opacity: 1, scaleY: 1 },
+          closed: { opacity: 0, scaleY: 0 },
         }}
         className={`${formItemClass}-feedback ${isError ? `${formItemClass}-feedback__error` : ''}`}
       >

@@ -2,7 +2,7 @@ import React, { createContext, FC, useEffect, useRef } from 'react'
 import { FormInstance, FormProps, InternalHooks } from '@regen-design/types'
 import { StyledForm, StyledFormPrefixClass as prefixClass } from '@regen-design/theme'
 import classNames from 'classnames'
-import { useForm } from './useForm'
+import { InnerInstance, useForm } from './useForm'
 import { FORM_INTERNAL_HOOKS } from './constant'
 export const FormContext = createContext<
   Partial<
@@ -27,7 +27,7 @@ export const Form: FC<FormProps> = ({
   })
   const formRef = useRef<HTMLFormElement>(null)
   const [formInstance] = useForm(form)
-  const internalHooks = formInstance.getInternalHooks(FORM_INTERNAL_HOOKS)
+  const internalHooks = (formInstance as InnerInstance).getInternalHooks(FORM_INTERNAL_HOOKS)
   useEffect(() => {
     internalHooks.setCallbacks('onFinish', onFinish)
     internalHooks.setCallbacks('onFinishFailed', onFinishFailed)

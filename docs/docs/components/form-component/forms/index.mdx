@@ -6,19 +6,25 @@ import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import Basic from "./Basic"
 import BasicCode from '!!raw-loader!./Basic'
+import Inline from "./Inline"
+import InlineCode from '!!raw-loader!./Inline'
 
 
 # 表单 Form
 
 <BrowserOnly>
   {() => (<ThemeProvider>
-    <Grid xGap={16} cols={2} style={{
+    <Grid xGap={16} cols={1} style={{
       alignItems: 'flex-start'
     }}>
       <Grid yGap={16} cols={1}>
         <CodeBlock title="基础"
                    code={String(BasicCode)}>
           <Basic />
+        </CodeBlock>
+        <CodeBlock title="行内表单"
+                   code={String(InlineCode)}>
+          <Inline />
         </CodeBlock>
     </Grid>
     </Grid>

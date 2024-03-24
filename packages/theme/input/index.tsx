@@ -126,15 +126,17 @@ export const StyledInput = styled.div<
     }
     .${prefix}__suffix {
       &.active {
-        width: auto;
         transform: scale(1);
-        margin-left: 4px;
       }
       width: auto;
+      margin-left: 4px;
       transform: scale(0);
       .${prefix}__clear, .${prefix}__eye {
         cursor: pointer;
         transition: color 300ms ease-in-out;
+        width: 1em;
+        height: 1em;
+        line-height: 1;
         &:hover {
           color: ${props => {
             const _theme = convertTheme(props.theme)

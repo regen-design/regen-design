@@ -2,7 +2,7 @@ import { ErrorInfo, FieldEntity, FormInstance, InternalHooks } from '@regen-desi
 import { useRef, useState } from 'react'
 import { FORM_INTERNAL_HOOKS } from './constant'
 
-type InnerInstance = FormInstance & {
+export type InnerInstance = FormInstance & {
   getInternalHooks?: (name: string) => InternalHooks | null
 }
 interface Callbacks {
@@ -93,7 +93,7 @@ class FormStore {
     getInternalHooks: this.getInternalHooks,
   })
 }
-export const useForm = (form?: InnerInstance): [InnerInstance] => {
+export const useForm = (form?: FormInstance): [FormInstance] => {
   const formRef = useRef<InnerInstance>()
   const [, forceUpdate] = useState({})
   if (!formRef.current) {

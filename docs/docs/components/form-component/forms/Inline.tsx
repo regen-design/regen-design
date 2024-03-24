@@ -6,15 +6,16 @@ export default function Demo() {
     <>
       <Form
         form={$form}
+        inline
         onFinish={e => {
           console.log(e)
         }}
       >
         <FormItem label="Username" name="username" required rules={[{ required: true }]}>
-          <Input />
+          <Input clearable />
         </FormItem>
         <FormItem label="Password" name="password" required rules={[{ required: true }]}>
-          <Input type={'password'} />
+          <Input type={'password'} suffix={<span>元</span>} />
         </FormItem>
         <Button htmlType="submit">Submit</Button>
       </Form>
