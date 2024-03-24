@@ -25,7 +25,6 @@ export const GradientText: FC<GradientTextProps> = ({
     }
     return `linear-gradient(${deg},${gradient.from} 0%, ${gradient.to} 100%)`
   }, [gradient])
-  console.log(backgroundImage)
   return (
     <StyledGradientText
       size={size}
