@@ -1,15 +1,16 @@
-import React, { createContext, FC, useEffect, useMemo, useRef } from 'react'
-import { FormInstance, FormProps } from '@regen-design/types'
+import React, { createContext, FC, useEffect, useRef } from 'react'
+import { FormInstance, FormProps, InternalHooks } from '@regen-design/types'
 import { StyledForm, StyledFormPrefixClass as prefixClass } from '@regen-design/theme'
 import classNames from 'classnames'
 import { useForm } from './useForm'
-import { useFormStore } from './store'
+import { FORM_INTERNAL_HOOKS } from './constant'
 export const FormContext = createContext<
   Partial<
     {
       componentName?: string
       formRef: React.RefObject<HTMLFormElement>
-    } & FormInstance
+    } & FormInstance &
+      InternalHooks
   >
 >({})
 export const Form: FC<FormProps> = ({
@@ -19,22 +20,33 @@ export const Form: FC<FormProps> = ({
   inline = false,
   children,
   onFinish,
+  onFinishFailed,
 }) => {
   const formClass = classNames(prefixClass, className, {
     [`${prefixClass}-inline`]: inline,
   })
   const formRef = useRef<HTMLFormElement>(null)
-  const [setFormElement] = useFormStore(state => [state.setFormElement, state.setFormProps])
   const [formInstance] = useForm(form)
+  const internalHooks = formInstance.getInternalHooks(FORM_INTERNAL_HOOKS)
   useEffect(() => {
-    formInstance.registerField('onFinish', onFinish)
-  }, [onFinish, formInstance])
-  useEffect(() => {
-    setFormElement(formRef.current)
-  }, [setFormElement, formRef])
+    internalHooks.setCallbacks('onFinish', onFinish)
+    internalHooks.setCallbacks('onFinishFailed', onFinishFailed)
+  }, [onFinish, onFinishFailed, internalHooks])
+
   return (
-    <FormContext.Provider value={{ ...formInstance, componentName: prefixClass, formRef }}>
-      <StyledForm style={style} ref={formRef} className={formClass}>
+    <FormContext.Provider
+      value={{ ...formInstance, ...internalHooks, componentName: prefixClass, formRef }}
+    >
+      <StyledForm
+        style={style}
+        ref={formRef}
+        className={formClass}
+        onSubmit={e => {
+          e.stopPropagation()
+          e.preventDefault()
+          formInstance.submit()
+        }}
+      >
         {children}
       </StyledForm>
     </FormContext.Provider>

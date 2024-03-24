@@ -9,6 +9,9 @@ export default function Demo() {
         onFinish={e => {
           console.log(e)
         }}
+        onFinishFailed={e => {
+          console.log('onFinishFailed', e)
+        }}
       >
         <FormItem
           label="Username"
@@ -26,15 +29,8 @@ export default function Demo() {
         >
           <Input type={'password'} />
         </FormItem>
+        <Button htmlType="submit">Submit</Button>
       </Form>
-      <Button
-        onClick={e => {
-          e.preventDefault()
-          $form.submit()
-        }}
-      >
-        提交
-      </Button>
     </>
   )
 }

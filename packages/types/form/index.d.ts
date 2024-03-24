@@ -1,12 +1,27 @@
 import { CommonType } from '../common'
 
+export interface ErrorEntity {
+  errorFields: ErrorInfo
+  outOfDate: boolean
+  values: any
+}
+export interface ErrorInfo {
+  name: string
+  errors: string[]
+}
+export interface FieldEntity extends FormItemProps {
+  validateRules: (value: any) => Promise<ErrorInfo>
+}
+export interface InternalHooks {
+  setCallbacks: (name: string, callback: any) => () => void
+  registerField: (entity: FieldEntity) => () => void
+}
 export interface FormInstance {
   getFieldValue: (name: string) => any
   getFieldsValue: (nameList?: string[]) => any
   setFieldValue: (name: string, value: any) => void
   setFieldsValue: (values: any) => void
   validateFields: (nameList?: string[]) => Promise<any>
-  registerField: (name: string, callback: any) => () => void
   submit: () => void
 }
 export interface FormProps extends CommonType {
@@ -26,6 +41,10 @@ export interface FormProps extends CommonType {
    * @description The finish event of the form.
    */
   onFinish?: (values: any) => void
+  /**
+   * @description The finish failed event of the form.
+   */
+  onFinishFailed?: (errorInfo: ErrorEntity) => void
 }
 
 export interface FormItemProps extends CommonType {

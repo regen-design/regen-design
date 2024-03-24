@@ -1,36 +1,51 @@
-import { cloneElement, FC, ReactElement, useContext, useState } from 'react'
-import { FormItemProps } from '@regen-design/types'
+import { cloneElement, FC, ReactElement, useContext, useEffect, useState } from 'react'
+import { FieldEntity, FormItemProps } from '@regen-design/types'
 import { StyledFormItem, StyledFormItemPrefixClass as prefixClass } from '@regen-design/theme'
 import classNames from 'classnames'
 import { motion } from 'framer-motion'
 import { FormContext } from './form'
-export const FormItem: FC<FormItemProps> = ({
-  className,
-  children,
-  name,
-  label,
-  required,
-  rules,
-}) => {
+export const FormItem: FC<FormItemProps> = props => {
+  const { className, children, name, label, required, rules } = props
   const formItemClass = classNames(prefixClass, className)
   const [errorMessages, setErrorMessages] = useState<string>('')
   const [isError, setIsError] = useState<boolean>(false)
-  const { getFieldValue, setFieldValue, componentName } = useContext(FormContext)
+  const { getFieldValue, setFieldValue, componentName, registerField } = useContext(FormContext)
   if (!componentName) {
     throw new Error('FormItem must be wrapped in a Form component')
   }
-  const validate = value => {
-    if (rules) {
-      let isError = false
-      for (let i = 0; i < rules.length; i++) {
-        if (rules[i].required && !value) {
-          setErrorMessages(rules[i].message)
-          isError = true
+  const validateRules: FieldEntity['validateRules'] = value => {
+    return new Promise(resolve => {
+      if (rules) {
+        let isError = false
+        const errors: string[] = []
+        for (let i = 0; i < rules.length; i++) {
+          if (rules[i].required && !value) {
+            setErrorMessages(rules[i].message)
+            errors.push(rules[i].message)
+            isError = true
+          }
+        }
+        setIsError(isError)
+        if (!isError) {
+          resolve({
+            name,
+            errors: [],
+          })
+        } else {
+          resolve({
+            name,
+            errors: errors,
+          })
         }
       }
-      setIsError(isError)
-    }
+    })
   }
+  useEffect(() => {
+    registerField({
+      ...props,
+      validateRules,
+    })
+  }, [registerField])
   return (
     <StyledFormItem className={formItemClass}>
       {label && (
@@ -43,11 +58,11 @@ export const FormItem: FC<FormItemProps> = ({
         {cloneElement(children as ReactElement, {
           value: getFieldValue(name),
           onChange: (value: any) => {
-            validate(value)
+            validateRules(value)
             setFieldValue(name, value)
           },
           onBlur: () => {
-            validate(getFieldValue(name))
+            validateRules(getFieldValue(name))
           },
         })}
       </div>

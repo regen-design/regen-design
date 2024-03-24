@@ -74,4 +74,9 @@ export interface ButtonProps extends CommonType {
    * @type {(e: MouseEvent<HTMLButtonElement>) => void}
    */
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void
+  /**
+   * @default 'button'
+   * @description button element type
+   */
+  htmlType?: 'button' | 'submit' | 'reset'
 }

@@ -1,6 +1,10 @@
-import { FormInstance } from '@regen-design/types'
+import { ErrorInfo, FieldEntity, FormInstance, InternalHooks } from '@regen-design/types'
 import { useRef, useState } from 'react'
+import { FORM_INTERNAL_HOOKS } from './constant'
 
+type InnerInstance = FormInstance & {
+  getInternalHooks?: (name: string) => InternalHooks | null
+}
 interface Callbacks {
   onFinish?: (values: any) => void
   [key: string]: any
@@ -9,14 +13,44 @@ class FormStore {
   constructor(private forceReRender: () => void) {}
   private store = {}
   private callbacks: Callbacks = {}
+  private entities: Map<string, FieldEntity> = new Map()
   private submit = () => {
-    const { onFinish } = this.callbacks
-    onFinish?.(this.store)
+    const { onFinish, onFinishFailed } = this.callbacks
+    const entityPromise: Promise<ErrorInfo>[] = []
+    this.entities.forEach(entity => {
+      entityPromise.push(entity.validateRules(this.store[entity.name]))
+    })
+    Promise.all(entityPromise)
+      .then(result => {
+        if (result.every(item => item.errors.length === 0)) {
+          onFinish?.(this.store)
+        } else {
+          onFinishFailed?.({
+            errorFields: result
+              .map(item => ({
+                name: item.name,
+                errors: item.errors,
+              }))
+              .filter(item => item.errors.length > 0),
+            outOfDate: false,
+            values: this.store,
+          })
+        }
+      })
+      .catch(() => {
+        console.error('Form validation failed')
+      })
   }
-  private registerField = (name, callback) => {
+  private setCallbacks = (name: string, callback: any) => {
     this.callbacks[name] = callback
     return () => {
       delete this.callbacks[name]
+    }
+  }
+  private registerField = (entity: any) => {
+    this.entities.set(entity.name, entity)
+    return () => {
+      this.entities.delete(entity.name)
     }
   }
 
@@ -40,18 +74,27 @@ class FormStore {
   private validateFields = () => {
     return Promise.resolve()
   }
-  public getForm = (): FormInstance => ({
+  private getInternalHooks = (name: string): InternalHooks => {
+    if (name === FORM_INTERNAL_HOOKS) {
+      return {
+        setCallbacks: this.setCallbacks,
+        registerField: this.registerField,
+      }
+    }
+    return null
+  }
+  public getForm = (): InnerInstance => ({
     getFieldsValue: this.getFieldsValue,
     getFieldValue: this.getFieldValue,
     setFieldsValue: this.setFieldsValue,
     setFieldValue: this.setFieldValue,
     validateFields: this.validateFields,
-    registerField: this.registerField,
     submit: this.submit,
+    getInternalHooks: this.getInternalHooks,
   })
 }
-export const useForm = (form?: FormInstance): [FormInstance] => {
-  const formRef = useRef<FormInstance>()
+export const useForm = (form?: InnerInstance): [InnerInstance] => {
+  const formRef = useRef<InnerInstance>()
   const [, forceUpdate] = useState({})
   if (!formRef.current) {
     if (form) {

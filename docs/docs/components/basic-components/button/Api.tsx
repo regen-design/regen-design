@@ -74,6 +74,12 @@ export default function Demo() {
       description: '图标按钮',
     },
     {
+      name: 'htmlType',
+      type: "`'button' | 'submit' | 'reset'`",
+      defaultValue: 'button',
+      description: '原生 button 标签的 type 属性',
+    },
+    {
       name: 'onClick',
       type: '`(event: React.MouseEvent) => void`',
       defaultValue: 'null',
