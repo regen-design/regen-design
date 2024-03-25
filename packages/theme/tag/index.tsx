@@ -13,6 +13,13 @@ export const StyledTag = styled.div<TagProps>`
   display: inline-flex;
   align-items: center;
   flex-wrap: nowrap;
+  &.${prefix}--disabled {
+    cursor: not-allowed !important;
+    opacity: ${props => {
+      const _theme = convertTheme(props.theme)
+      return _theme.disabledOpacity
+    }};
+  }
   padding: ${props => {
     const _theme = convertTheme(props.theme)
     return _theme.components.tag.padding[props.size || 'default']
@@ -57,4 +64,60 @@ export const StyledTag = styled.div<TagProps>`
     }
     return `1px solid ${lighten(0.1, color)}`
   }};
+  .${prefix}__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: transparent;
+    width: ${props => {
+      const _theme = convertTheme(props.theme)
+      return _theme.fontSizes[props.size]
+    }};
+    height: ${props => {
+      const _theme = convertTheme(props.theme)
+      return _theme.fontSizes[props.size]
+    }};
+    font-size: ${props => {
+      const _theme = convertTheme(props.theme)
+      return _theme.fontSizes[props.size]
+    }};
+    outline: none;
+    border: none;
+    position: relative;
+    padding: 0;
+    color: inherit;
+    margin-left: 4px;
+    transition: ${props => {
+      const _theme = convertTheme(props.theme)
+      return `background-color ${_theme.transition['ease-in']} 300ms`
+    }};
+    &:hover {
+      &:before {
+        background-color: ${props => {
+          if (props.disabled) {
+            return 'transparent'
+          }
+          const _theme = convertTheme(props.theme)
+          let color = _theme.colors[props.type] || _theme.colors.light
+          if (props.type === 'default') {
+            color = _theme.colors.placeholder
+          }
+          return rgba(color, 0.2)
+        }};
+      }
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translateY(-50%) translateX(-50%);
+      width: 125%;
+      height: 125%;
+      transition: inherit;
+      border-radius: inherit;
+      background-color: transparent;
+    }
+  }
 `

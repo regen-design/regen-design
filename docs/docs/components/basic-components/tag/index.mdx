@@ -7,6 +7,10 @@ import NoBordered from "./NoBordered"
 import NoBorderedCode from "!!raw-loader!./NoBordered"
 import Size from "./Size"
 import SizeCode from "!!raw-loader!./Size"
+import Closeable from "./Closeable"
+import CloseableCode from "!!raw-loader!./Closeable"
+import Disabled from "./Disabled"
+import DisabledCode from "!!raw-loader!./Disabled"
 
 # 标签 Tag
 
@@ -30,8 +34,16 @@ import SizeCode from "!!raw-loader!./Size"
                    code={String(SizeCode)}>
           <Size />
         </CodeBlock>
+        <CodeBlock title="禁用"
+                   code={String(DisabledCode)}>
+          <Disabled />
+        </CodeBlock>
       </Grid>
       <Grid yGap={16} cols={1}>
+        <CodeBlock title="可关闭的"
+                   code={String(CloseableCode)}>
+          <Closeable />
+        </CodeBlock>
         <CodeBlock title="无边框"
                    code={String(NoBorderedCode)}>
           <NoBordered />

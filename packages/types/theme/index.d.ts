@@ -73,6 +73,11 @@ export interface ThemeConfig {
    */
   waveDeepAmount: number
   /**
+   * @description The opacity of the disabled components
+   * @type number
+   */
+  disabledOpacity: number
+  /**
    * @description animation variables
    * @type Record<Animation, string | number>
    */

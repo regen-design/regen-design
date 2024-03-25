@@ -25,6 +25,18 @@ export default function Demo() {
       defaultValue: 'ture',
       description: '是否显示边框',
     },
+    {
+      name: 'closeable',
+      type: '`boolean`',
+      defaultValue: 'false',
+      description: '是否显示关闭按钮',
+    },
+    {
+      name: 'onClose',
+      type: '`() => void`',
+      defaultValue: 'undefined',
+      description: '关闭事件',
+    },
   ]
   return <Table columns={columns} markdown dataSource={dataSource} />
 }

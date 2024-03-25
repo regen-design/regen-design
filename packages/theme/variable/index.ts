@@ -37,6 +37,7 @@ export const defaultTheme: ThemeConfig = {
   borderDarkColor: '#4f4f52',
   waveBlurRadius: 6,
   waveDeepAmount: 0.2,
+  disabledOpacity: 0.5,
   animations: {
     duration: 300,
   },

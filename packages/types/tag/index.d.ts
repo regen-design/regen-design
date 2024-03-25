@@ -11,8 +11,22 @@ export interface TagProps extends CommonType {
    */
   size?: Size
   /**
-   * @description The bordered of the tag
+   * @description Is there a border
    * @default true
    */
   bordered?: boolean
+  /**
+   * @description Can it be closed
+   * @default false
+   */
+  closeable?: boolean
+  /**
+   * @description Whether to disable
+   * @default false
+   */
+  disabled?: boolean
+  /**
+   * @description Callback when click close
+   */
+  onClose?: () => void
 }
