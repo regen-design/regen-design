@@ -6,7 +6,7 @@ exports[`Card > should work with \`children\` prop 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-hLQSwg inAgOO regen-card regen-card--default"
+        class="sc-dmyCSP cRvtjQ regen-card regen-card--default"
         role="card"
       >
         <div
@@ -31,7 +31,7 @@ exports[`Card > should work with \`children\` prop 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-hLQSwg inAgOO regen-card regen-card--default"
+      class="sc-dmyCSP cRvtjQ regen-card regen-card--default"
       role="card"
     >
       <div
@@ -113,7 +113,7 @@ exports[`Card > should work with \`className\` prop 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-hLQSwg inAgOO regen-card test regen-card--default"
+        class="sc-dmyCSP cRvtjQ regen-card test regen-card--default"
         role="card"
       >
         <div
@@ -136,7 +136,7 @@ exports[`Card > should work with \`className\` prop 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-hLQSwg inAgOO regen-card test regen-card--default"
+      class="sc-dmyCSP cRvtjQ regen-card test regen-card--default"
       role="card"
     >
       <div
@@ -216,7 +216,7 @@ exports[`Card > should work with \`extra\` prop 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-hLQSwg inAgOO regen-card regen-card--default"
+        class="sc-dmyCSP cRvtjQ regen-card regen-card--default"
         role="card"
       >
         <div
@@ -241,7 +241,7 @@ exports[`Card > should work with \`extra\` prop 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-hLQSwg inAgOO regen-card regen-card--default"
+      class="sc-dmyCSP cRvtjQ regen-card regen-card--default"
       role="card"
     >
       <div
@@ -323,7 +323,7 @@ exports[`Card > should work with \`footer\` prop 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-hLQSwg inAgOO regen-card regen-card--default"
+        class="sc-dmyCSP cRvtjQ regen-card regen-card--default"
         role="card"
       >
         <div
@@ -352,7 +352,7 @@ exports[`Card > should work with \`footer\` prop 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-hLQSwg inAgOO regen-card regen-card--default"
+      class="sc-dmyCSP cRvtjQ regen-card regen-card--default"
       role="card"
     >
       <div
@@ -438,7 +438,7 @@ exports[`Card > should work with \`footerClassName\` prop 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-hLQSwg inAgOO regen-card regen-card--default"
+        class="sc-dmyCSP cRvtjQ regen-card regen-card--default"
         role="card"
       >
         <div
@@ -467,7 +467,7 @@ exports[`Card > should work with \`footerClassName\` prop 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-hLQSwg inAgOO regen-card regen-card--default"
+      class="sc-dmyCSP cRvtjQ regen-card regen-card--default"
       role="card"
     >
       <div
@@ -553,7 +553,7 @@ exports[`Card > should work with \`footerStyle\` prop 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-hLQSwg inAgOO regen-card regen-card--default"
+        class="sc-dmyCSP cRvtjQ regen-card regen-card--default"
         role="card"
       >
         <div
@@ -583,7 +583,7 @@ exports[`Card > should work with \`footerStyle\` prop 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-hLQSwg inAgOO regen-card regen-card--default"
+      class="sc-dmyCSP cRvtjQ regen-card regen-card--default"
       role="card"
     >
       <div
@@ -670,7 +670,7 @@ exports[`Card > should work with \`size\` prop 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-hLQSwg hAcxZE regen-card regen-card--small"
+        class="sc-dmyCSP iPXnVq regen-card regen-card--small"
         role="card"
       >
         <div
@@ -693,7 +693,7 @@ exports[`Card > should work with \`size\` prop 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-hLQSwg hAcxZE regen-card regen-card--small"
+      class="sc-dmyCSP iPXnVq regen-card regen-card--small"
       role="card"
     >
       <div
@@ -773,7 +773,7 @@ exports[`Card > should work with \`style\` prop 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-hLQSwg inAgOO regen-card regen-card--default"
+        class="sc-dmyCSP cRvtjQ regen-card regen-card--default"
         role="card"
         style="color: red;"
       >
@@ -797,7 +797,7 @@ exports[`Card > should work with \`style\` prop 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-hLQSwg inAgOO regen-card regen-card--default"
+      class="sc-dmyCSP cRvtjQ regen-card regen-card--default"
       role="card"
       style="color: red;"
     >
@@ -878,7 +878,7 @@ exports[`Card > should work with \`title\` prop 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-hLQSwg inAgOO regen-card regen-card--default"
+        class="sc-dmyCSP cRvtjQ regen-card regen-card--default"
         role="card"
       >
         <div
@@ -903,7 +903,7 @@ exports[`Card > should work with \`title\` prop 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-hLQSwg inAgOO regen-card regen-card--default"
+      class="sc-dmyCSP cRvtjQ regen-card regen-card--default"
       role="card"
     >
       <div

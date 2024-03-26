@@ -11,7 +11,7 @@ import { InputProps } from '@regen-design/types'
 import { StyledInput, StyledInputPrefixClass as prefixClass } from '@regen-design/theme'
 import GraphemeSplitter from 'grapheme-splitter'
 import classNames from 'classnames'
-import { useDebounce, useMergedState } from '@regen-design/hooks'
+import { useMergedState } from '@regen-design/hooks'
 import { CloseCircleIcon, EyeIcon, EyeInvisibleIcon } from '@regen-design/icons'
 
 const splitter = new GraphemeSplitter()
@@ -37,7 +37,6 @@ export const Input = forwardRef(
       defaultValue = '',
       passwordVisibleIcon,
       passwordInvisibleIcon,
-      debounce,
       prefix,
       suffix,
       maxLength,
@@ -50,11 +49,13 @@ export const Input = forwardRef(
       onKeyDown,
       onKeyUp,
       onInput,
+      autosize,
     } = Props
     const inputClass = classNames(prefixClass, className, {
       [`${prefixClass}--disabled`]: disabled,
       [`${prefixClass}--rounded`]: rounded,
       [`${prefixClass}--${size}`]: size,
+      [`${prefixClass}--autosize`]: autosize,
     })
     const inputElementRef = useRef<HTMLInputElement>(null)
     const textareaElementRef = useRef<HTMLTextAreaElement>(null)
@@ -94,9 +95,6 @@ export const Input = forwardRef(
       setInputValue(_value)
       onChange?.(_value)
     }
-    const [handleDebounceChange] = useDebounce(e => {
-      handleChange(e)
-    }, debounce)
     const handleClear = () => {
       onClear && onClear()
       onChange && onChange('')
@@ -115,11 +113,7 @@ export const Input = forwardRef(
         onInput && onInput(e)
       },
       onChange: e => {
-        if (!debounce) {
-          handleChange(e)
-        } else {
-          handleDebounceChange(e)
-        }
+        handleChange(e)
       },
       onKeyDown: e => {
         if (e.key === 'Enter') {
@@ -146,6 +140,7 @@ export const Input = forwardRef(
         size={size}
         isFocus={isFocus}
         type={type}
+        autosize={autosize}
         disabled={disabled}
         rounded={rounded}
         className={inputClass}
@@ -163,6 +158,17 @@ export const Input = forwardRef(
               <div className={`${prefixClass}__placeholder`}>
                 {type === 'text' ? <span>{placeholder}</span> : placeholder}
               </div>
+            )}
+            {autosize && typeof autosize === 'boolean' && (
+              <div className={`${prefixClass}__input-autosize`}>{inputValue || ' '}</div>
+            )}
+            {autosize && typeof autosize === 'object' && (
+              <div
+                className={`${prefixClass}__textarea-autosize`}
+                dangerouslySetInnerHTML={{
+                  __html: (inputValue || ' ') + '\n',
+                }}
+              />
             )}
           </div>
           {clearable && (

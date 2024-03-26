@@ -12,7 +12,7 @@ export const Tag: FC<TagProps> = ({
   bordered = true,
   children,
   size = 'default',
-  closeable = false,
+  closable = false,
   disabled = false,
   onClose,
 }) => {
@@ -34,7 +34,7 @@ export const Tag: FC<TagProps> = ({
         style={style}
       >
         <span className={`${prefixClass}__content`}>{children}</span>
-        {closeable && (
+        {closable && (
           <button
             className={`${prefixClass}__close`}
             onClick={() => {

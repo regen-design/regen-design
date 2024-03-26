@@ -23,12 +23,7 @@ export default function Demo() {
   }, [searchValue])
   return (
     <Space yGap={16}>
-      <Input
-        placeholder={'请输入要搜索的图标'}
-        debounce={300}
-        value={searchValue}
-        onChange={SetSearchValue}
-      />
+      <Input placeholder={'请输入要搜索的图标'} value={searchValue} onChange={SetSearchValue} />
       <Grid cols={6} yGap={16} xGap={16}>
         {Object.keys(filterIcons).map(key => {
           const Icon = filterIcons[key]

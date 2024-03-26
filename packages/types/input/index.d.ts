@@ -18,12 +18,6 @@ export interface InputProps extends Omit<CommonType, 'children'> {
    */
   defaultValue?: string
   /**
-   * @description debounce time (ms)
-   * @default undefined
-   * @type number
-   */
-  debounce?: number
-  /**
    * @description value
    * @default undefined
    * @type string
@@ -35,6 +29,11 @@ export interface InputProps extends Omit<CommonType, 'children'> {
    * @type boolean
    */
   disabled?: boolean
+  /**
+   * @description auto focus
+   * @default undefined
+   */
+  autosize?: boolean | { minRows?: number; maxRows?: number }
   /**
    * @description readOnly
    * @default false

@@ -26,7 +26,7 @@ export default function Demo() {
       description: '是否显示边框',
     },
     {
-      name: 'closeable',
+      name: 'closable',
       type: '`boolean`',
       defaultValue: 'false',
       description: '是否显示关闭按钮',

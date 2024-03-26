@@ -19,7 +19,7 @@ export interface TagProps extends CommonType {
    * @description Can it be closed
    * @default false
    */
-  closeable?: boolean
+  closable?: boolean
   /**
    * @description Whether to disable
    * @default false

@@ -18,6 +18,8 @@ import Password from "./Password"
 import PasswordCode from '!!raw-loader!./Password'
 import SpecificValue from "./SpecificValue"
 import SpecificValueCode from '!!raw-loader!./SpecificValue'
+import AutoSize from "./AutoSize"
+import AutoSizeCode from '!!raw-loader!./AutoSize'
 
 # 文本输入 Input
 
@@ -66,6 +68,10 @@ import SpecificValueCode from '!!raw-loader!./SpecificValue'
         <CodeBlock title="字素计数"
                    code={String(CountCode)}>
           <Count />
+        </CodeBlock>
+        <CodeBlock title="自动调整尺寸"
+                   code={String(AutoSizeCode)}>
+          <AutoSize />
         </CodeBlock>
       </Grid>
     </Grid>

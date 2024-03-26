@@ -12,7 +12,12 @@ export const StyledInput = styled.div<
     isFocus: boolean
   }
 >`
-  width: 100%;
+  width: ${props => {
+    if (props.autosize && props.type !== 'textarea') {
+      return 'auto'
+    }
+    return '100%'
+  }};
   max-width: 100%;
   line-height: 1.5;
   z-index: auto;
@@ -28,7 +33,6 @@ export const StyledInput = styled.div<
   }};
   background-color: ${props => {
     const _theme = convertTheme(props.theme)
-
     if (props.disabled) {
       if (_theme.theme === 'dark') {
         return rgba('#ffffff', 0.25)
@@ -62,7 +66,14 @@ export const StyledInput = styled.div<
     const _theme = convertTheme(props.theme)
     return _theme.fontSizes[props.size] || _theme.fontSizes['default']
   }};
-
+  &.${prefix}--autosize {
+    .${prefix}__input-el, .${prefix}__textarea-el {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+    }
+  }
   .${prefix}__state-border {
     position: absolute;
     left: 0;
@@ -173,6 +184,70 @@ export const StyledInput = styled.div<
       position: relative;
       overflow: hidden;
 
+      .${prefix}__textarea-autosize, .${prefix}__input-autosize {
+        padding: ${props => {
+          if (props.type === 'textarea') {
+            return null
+          }
+          return 0
+        }};
+        height: ${props => {
+          const _theme = convertTheme(props.theme)
+          if (props.type === 'textarea' && typeof props.autosize === 'object') {
+            return null
+          }
+          return _theme.baseSizes[props.size] || _theme.baseSizes['default']
+        }};
+        line-height: ${props => {
+          if (props.type === 'textarea') {
+            return null
+          }
+          const _theme = convertTheme(props.theme)
+          return _theme.baseSizes[props.size] || _theme.baseSizes['default']
+        }};
+        overflow-wrap: ${props => {
+          if (props.type === 'textarea') {
+            return 'break-word'
+          }
+          return null
+        }};
+        overflow: hidden;
+        visibility: hidden;
+        position: static;
+        pointer-events: none;
+        white-space: nowrap;
+      }
+      .${prefix}__textarea-autosize {
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        box-sizing: border-box;
+        min-height: ${props => {
+          const _theme = convertTheme(props.theme)
+          if (props.type === 'textarea' && typeof props.autosize === 'object') {
+            const { minRows = 1 } = props.autosize
+            return `calc((${_theme.paddingSizes['default']} - ${diff * 2}px) * 2 + ${_theme.fontSizes[props.size] || _theme.fontSizes['default']} * ${minRows * 1.5})`
+          }
+        }};
+        max-height: ${props => {
+          const _theme = convertTheme(props.theme)
+          if (typeof props.autosize === 'object') {
+            const { maxRows = 0 } = props.autosize
+            if (!maxRows) {
+              return null
+            }
+            const fontSize = _theme.fontSizes[props.size] || _theme.fontSizes['default']
+            const paddingVertical = `${_theme.paddingSizes['default']} - ${diff * 2}px) * 2`
+            return `calc((${paddingVertical} + ${fontSize} * ${maxRows * 1.5})`
+          }
+        }};
+        padding: ${props => {
+          const _theme = convertTheme(props.theme)
+          const p = `calc(${_theme.paddingSizes['default']} - ${diff * 2}px)`
+          return `${p} 0`
+        }};
+        width: 100%;
+        resize: none;
+      }
       .${prefix}__placeholder {
         position: absolute;
         left: 0;
@@ -181,7 +256,7 @@ export const StyledInput = styled.div<
         height: 100%;
         pointer-events: none;
         vertical-align: bottom;
-        white-space: pre-wrap;
+        white-space: nowrap;
         box-sizing: border-box;
         margin: 0;
         resize: none;
@@ -222,6 +297,11 @@ export const StyledInput = styled.div<
 
       .${prefix}__textarea-el {
         height: 100%;
+        -webkit-appearance: none;
+        scrollbar-width: none;
+        width: 100%;
+        min-width: 0;
+        overflow-wrap: break-word;
       }
 
       .${prefix}__textarea-el, .${prefix}__input-el {

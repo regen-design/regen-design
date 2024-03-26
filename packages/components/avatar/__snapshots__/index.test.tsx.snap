@@ -6,7 +6,7 @@ exports[`Avatar > should render children 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-guDLey cluwVx regen-avatar"
+        class="sc-beySPh fPcNGa regen-avatar"
         color="white"
         data-testid="avatar"
         role="avatar"
@@ -22,7 +22,7 @@ exports[`Avatar > should render children 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-guDLey cluwVx regen-avatar"
+      class="sc-beySPh fPcNGa regen-avatar"
       color="white"
       data-testid="avatar"
       role="avatar"
@@ -95,7 +95,7 @@ exports[`Avatar > should render className 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-guDLey cluwVx regen-avatar test"
+        class="sc-beySPh fPcNGa regen-avatar test"
         color="white"
         data-testid="avatar"
         role="avatar"
@@ -109,7 +109,7 @@ exports[`Avatar > should render className 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-guDLey cluwVx regen-avatar test"
+      class="sc-beySPh fPcNGa regen-avatar test"
       color="white"
       data-testid="avatar"
       role="avatar"
@@ -180,7 +180,7 @@ exports[`Avatar > should render correctly 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-guDLey cluwVx regen-avatar"
+        class="sc-beySPh fPcNGa regen-avatar"
         color="white"
         data-testid="avatar"
         role="avatar"
@@ -194,7 +194,7 @@ exports[`Avatar > should render correctly 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-guDLey cluwVx regen-avatar"
+      class="sc-beySPh fPcNGa regen-avatar"
       color="white"
       data-testid="avatar"
       role="avatar"
@@ -265,7 +265,7 @@ exports[`Avatar > should render rounded 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-guDLey jyeOSi regen-avatar regen-avatar--rounded"
+        class="sc-beySPh jrJrEJ regen-avatar regen-avatar--rounded"
         color="white"
         data-testid="avatar"
         role="avatar"
@@ -279,7 +279,7 @@ exports[`Avatar > should render rounded 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-guDLey jyeOSi regen-avatar regen-avatar--rounded"
+      class="sc-beySPh jrJrEJ regen-avatar regen-avatar--rounded"
       color="white"
       data-testid="avatar"
       role="avatar"
@@ -350,7 +350,7 @@ exports[`Avatar > should render size 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-guDLey cluwVx regen-avatar"
+        class="sc-beySPh fPcNGa regen-avatar"
         color="white"
         data-testid="avatar"
         role="avatar"
@@ -364,7 +364,7 @@ exports[`Avatar > should render size 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-guDLey cluwVx regen-avatar"
+      class="sc-beySPh fPcNGa regen-avatar"
       color="white"
       data-testid="avatar"
       role="avatar"
@@ -435,7 +435,7 @@ exports[`Avatar > should render src 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-guDLey cluwVx regen-avatar"
+        class="sc-beySPh fPcNGa regen-avatar"
         color="white"
         data-testid="avatar"
         role="avatar"
@@ -454,7 +454,7 @@ exports[`Avatar > should render src 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-guDLey cluwVx regen-avatar"
+      class="sc-beySPh fPcNGa regen-avatar"
       color="white"
       data-testid="avatar"
       role="avatar"
@@ -530,7 +530,7 @@ exports[`Avatar > should render style 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-guDLey cluwVx regen-avatar"
+        class="sc-beySPh fPcNGa regen-avatar"
         color="white"
         data-testid="avatar"
         role="avatar"
@@ -545,7 +545,7 @@ exports[`Avatar > should render style 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-guDLey cluwVx regen-avatar"
+      class="sc-beySPh fPcNGa regen-avatar"
       color="white"
       data-testid="avatar"
       role="avatar"
