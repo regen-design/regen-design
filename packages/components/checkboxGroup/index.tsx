@@ -11,7 +11,7 @@ import { useMergedState } from '@regen-design/hooks'
 export const CheckboxGroup: FC<CheckboxGroupProps> = ({
   style = {},
   className = '',
-  options,
+  options = [],
   defaultValue,
   value: valueProps,
   onChange,

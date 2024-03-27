@@ -18,16 +18,17 @@ export const Checkbox: FC<CheckboxProps> = ({
   indeterminate = false,
   onChange,
 }) => {
-  const checkboxClass = classNames(prefixClass, className, {
-    [`${prefixClass}--disabled`]: disabled,
-    [`${prefixClass}--indeterminate`]: indeterminate,
-    [`${prefixClass}--${size}`]: size,
-  })
   const [transitionKey, setTransitionKey] = useState('CheckIcon')
   const [initRender, setInitRender] = useState(false)
   const waveRef = useRef<WaveRefProps>(null)
   const [checked] = useMergedState(false, {
     value: checkedProps,
+  })
+  const checkboxClass = classNames(prefixClass, className, {
+    [`${prefixClass}--disabled`]: disabled,
+    [`${prefixClass}--indeterminate`]: indeterminate,
+    [`${prefixClass}--${size}`]: size,
+    [`${prefixClass}--checked`]: checked,
   })
   useEffect(() => {
     if (checked) {
