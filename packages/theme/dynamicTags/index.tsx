@@ -7,9 +7,9 @@ export const StyledDynamicTags = styled.div<DynamicTagsProps<string> & ThemeProp
   display: flex;
   flex-flow: wrap;
   justify-content: flex-start;
-  gap: 4px 8px;
+  gap: 6px 8px;
   --r-input-width: 64px;
   .${prefix}-input {
-    width: ${() => 'var(--r-input-width)'};
+    min-width: ${() => 'var(--r-input-width)'};
   }
 `

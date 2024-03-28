@@ -1,16 +1,20 @@
 import { CommonType } from '../common'
 
-interface TagItem<V extends string | number> {
+interface TagItem {
   label: string
-  value: V
+  value: string
 }
-export interface DynamicTagsProps<V extends string | number> extends CommonType {
+export interface DynamicTagsProps extends CommonType {
   /**
    * @description Value in controlled mode
    */
-  value?: TagItem<V>[] | V[]
+  value?: TagItem[]
   /**
    * @description Callback when component value changes
    */
   onChange?: (value: TagItem<V>[] | V[]) => void
+  /**
+   * @description The maximum number of tags
+   */
+  max?: number
 }

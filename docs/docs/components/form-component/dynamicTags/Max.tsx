@@ -4,9 +4,9 @@ import { useState } from 'react'
 export default function Demo() {
   const [value, setValue] = useState([
     {
-      label: '你好，世界',
-      value: '你好，世界',
+      label: '桃李春风一杯酒',
+      value: '桃李春风一杯酒',
     },
   ])
-  return <DynamicTags value={value} onChange={setValue} />
+  return <DynamicTags value={value} onChange={setValue} max={3} />
 }

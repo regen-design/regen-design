@@ -3,6 +3,7 @@ import {
   ForwardedRef,
   forwardRef,
   InputHTMLAttributes,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -63,18 +64,22 @@ export const Input = forwardRef(
     const [inputValue, setInputValue] = useMergedState(defaultValue, {
       value,
     })
+    const [updater, setUpdater] = useState(0)
     const [isVisible, setIsVisible] = useState(false)
-    if (ref) {
-      let element = inputElementRef.current
-      if (type === 'textarea') {
-        element = inputElementRef.current
+    useEffect(() => {
+      if (ref) {
+        let element = inputElementRef.current
+        if (type === 'textarea') {
+          element = inputElementRef.current
+        }
+        if (typeof ref === 'function') {
+          ref(element)
+        } else {
+          ref.current = element
+          setUpdater(updater + 1)
+        }
       }
-      if (typeof ref === 'function') {
-        ref(element)
-      } else {
-        ref.current = element
-      }
-    }
+    }, [ref])
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       let _value = e.target.value
       if (realLength) {

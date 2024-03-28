@@ -3,6 +3,8 @@ import { CodeBlock, Grid, ThemeProvider } from '@regen-design/components'
 import Basic from "./Basic"
 import Api from "./Api"
 import BasicCode from "!!raw-loader!./Basic"
+import Max from "./Max"
+import MaxCode from "!!raw-loader!./Max"
 
 # 动态标签 Dynamic Tags
 
@@ -19,6 +21,12 @@ import BasicCode from "!!raw-loader!./Basic"
         <CodeBlock title="基础"
                    code={String(BasicCode)}>
           <Basic />
+        </CodeBlock>
+      </Grid>
+      <Grid yGap={16} cols={1}>
+        <CodeBlock title="最大标签数量"
+                   code={String(MaxCode)}>
+          <Max />
         </CodeBlock>
       </Grid>
     </Grid>
